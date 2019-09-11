@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题  一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16723167-8975ec39d6e380fa?imageMogr2/auto-orient/strip%7CimageView2/2/w/498/format/webp">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196128657-1563196128663.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196409757-1563196409765.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201304883-1563201304890.png">
@@ -97,11 +97,11 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201645767-1563201645775.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197393350-1563197393357.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197595055-1563197595060.png">
-<meta property="og:updated_time" content="2019-09-11T08:03:49.205Z">
+<meta property="og:updated_time" content="2019-09-11T10:36:44.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="零拷贝的问题">
 <meta name="twitter:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题  一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA：">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/16723167-8975ec39d6e380fa?imageMogr2/auto-orient/strip%7CimageView2/2/w/498/format/webp">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png">
 
 
 
@@ -365,7 +365,7 @@
       
         <h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p>
 <p>详细可见：<a href="https://www.cnblogs.com/JohnABC/p/5821660.html" target="_blank" rel="noopener">内核缓冲区问题</a></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/16723167-8975ec39d6e380fa?imageMogr2/auto-orient/strip%7CimageView2/2/w/498/format/webp" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png" alt="title"></p>
 <p>一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器<strong>通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间</strong>。</p>
 <p>DMA：不需要通过CPU调度，由DMA控制器来处理，不需要麻烦CPU。</p>
 <h2 id="读写操作"><a href="#读写操作" class="headerlink" title="读写操作"></a>读写操作</h2><p>使用传统的I/O程序读取文件内容, 并写入到另一个文件(或Socket)。<br>性能开销比较大：</p>
@@ -383,7 +383,6 @@
 <p><strong>mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址</strong>，这样以后，进程无需再调用read或write对文件进行读写，<strong>而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址</strong>，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。</p>
 <p>省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201304883-1563201304890.png" alt="title"><br>它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201505296-1563201505300.png" alt="title"></p>
 <p>mmap+write<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201645767-1563201645775.png" alt="title"><br>如何映射，见<a href="https://www.cnblogs.com/huxiao-tee/p/4660352.html" target="_blank" rel="noopener">更多细节</a>。</p>
-<h2 id="直接IO"><a href="#直接IO" class="headerlink" title="直接IO"></a>直接IO</h2><p>这种方式依旧存在用户空间和内核空间的上下文切换，但是硬件上的数据不会拷贝一份到内核空间，而是<strong>直接拷贝至了用户空间</strong>，因此直接I/O不存在内核空间<strong>缓冲区和用户空间缓冲区之间</strong>的数据拷贝。</p>
 <h2 id="sendFile"><a href="#sendFile" class="headerlink" title="sendFile"></a>sendFile</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197393350-1563197393357.png" alt="title"><br>拷贝过程：</p>
 <ul>
 <li>首先通过DMA copy将数据从磁盘读取到kernel buffer中</li>
@@ -394,9 +393,8 @@
 <li>DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。</li>
 </ul>
 <p><strong>改进后的只有两次复制了</strong>。</p>
-<h3 id="java-api"><a href="#java-api" class="headerlink" title="java api"></a>java api</h3><p>Java NIO中FileChannel.transferTo(long position, long count, WriteableByteChannel target)调用了linux sendFile的使用。<br><a href="https://www.cnblogs.com/starhu/p/5897770.html" target="_blank" rel="noopener">sendFile</a></p>
-<h1 id="page-Cache"><a href="#page-Cache" class="headerlink" title="page Cache"></a>page Cache</h1><h1 id="FileChannel以及MMap实践"><a href="#FileChannel以及MMap实践" class="headerlink" title="FileChannel以及MMap实践"></a>FileChannel以及MMap实践</h1><p>创建：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// FileChannel</span></span><br><span class="line">FileChannel fileChannel = <span class="keyword">new</span> RandomAccessFile(<span class="keyword">new</span> File(<span class="string">"db.data"</span>), <span class="string">"rw"</span>).getChannel();</span><br><span class="line"></span><br><span class="line"><span class="comment">//MMap</span></span><br><span class="line">MappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, <span class="number">0</span>, filechannel.size();</span><br></pre></td></tr></table></figure>
+<h1 id="直接IO"><a href="#直接IO" class="headerlink" title="直接IO"></a>直接IO</h1><p>这种方式依旧存在用户空间和内核空间的上下文切换，但是硬件上的数据不会拷贝一份到内核空间，而是<strong>直接拷贝至了用户空间</strong>，因此直接I/O不存在内核空间<strong>缓冲区和用户空间缓冲区之间</strong>的数据拷贝。</p>
+
       
     </div>
     
@@ -584,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统的IO的操作"><span class="nav-text">传统的IO的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#读操作"><span class="nav-text">读操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读写操作"><span class="nav-text">读写操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#零拷贝"><span class="nav-text">零拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mmap"><span class="nav-text">Mmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接IO"><span class="nav-text">直接IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sendFile"><span class="nav-text">sendFile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改进后的sendFile"><span class="nav-text">改进后的sendFile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-api"><span class="nav-text">java api</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#page-Cache"><span class="nav-text">page Cache</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FileChannel以及MMap实践"><span class="nav-text">FileChannel以及MMap实践</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统的IO的操作"><span class="nav-text">传统的IO的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#读操作"><span class="nav-text">读操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读写操作"><span class="nav-text">读写操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#零拷贝"><span class="nav-text">零拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mmap"><span class="nav-text">Mmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sendFile"><span class="nav-text">sendFile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改进后的sendFile"><span class="nav-text">改进后的sendFile</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#直接IO"><span class="nav-text">直接IO</span></a></li></ol></div>
             
 
           </div>
