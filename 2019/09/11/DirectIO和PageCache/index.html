@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="java,IO,操作系统,">
 
 
 
@@ -81,13 +81,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gallon&#39;s Note">
-<meta property="og:url" content="http://yoursite.com/tags/IO/index.html">
+<meta name="description" content="PageCachePageCache一页有4KB左右。 当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。  上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时">
+<meta name="keywords" content="java,IO,操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DirectIO和PageCache">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/DirectIO和PageCache/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="PageCachePageCache一页有4KB左右。 当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。  上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png">
+<meta property="og:updated_time" content="2019-09-11T14:02:58.969Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gallon&#39;s Note">
+<meta name="twitter:title" content="DirectIO和PageCache">
+<meta name="twitter:description" content="PageCachePageCache一页有4KB左右。 当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。  上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png">
 
 
 
@@ -117,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/IO/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/11/DirectIO和PageCache/">
 
 
 
 
 
-  <title>标签: IO | Gallon's Note</title>
+  <title>DirectIO和PageCache | Gallon's Note</title>
   
 
 
@@ -142,7 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,78 +275,176 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>IO<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/DirectIO和PageCache/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/09/11/DirectIO和PageCache/" itemprop="url">
-              
-                <span itemprop="name">DirectIO和PageCache</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">DirectIO和PageCache</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-11T19:16:26+08:00" content="2019-09-11">
-          09-11
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T19:16:26+08:00">
+                2019-09-11
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/11/零拷贝的问题/" itemprop="url">
-              
-                <span itemprop="name">零拷贝的问题</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-11T14:58:30+08:00" content="2019-09-11">
-          09-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h1 id="PageCache"><a href="#PageCache" class="headerlink" title="PageCache"></a>PageCache</h1><p>PageCache一页有4KB左右。</p>
+<p>当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。</p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png" alt="title"></p>
+<p>上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时候，先写进DirectByteBuffer中，当buffer中数据满的时候，先写入PageCache，再写入磁盘。</p>
+<p>同样的，读取数据也是一样的，将数据以及其邻近的一些数据读取到PageCache。</p>
+<p>例如，当用户发起一个 fileChannel.read(4kb) 之后，实际发生了两件事</p>
+<ol>
+<li>操作系统从磁盘加载了 16kb 进入 PageCache，这被称为预读</li>
+<li>操作通从 PageCache 拷贝 4kb 进入用户内存</li>
+</ol>
+<p>最终我们在用户内存访问到了 4kb，为什么顺序读快？很容量想到，当用户继续访问接下来的[4kb,16kb]的磁盘内容时，便是直接从 PageCache 去访问了。试想一下，当需要访问 16kb 的磁盘内容时，是发生4次磁盘 IO 快，还是发生1次磁盘 IO+4 次内存 IO 快呢？答案是显而易见的，这一切都是 PageCache 带来的优化。</p>
+<h2 id="DirectIO"><a href="#DirectIO" class="headerlink" title="DirectIO"></a>DirectIO</h2><p>虽然PageCache很好，但是我们有时候并不希望使用PageCache。</p>
+<ul>
+<li>PageCache是操作系统层面上的概念，用很难干预，User BufferCache显然比PageCache要可控的多。</li>
+<li>当操作系统回收 PageCache 内存的速度低于应用写缓存的速度时，会影响磁盘写入的速率，直接表现为写入 RT 增大，这被称之为“毛刺现象”。</li>
+</ul>
+<p>而DirectIO可以绕过PageCache。</p>
+<h1 id="堆内内存与堆外内存"><a href="#堆内内存与堆外内存" class="headerlink" title="堆内内存与堆外内存"></a>堆内内存与堆外内存</h1><ul>
+<li><p>堆外内存通过unsafe.allocateMemory(size)返回直接内存。</p>
+</li>
+<li><p>堆外内存不是通过JVM回收的，可以((DirectBuffer) buffer).cleaner().clean();手动回收。</p>
+</li>
+<li><p>内存复制，堆内内存：堆内内存-&gt;堆外内存-&gt;PageCache;</p>
+</li>
+</ul>
+<p>​                           堆外内存：堆外内存-&gt;PageCache.</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/IO/" rel="tag"># IO</a>
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/11/零拷贝的问题/" rel="next" title="零拷贝的问题">
+                <i class="fa fa-chevron-left"></i> 零拷贝的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -347,6 +452,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -367,8 +476,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -444,6 +562,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PageCache"><span class="nav-text">PageCache</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DirectIO"><span class="nav-text">DirectIO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#堆内内存与堆外内存"><span class="nav-text">堆内内存与堆外内存</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -584,6 +718,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

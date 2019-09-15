@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-09-11T10:36:44.744Z</updated>
+  <updated>2019-09-11T14:02:58.969Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,19 +17,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>零拷贝的问题</title>
-    <link href="http://yoursite.com/2019/09/11/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>http://yoursite.com/2019/09/11/零拷贝的问题/</id>
-    <published>2019-09-11T06:58:30.000Z</published>
-    <updated>2019-09-11T10:36:44.744Z</updated>
+    <title>DirectIO和PageCache</title>
+    <link href="http://yoursite.com/2019/09/11/DirectIO%E5%92%8CPageCache/"/>
+    <id>http://yoursite.com/2019/09/11/DirectIO和PageCache/</id>
+    <published>2019-09-11T11:16:26.000Z</published>
+    <updated>2019-09-11T14:02:58.969Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p><p>详细可见：<a href="https://www.cnblogs.com/JohnABC/p/5821660.html" target="_blank" rel="noopener">内核缓冲区问题</a></p><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png" alt="title"></p><p>一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器<strong>通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间</strong>。</p><p>DMA：不需要通过CPU调度，由DMA控制器来处理，不需要麻烦CPU。</p><h2 id="读写操作"><a href="#读写操作" class="headerlink" title="读写操作"></a>读写操作</h2><p>使用传统的I/O程序读取文件内容, 并写入到另一个文件(或Socket)。<br>性能开销比较大：</p><ul><li>上下文切换(context switch), 此处<strong>有4次用户态和内核态的切换</strong></li><li>Buffer<strong>内存开销</strong>, 一个是应用程序buffer, 另一个是系统读取buffer以及socket buffer。</li><li>需要进行<strong>四次拷贝</strong>，2次DMA copy和两次CPU copy。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196128657-1563196128663.png" alt="title"><br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196409757-1563196409765.png" alt="title"><br>传统IO四次内容拷贝：</li><li>先将文件内容从磁盘中拷贝到操作系统buffer</li><li>再从操作系统buffer拷贝到程序应用buffer</li><li>从程序buffer拷贝到socket buffer</li><li>从socket buffer拷贝到协议引擎.<h1 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h1></li></ul><h2 id="Mmap"><a href="#Mmap" class="headerlink" title="Mmap"></a>Mmap</h2><p>将物理内存映射到虚拟内存中。</p><p>在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时，若<strong>虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，将相应的页面载入物理内存</strong>。</p><p><strong>mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址</strong>，这样以后，进程无需再调用read或write对文件进行读写，<strong>而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址</strong>，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。</p><p>省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201304883-1563201304890.png" alt="title"><br>它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201505296-1563201505300.png" alt="title"></p><p>mmap+write<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201645767-1563201645775.png" alt="title"><br>如何映射，见<a href="https://www.cnblogs.com/huxiao-tee/p/4660352.html" target="_blank" rel="noopener">更多细节</a>。</p><h2 id="sendFile"><a href="#sendFile" class="headerlink" title="sendFile"></a>sendFile</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197393350-1563197393357.png" alt="title"><br>拷贝过程：</p><ul><li>首先通过DMA copy将数据从磁盘读取到kernel buffer中</li><li>然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中</li><li>最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送<br>sendfile与read/write方式相比，少了一次复制，少了两次上下文切换。<h3 id="改进后的sendFile"><a href="#改进后的sendFile" class="headerlink" title="改进后的sendFile"></a>改进后的sendFile</h3>sendFile中间copy到socket buffer这一步仍是多余的。<br>改进后的：<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197595055-1563197595060.png" alt="title"><br>拷贝过程：</li><li>DMA copy将磁盘数据copy到kernel buffer中</li><li>向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量</li><li>DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。</li></ul><p><strong>改进后的只有两次复制了</strong>。</p><h1 id="直接IO"><a href="#直接IO" class="headerlink" title="直接IO"></a>直接IO</h1><p>这种方式依旧存在用户空间和内核空间的上下文切换，但是硬件上的数据不会拷贝一份到内核空间，而是<strong>直接拷贝至了用户空间</strong>，因此直接I/O不存在内核空间<strong>缓冲区和用户空间缓冲区之间</strong>的数据拷贝。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="PageCache"><a href="#PageCache" class="headerlink" title="PageCache"></a>PageCache</h1><p>PageCache一页有4KB左右。</p><p>当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。</p><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png" alt="title"></p><p>上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时候，先写进DirectByteBuffer中，当buffer中数据满的时候，先写入PageCache，再写入磁盘。</p><p>同样的，读取数据也是一样的，将数据以及其邻近的一些数据读取到PageCache。</p><p>例如，当用户发起一个 fileChannel.read(4kb) 之后，实际发生了两件事</p><ol><li>操作系统从磁盘加载了 16kb 进入 PageCache，这被称为预读</li><li>操作通从 PageCache 拷贝 4kb 进入用户内存</li></ol><p>最终我们在用户内存访问到了 4kb，为什么顺序读快？很容量想到，当用户继续访问接下来的[4kb,16kb]的磁盘内容时，便是直接从 PageCache 去访问了。试想一下，当需要访问 16kb 的磁盘内容时，是发生4次磁盘 IO 快，还是发生1次磁盘 IO+4 次内存 IO 快呢？答案是显而易见的，这一切都是 PageCache 带来的优化。</p><h2 id="DirectIO"><a href="#DirectIO" class="headerlink" title="DirectIO"></a>DirectIO</h2><p>虽然PageCache很好，但是我们有时候并不希望使用PageCache。</p><ul><li>PageCache是操作系统层面上的概念，用很难干预，User BufferCache显然比PageCache要可控的多。</li><li>当操作系统回收 PageCache 内存的速度低于应用写缓存的速度时，会影响磁盘写入的速率，直接表现为写入 RT 增大，这被称之为“毛刺现象”。</li></ul><p>而DirectIO可以绕过PageCache。</p><h1 id="堆内内存与堆外内存"><a href="#堆内内存与堆外内存" class="headerlink" title="堆内内存与堆外内存"></a>堆内内存与堆外内存</h1><ul><li><p>堆外内存通过unsafe.allocateMemory(size)返回直接内存。</p></li><li><p>堆外内存不是通过JVM回收的，可以((DirectBuffer) buffer).cleaner().clean();手动回收。</p></li><li><p>内存复制，堆内内存：堆内内存-&gt;堆外内存-&gt;PageCache;</p></li></ul><p>​                           堆外内存：堆外内存-&gt;PageCache.</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;传统的IO的操作&quot;&gt;&lt;a href=&quot;#传统的IO的操作&quot; class=&quot;headerlink&quot; title=&quot;传统的IO的操作&quot;&gt;&lt;/a&gt;传统的IO的操作&lt;/h1&gt;&lt;h2 id=&quot;读操作&quot;&gt;&lt;a href=&quot;#读操作&quot; class=&quot;headerlink&quot; ti
+        &lt;h1 id=&quot;PageCache&quot;&gt;&lt;a href=&quot;#PageCache&quot; class=&quot;headerlink&quot; title=&quot;PageCache&quot;&gt;&lt;/a&gt;PageCache&lt;/h1&gt;&lt;p&gt;PageCache一页有4KB左右。&lt;/p&gt;
+&lt;p&gt;当需要写入磁盘的时候，若每写入一
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+      <category term="IO" scheme="http://yoursite.com/tags/IO/"/>
+    
+      <category term="操作系统" scheme="http://yoursite.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>零拷贝的问题</title>
+    <link href="http://yoursite.com/2019/09/11/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2019/09/11/零拷贝的问题/</id>
+    <published>2019-09-11T06:58:30.000Z</published>
+    <updated>2019-09-11T14:03:01.079Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p><p>详细可见：<a href="https://www.cnblogs.com/JohnABC/p/5821660.html" target="_blank" rel="noopener">内核缓冲区问题</a></p><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png" alt="title"></p><p>一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器<strong>通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间</strong>。</p><p>DMA：不需要通过CPU调度，由DMA控制器来处理，不需要麻烦CPU。</p><h2 id="读写操作"><a href="#读写操作" class="headerlink" title="读写操作"></a>读写操作</h2><p>使用传统的I/O程序读取文件内容, 并写入到另一个文件(或Socket)。<br>性能开销比较大：</p><ul><li>上下文切换(context switch), 此处<strong>有4次用户态和内核态的切换</strong></li><li>Buffer<strong>内存开销</strong>, 一个是应用程序buffer, 另一个是系统读取buffer以及socket buffer。</li><li>需要进行<strong>四次拷贝</strong>，2次DMA copy和两次CPU copy。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196128657-1563196128663.png" alt="title"><br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196409757-1563196409765.png" alt="title"><br>传统IO四次内容拷贝：</li><li>先将文件内容从磁盘中拷贝到操作系统buffer</li><li>再从操作系统buffer拷贝到程序应用buffer</li><li>从程序buffer拷贝到socket buffer</li><li>从socket buffer拷贝到协议引擎.<h1 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h1></li></ul><h2 id="Mmap"><a href="#Mmap" class="headerlink" title="Mmap"></a>Mmap</h2><p>将物理内存映射到虚拟内存中。</p><p>在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时，若<strong>虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，将相应的页面载入物理内存</strong>。</p><p><strong>mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址</strong>，这样以后，进程无需再调用read或write对文件进行读写，<strong>而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址</strong>，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。</p><p>省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201304883-1563201304890.png" alt="title"><br>它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201505296-1563201505300.png" alt="title"></p><p>mmap+write<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201645767-1563201645775.png" alt="title"><br>如何映射，见<a href="https://www.cnblogs.com/huxiao-tee/p/4660352.html" target="_blank" rel="noopener">更多细节</a>。</p><h2 id="sendFile"><a href="#sendFile" class="headerlink" title="sendFile"></a>sendFile</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197393350-1563197393357.png" alt="title"><br>拷贝过程：</p><ul><li>首先通过DMA copy将数据从磁盘读取到kernel buffer中</li><li>然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中</li><li>最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送<br>sendfile与read/write方式相比，少了一次复制，少了两次上下文切换。<h3 id="改进后的sendFile"><a href="#改进后的sendFile" class="headerlink" title="改进后的sendFile"></a>改进后的sendFile</h3>sendFile中间copy到socket buffer这一步仍是多余的。<br>改进后的：<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197595055-1563197595060.png" alt="title"><br>拷贝过程：</li><li>DMA copy将磁盘数据copy到kernel buffer中</li><li>向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量</li><li>DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。</li></ul><p><strong>改进后的只有两次复制了</strong>。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h1 id=&quot;传统的IO的操作&quot;&gt;&lt;a href=&quot;#传统的IO的操作&quot; class=&quot;headerlink&quot; title=&quot;传统的IO的操作&quot;&gt;&lt;/a&gt;传统的IO的操作&lt;/h1&gt;&lt;h2 id=&quot;读操作&quot;&gt;&lt;a href=&quot;#读操作&quot; cla
       
     
     </summary>
