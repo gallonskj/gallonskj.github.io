@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="java nio,">
 
 
 
@@ -81,13 +81,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gallon&#39;s Note">
-<meta property="og:url" content="http://yoursite.com/tags/操作系统/index.html">
+<meta name="description" content="java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍FileChannel以及MMap的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。 有关pageCache可见 PageCache和DirectIO ， 有关零拷贝可见 零拷贝问题 。">
+<meta name="keywords" content="java nio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java nio操作实践">
+<meta property="og:url" content="http://yoursite.com/2019/07/26/java-nio操作实践/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍FileChannel以及MMap的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。 有关pageCache可见 PageCache和DirectIO ， 有关零拷贝可见 零拷贝问题 。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png">
+<meta property="og:updated_time" content="2019-09-16T05:22:11.556Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gallon&#39;s Note">
+<meta name="twitter:title" content="java nio操作实践">
+<meta name="twitter:description" content="java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍FileChannel以及MMap的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。 有关pageCache可见 PageCache和DirectIO ， 有关零拷贝可见 零拷贝问题 。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png">
 
 
 
@@ -117,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/操作系统/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/26/java-nio操作实践/">
 
 
 
 
 
-  <title>标签: 操作系统 | Gallon's Note</title>
+  <title>java nio操作实践 | Gallon's Note</title>
   
 
 
@@ -142,7 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,78 +275,211 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>操作系统<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/java-nio操作实践/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/09/11/DirectIO和PageCache/" itemprop="url">
-              
-                <span itemprop="name">DirectIO和PageCache</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">java nio操作实践</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-11T19:16:26+08:00" content="2019-09-11">
-          09-11
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T16:50:52+08:00">
+                2019-07-26
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍<strong>FileChannel以及MMap</strong>的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。</p>
+<p>有关pageCache可见 <a href="https://gallonskj.github.io/2019/09/11/DirectIO%E5%92%8CPageCache/" target="_blank" rel="noopener">PageCache和DirectIO</a> ， 有关零拷贝可见 <a href="https://gallonskj.github.io/2019/09/11/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">零拷贝问题</a> 。</p>
+<a id="more"></a>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/11/零拷贝的问题/" itemprop="url">
-              
-                <span itemprop="name">零拷贝的问题</span>
-              
-            </a>
-        
-      </h2>
+<h2 id="获取方式"><a href="#获取方式" class="headerlink" title="获取方式"></a>获取方式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取FileChannel</span></span><br><span class="line">FileChannel fileChannel = <span class="keyword">new</span> RandomAccessFile(<span class="keyword">new</span> File(<span class="string">"db.data"</span>), <span class="string">"rw"</span>).getChannel();</span><br><span class="line"><span class="comment">//获取MMap</span></span><br><span class="line">MappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, <span class="number">0</span>, filechannel.size());</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-11T14:58:30+08:00" content="2019-09-11">
-          09-11
-        </time>
-      </div>
+<h2 id="FileChannel-写"><a href="#FileChannel-写" class="headerlink" title="FileChannel 写"></a>FileChannel 写</h2><p>``</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写</span></span><br><span class="line"><span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4096</span>];</span><br><span class="line"><span class="keyword">long</span> position = <span class="number">1024L</span>;</span><br><span class="line"><span class="comment">//指定 position 写入 data中 的数据</span></span><br><span class="line">fileChannel.write(ByteBuffer.wrap(data), position);</span><br><span class="line"><span class="comment">//从当前文件指针的位置写入 4kb 的数据</span></span><br><span class="line">fileChannel.write(ByteBuffer.wrap(data));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读</span></span><br><span class="line">ByteBuffer buffer = ByteBuffer.allocate(<span class="number">4096</span>);</span><br><span class="line"><span class="keyword">long</span> position = <span class="number">1024L</span>;</span><br><span class="line"><span class="comment">//指定 position 读取 4kb 的数据到buffer</span></span><br><span class="line">fileChannel.read(buffer,position)；</span><br><span class="line"><span class="comment">//从当前文件指针的位置读取 4kb 的数据</span></span><br><span class="line">fileChannel.read(buffer);</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<p>FileChannel+ByteBuffer可以达到写入速度比较快，要是没有缓冲区的存在，FileChannel写入速度并不比普通IO，一般来说缓冲区的大小是由磁盘决定的。</p>
+<p>那么，FileChannel是直接把ByteBuffer写到磁盘的吗？</p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png" alt="title"></p>
+<p>不是，中间还隔着一个PageCache。当ByteBUffer是堆内内存时，数据需要经历ByteBuffer-&gt;内核空间-&gt;PageCache。当<strong>ByteBufefr是直接内存，则省略到了从用户空间到内核空间的复制</strong>，直接ByteBuffer-&gt;PageCache，然后再从PageCache写回磁盘。</p>
+<p>我们都知道磁盘 IO 和内存 IO 的速度可是相差了好几个数量级。我们可以认为 filechannel.write <strong>写入 PageCache 便是完成了落盘操作</strong>，但实际上，操作系统最终帮我们完成了 PageCache 到磁盘的最终写入（<strong>这是异步的</strong>），理解了这个概念，你就应该能够理解 FileChannel 为什么提供了一个 force() 方法，用于通知操作系统进行及时的刷盘。</p>
+<p>例如，RocketMQ刷盘方式：</p>
+<ul>
+<li><p>异步刷盘方式：在返回写成功状态时，消息可能只是被写入了内存的PAGECACHE，写操作的返回快，吞吐量大；当内存里的消息量积累到一定程度时，统一触发写磁盘操作，快速写入</p>
+</li>
+<li><p>同步刷盘方式：在返回写成功状态时，消息已经被写入磁盘。具体流程是，消息写入内存的PAGECACHE后，立刻通知刷盘线程刷盘，然后等待刷盘完成，刷盘线程执行完成后唤醒等待的线程，返回消息写成功的状态。</p>
+</li>
+</ul>
+<h2 id="MMap读写"><a href="#MMap读写" class="headerlink" title="MMap读写"></a>MMap读写</h2><p>``</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写</span></span><br><span class="line"><span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">int</span> position = <span class="number">8</span>;</span><br><span class="line"><span class="comment">//从当前 mmap 指针的位置写入 4b 的数据</span></span><br><span class="line">mappedByteBuffer.put(data);</span><br><span class="line"><span class="comment">//指定 position 写入 4b 的数据</span></span><br><span class="line">MappedByteBuffer subBuffer = mappedByteBuffer.slice();</span><br><span class="line">subBuffer.position(position);</span><br><span class="line">subBuffer.put(data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读</span></span><br><span class="line"><span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">int</span> position = <span class="number">8</span>;</span><br><span class="line"><span class="comment">//从当前 mmap 指针的位置读取 4b 的数据</span></span><br><span class="line">mappedByteBuffer.get(data)；</span><br><span class="line"><span class="comment">//指定 position 读取 4b 的数据</span></span><br><span class="line">MappedByteBuffer subBuffer = mappedByteBuffer.slice();</span><br><span class="line">subBuffer.position(position);</span><br><span class="line">subBuffer.get(data);</span><br></pre></td></tr></table></figure>
 
-
+<p>mmap是把文件映射到用户空间里的虚拟内存，这样就省去了从用户空间到内核空间的拷贝，这样，当我们需要向文件中写入数据时，先看虚拟内存中有没有对应的地址，即有没有将物理地址映射到虚拟内存，要是有的话，可以像操作内存一样操作这个文件，没有的话，产生缺页，加载相对应的页。</p>
+<blockquote>
+<p>mmap 把文件映射到用户空间里的虚拟内存，省去了从内核缓冲区复制到用户空间的过程，文件中的位置在虚拟内存中有了对应的地址，可以像操作内存一样操作这个文件，相当于已经把整个文件放入内存，但在真正使用到这些数据前却不会消耗物理内存，也不会有读写磁盘的操作，只有真正使用这些数据时，也就是图像准备渲染在屏幕上时，虚拟内存管理系统 VMS 才根据缺页加载的机制从磁盘加载对应的数据块到物理内存进行渲染。这样的文件读写文件方式少了数据从内核缓存到用户空间的拷贝，效率很高。</p>
+</blockquote>
+<p>但是，MMap是不适用于大量数据的。</p>
+<ul>
+<li>因为一次map的大小在1.5G左右，要是大量数据的话必然要进行多次MMap，重复的map会带来虚拟内存回收，重新分配的问题。</li>
+<li>MMAP 使用的是虚拟内存，和 PageCache 一样是由操作系统来控制刷盘的，虽然可以通过 force() 来手动控制，但这个时间把握不好，在小内存场景下会很令人头疼。</li>
+<li>MMAP 的回收问题，当 MappedByteBuffer 不再需要时，可以手动释放占用的虚拟内存，但非常麻烦。</li>
+</ul>
+<p>所以，对于小数据量刷盘的情况下，可以使用MMap，例如索引，但是其他场景，FileChannel+DirectByteBuffer完全可以替代，并且性能跟MMap差不多。</p>
+<h2 id="堆内内存与堆外内存"><a href="#堆内内存与堆外内存" class="headerlink" title="堆内内存与堆外内存"></a>堆内内存与堆外内存</h2><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">堆内内存</th>
+<th align="center">堆外内存</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>底层实现</strong></td>
+<td align="center">数组，JVM 内存</td>
+<td align="center">unsafe.allocateMemory(size)返回直接内存</td>
+</tr>
+<tr>
+<td align="center"><strong>分配大小限制</strong></td>
+<td align="center">-Xms-Xmx 配置的 JVM 内存相关，并且数组的大小有限制，在做测试时发现，当 JVM free memory 大于 1.5G 时，ByteBuffer.allocate(900M) 时会报错</td>
+<td align="center">可以通过 -XX:MaxDirectMemorySize 参数从 JVM 层面去限制，同时受到机器虚拟内存（说物理内存不太准确）的限制</td>
+</tr>
+<tr>
+<td align="center"><strong>垃圾回收</strong></td>
+<td align="center">不必多说，gc自动回收</td>
+<td align="center">当 DirectByteBuffer 不再被使用时，会出发内部 cleaner 的钩子，保险起见，可以考虑手动回收：<strong>((DirectBuffer) buffer).cleaner().clean()</strong>;</td>
+</tr>
+<tr>
+<td align="center"><strong>内存复制</strong></td>
+<td align="center">堆内内存 -&gt; 堆外内存 -&gt; pageCache</td>
+<td align="center">堆外内存 -&gt; pageCache</td>
+</tr>
+</tbody></table>
+<p>对于堆外内存，可使用池+堆外内存组合。例如：<code>ThreadLocal&lt;ByteBuffer&gt;</code> 和 <code>ThreadLocal&lt;byte[]&gt;</code>。</p>
+<h2 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h2>
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java-nio/" rel="tag"># java nio</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/11/零拷贝的问题/" rel="prev" title="零拷贝的问题">
+                零拷贝的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -347,6 +487,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -367,8 +511,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -444,6 +597,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取方式"><span class="nav-text">获取方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FileChannel-写"><span class="nav-text">FileChannel 写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MMap读写"><span class="nav-text">MMap读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内内存与堆外内存"><span class="nav-text">堆内内存与堆外内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsafe"><span class="nav-text">Unsafe</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -584,6 +753,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
