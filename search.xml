@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[DirectIO和PageCache]]></title>
-    <url>%2F2019%2F09%2F11%2FDirectIO%E5%92%8CPageCache%2F</url>
-    <content type="text"><![CDATA[PageCachePageCache一页有4KB左右。 当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。 上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时候，先写进DirectByteBuffer中，当buffer中数据满的时候，先写入PageCache，再写入磁盘。 同样的，读取数据也是一样的，将数据以及其邻近的一些数据读取到PageCache。 例如，当用户发起一个 fileChannel.read(4kb) 之后，实际发生了两件事 操作系统从磁盘加载了 16kb 进入 PageCache，这被称为预读 操作通从 PageCache 拷贝 4kb 进入用户内存 最终我们在用户内存访问到了 4kb，为什么顺序读快？很容量想到，当用户继续访问接下来的[4kb,16kb]的磁盘内容时，便是直接从 PageCache 去访问了。试想一下，当需要访问 16kb 的磁盘内容时，是发生4次磁盘 IO 快，还是发生1次磁盘 IO+4 次内存 IO 快呢？答案是显而易见的，这一切都是 PageCache 带来的优化。 DirectIO虽然PageCache很好，但是我们有时候并不希望使用PageCache。 PageCache是操作系统层面上的概念，用很难干预，User BufferCache显然比PageCache要可控的多。 当操作系统回收 PageCache 内存的速度低于应用写缓存的速度时，会影响磁盘写入的速率，直接表现为写入 RT 增大，这被称之为“毛刺现象”。 而DirectIO可以绕过PageCache。 堆内内存与堆外内存 堆外内存通过unsafe.allocateMemory(size)返回直接内存。 堆外内存不是通过JVM回收的，可以((DirectBuffer) buffer).cleaner().clean();手动回收。 内存复制，堆内内存：堆内内存-&gt;堆外内存-&gt;PageCache; ​ 堆外内存：堆外内存-&gt;PageCache.]]></content>
-      <tags>
-        <tag>java</tag>
-        <tag>IO</tag>
-        <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[零拷贝的问题]]></title>
     <url>%2F2019%2F09%2F11%2F%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题 一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA：不需要通过CPU调度，由DMA控制器来处理，不需要麻烦CPU。 读写操作使用传统的I/O程序读取文件内容, 并写入到另一个文件(或Socket)。性能开销比较大： 上下文切换(context switch), 此处有4次用户态和内核态的切换 Buffer内存开销, 一个是应用程序buffer, 另一个是系统读取buffer以及socket buffer。 需要进行四次拷贝，2次DMA copy和两次CPU copy。传统IO四次内容拷贝： 先将文件内容从磁盘中拷贝到操作系统buffer 再从操作系统buffer拷贝到程序应用buffer 从程序buffer拷贝到socket buffer 从socket buffer拷贝到协议引擎.零拷贝 Mmap将物理内存映射到虚拟内存中。 在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时，若虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，将相应的页面载入物理内存。 mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址，这样以后，进程无需再调用read或write对文件进行读写，而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。 省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。 mmap+write如何映射，见更多细节。 sendFile拷贝过程： 首先通过DMA copy将数据从磁盘读取到kernel buffer中 然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中 最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送sendfile与read/write方式相比，少了一次复制，少了两次上下文切换。改进后的sendFilesendFile中间copy到socket buffer这一步仍是多余的。改进后的：拷贝过程： DMA copy将磁盘数据copy到kernel buffer中 向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量 DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。 改进后的只有两次复制了。]]></content>
+    <content type="text"><![CDATA[传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题 一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA：不需要通过CPU调度，由DMA控制器来处理，不需要麻烦CPU。 读写操作使用传统的I/O程序读取文件内容, 并写入到另一个文件(或Socket)。性能开销比较大： 上下文切换(context switch), 此处有4次用户态和内核态的切换 Buffer内存开销, 一个是应用程序buffer, 另一个是系统读取buffer以及socket buffer。 需要进行四次拷贝，2次DMA copy和两次CPU copy。传统IO四次内容拷贝： 先将文件内容从磁盘中拷贝到操作系统buffer 再从操作系统buffer拷贝到程序应用buffer 从程序buffer拷贝到socket buffer 从socket buffer拷贝到协议引擎.零拷贝 MMap将物理内存映射到虚拟内存中。 在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时，若虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，将相应的页面载入物理内存。 mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址，这样以后，进程无需再调用read或write对文件进行读写，而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。 省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。 mmap+write如何映射，见更多细节。 sendFile拷贝过程： 首先通过DMA copy将数据从磁盘读取到kernel buffer中 然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中 最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送sendfile与read/write方式相比，少了一次复制，少了两次上下文切换。改进后的sendFilesendFile中间copy到socket buffer这一步仍是多余的。改进后的：拷贝过程： DMA copy将磁盘数据copy到kernel buffer中 向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量 DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。 改进后的只有两次复制了。]]></content>
       <tags>
-        <tag>java</tag>
         <tag>IO</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[java nio操作实践]]></title>
-    <url>%2F2019%2F07%2F26%2Fjava-nio%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5%2F</url>
-    <content type="text"><![CDATA[java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍FileChannel以及MMap的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。 获取方式1234//获取FileChannelFileChannel fileChannel = new RandomAccessFile(new File("db.data"), "rw").getChannel();//获取MMapMappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0, filechannel.size());]]></content>
-      <tags>
-        <tag>java nio</tag>
+        <tag>操作系统</tag>
       </tags>
   </entry>
 </search>
