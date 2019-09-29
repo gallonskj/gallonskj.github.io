@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="JVM,">
 
 
 
@@ -81,14 +81,24 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。 字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。">
+<meta name="keywords" content="JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java内存管理">
+<meta property="og:url" content="http://yoursite.com/2019/09/20/Java内存管理/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。 字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-26T07:37:17.703Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190228160847399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0dhbGxvbl9f,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699f4b798e62b24?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://img-blog.csdn.net/20170329213804490?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3VnYXJfUmFpbmJvdw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/22/169a3f347a4218f7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/22/169a3f347a648d8d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2019-09-26T08:21:04.587Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
+<meta name="twitter:title" content="Java内存管理">
+<meta name="twitter:description" content="运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。 字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190228160847399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0dhbGxvbl9f,size_16,color_FFFFFF,t_70">
 
 
 
@@ -118,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/20/Java内存管理/">
 
 
 
 
 
-  <title>标签 | Gallon's Note</title>
+  <title>Java内存管理 | Gallon's Note</title>
   
 
 
@@ -271,40 +281,222 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/20/Java内存管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">标签</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 5 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/IO/" style="font-size: 21px; color: #6f6f6f">IO</a> <a href="/tags/JVM/" style="font-size: 30px; color: #111">JVM</a> <a href="/tags/java/" style="font-size: 12px; color: #ccc">java</a> <a href="/tags/java-nio/" style="font-size: 12px; color: #ccc">java nio</a> <a href="/tags/操作系统/" style="font-size: 21px; color: #6f6f6f">操作系统</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">Java内存管理</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T14:30:04+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。</p>
+<p><strong>字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。</strong>运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。</p>
+<a id="more"></a>
+
+<p><img src="https://img-blog.csdnimg.cn/20190228160847399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0dhbGxvbl9f,size_16,color_FFFFFF,t_70" alt="img"></p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>所有线程共享。</p>
+<p>主要存放对象以及数组对象的。</p>
+<p>但是，由于现在逃逸技术的存在，对象并不一定都是存在于堆，还有可能存放在栈上。</p>
+<p>java堆分为新生代和老年代，新生代又分为Eden区以及Survivor区。</p>
+<p>当内存不足时，会产生OOM异常。</p>
+<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><p>线程私有，每一个线程都有一个自己的栈。</p>
+<p>线程每执行一个方法，都会创建一个栈帧，用于存储局部变量表（对象引用，基本数据类型）等。方法调用直至完成的过程中，就是一个栈帧入栈和出栈的过程。<br><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699f4b798e62b24?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"><br>两种异常情况：</p>
+<ul>
+<li>当线程请求的栈深度超过最大值，会抛出 StackOverflowError 异常；</li>
+<li>栈进行动态扩展时如果无法申请到足够内存，会抛出 OutOfMemoryError 异常。可以通过 -Xss 这个虚拟机参数来指定每个线程的 Java 虚拟机栈内存大小：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xss512M HackTheJava</span><br></pre></td></tr></table></figure>
+
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>与Java虚拟机栈类似，只不过一个是为Java方法服务，一个是为Native方法服务，其他都一样。Native方法就是Java调用非Java代码的接口。例如调用C语言实现的接口。</p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>可以看作是<strong>当前线程执行到的字节码的行号指示器。</strong>对于Java的多线程，为了使程序每次切换后能够恢复到正确的执行位置，因此<strong>每一个线程必须要有自己独立的程序计数器</strong>。如果线程执行的是Java方法，记录的是正在执行的虚拟机字节码指令的地址（如果正在执行的是本地方法则为空）。</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>各个线程共享的区域。存放的是虚拟机<strong>加载的类信息，常量，静态变量</strong>。</p>
+<p>在HotSpot中，永久代是方法区的实现。因为GC分代收集拓展到方法区。方法区主要是废弃类和常量的收集，对于方法区，也可以选择不进行垃圾回收。</p>
+<p>一般来说，方法区不进行垃圾收集。</p>
+<p>在jdk1.8之后，HotSpot中，删去了永久代，永<strong>久代的相关信息存放在了元空间</strong>。</p>
+<p>元空间与永久代最大的不同就是，元空间并不在JVM中，<strong>而是在本地内存</strong>。主要原因还是因为永久代的大小难以确定，容易发生OOM，而移到元空间，只会受到本地内存大小的限制。</p>
+<h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><p>运行时常量池是方法区的一部分。</p>
+<p>class常量池：我们写的每一个Java类被编译后，就会形成一份class文件；class文件中除了包含类的版本、字段、方法、接口等描述信息外，还有一项信息就是常量池(constant pool table)，用于存放编译器生成的各种字面量(Literal)和符号引用(Symbolic References)。</p>
+<p><img src="https://img-blog.csdn.net/20170329213804490?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3VnYXJfUmFpbmJvdw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt></p>
+<p>class常量池在类加载完成后就会放入运行时常量池存放。</p>
+<p>字符串常量池：存放字符串，位于堆内。<strong>常量池中同时存在字符串常量和字符串引用。</strong>直接赋值和用字符串调用String构造函数都可能导致常量池中生成字符串常量;<strong>而intern()方法会尝试将堆中对象的引用放入常量池</strong>。</p>
+<h2 id="类加载子系统"><a href="#类加载子系统" class="headerlink" title="类加载子系统"></a>类加载子系统</h2><p>类加载子系统负责<strong>从文件系统或者网络中</strong>加载 Class 信息，加载的类信息存放于一块称 为方法区的内存空间。</p>
+<p>局部变量表所需要的内存空间在编译阶段就分配完毕。</p>
+<h2 id="对象的创建过程"><a href="#对象的创建过程" class="headerlink" title="对象的创建过程"></a>对象的创建过程</h2><ul>
+<li><p>虚拟机遇到一个new指令，首先从常量池中获取这个类的符号引用，检查这个符号引用代表的类是否被加载。</p>
+</li>
+<li><p>要是没有被加载，必须执行相应的类加载的过程。</p>
+</li>
+<li><p>为对象分配内存，主要有指针碰撞和空闲列表两种办法。指针碰撞是所有使用过的内存放一边，未使用过的内存放一边，中间一个指针作为分界线，当为一个对象分配内存的时候，直接移动指针即可。空闲列表适用于空闲内存和使用过的内存互相交错，内存的使用情况都存在一个表上，根据这个表再去分配内存。指针碰撞适用于标记-整理算法，空闲列表适用于标记-清除算法。</p>
+</li>
+<li><p>但是，如何解决分配内存过程中的并发问题呢？</p>
+<p><strong>一个就是同步加锁</strong>。</p>
+<p><strong>另一个就是TLAB的使用</strong>，预先个每个线程在Java堆中都分配了一小块内存，哪个线程要给对象分配内存，直接在自己的TLAB中分配，当TLAB用完了，再分配新的，这一步才需要加锁。</p>
+</li>
+<li><p>设置对象头</p>
+</li>
+<li><p>执行init方法，初始化成员变量。</p>
+</li>
+</ul>
+<h2 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h2><p>对象在内存中主要分为三个部分：对象头，实例数据以及对齐填充。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/22/169a3f347a4218f7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>对象头主要结构是由Mark Word 和 Class Metadata Address 组成 。Class Metadata Address存储的是该对象属于类的地址，即可以判断这个对象属于哪一个类。</p>
+<p>MarkWord有五种类型：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/22/169a3f347a648d8d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/19/面向对象概述/" rel="next" title="面向对象概述">
+                <i class="fa fa-chevron-left"></i> 面向对象概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/20/JVM类加载机制/" rel="prev" title="JVM类加载机制">
+                JVM类加载机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -313,6 +505,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -333,8 +529,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -419,6 +624,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆"><span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java虚拟机栈"><span class="nav-text">Java虚拟机栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地方法栈"><span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序计数器"><span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法区"><span class="nav-text">方法区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时常量池"><span class="nav-text">运行时常量池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载子系统"><span class="nav-text">类加载子系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的创建过程"><span class="nav-text">对象的创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的内存布局"><span class="nav-text">对象的内存布局</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

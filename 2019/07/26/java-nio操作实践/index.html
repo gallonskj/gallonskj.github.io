@@ -90,7 +90,7 @@
 <meta property="og:description" content="java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍FileChannel以及MMap的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。 有关pageCache可见 PageCache和DirectIO ， 有关零拷贝可见 零拷贝问题 。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png">
-<meta property="og:updated_time" content="2019-09-16T05:22:11.556Z">
+<meta property="og:updated_time" content="2019-09-20T06:27:43.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java nio操作实践">
 <meta name="twitter:description" content="java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍FileChannel以及MMap的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。 有关pageCache可见 PageCache和DirectIO ， 有关零拷贝可见 零拷贝问题 。">
@@ -421,7 +421,8 @@
 </tr>
 </tbody></table>
 <p>对于堆外内存，可使用池+堆外内存组合。例如：<code>ThreadLocal&lt;ByteBuffer&gt;</code> 和 <code>ThreadLocal&lt;byte[]&gt;</code>。</p>
-<h2 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h2>
+<h2 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h2><h2 id="Referrence"><a href="#Referrence" class="headerlink" title="Referrence"></a>Referrence</h2><p><a href="https://www.jianshu.com/p/d0b4ac90dbcb" target="_blank" rel="noopener">IO操作读写测试</a></p>
+
       
     </div>
     
@@ -538,12 +539,21 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
             
 
             
@@ -551,7 +561,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -607,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取方式"><span class="nav-text">获取方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FileChannel-写"><span class="nav-text">FileChannel 写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MMap读写"><span class="nav-text">MMap读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内内存与堆外内存"><span class="nav-text">堆内内存与堆外内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsafe"><span class="nav-text">Unsafe</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取方式"><span class="nav-text">获取方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FileChannel-写"><span class="nav-text">FileChannel 写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MMap读写"><span class="nav-text">MMap读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内内存与堆外内存"><span class="nav-text">堆内内存与堆外内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsafe"><span class="nav-text">Unsafe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Referrence"><span class="nav-text">Referrence</span></a></li></ol></div>
             
 
           </div>
