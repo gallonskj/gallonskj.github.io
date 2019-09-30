@@ -93,8 +93,8 @@
 <meta property="og:image" content="http://file.elecfans.com/web1/M00/4F/B0/pIYBAFrhQ-WAN_-bAAA9GHdpZic508.jpg">
 <meta property="og:image" content="https://img-blog.csdn.net/20170329213804490?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU3VnYXJfUmFpbmJvdw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMyMDE1LmNuYmxvZ3MuY29tL2Jsb2cvODc5ODk2LzIwMTYwNC84Nzk4OTYtMjAxNjA0MTQyMjQ1NDk3NzAtNjAwMDY2NTUucG5n?x-oss-process=image/format,png">
-<meta property="og:image" content="https://img-blog.csdn.net/20180813145521896?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM4MDc1NDI1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2019-09-26T08:48:49.487Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822785993-1569822786000.png">
+<meta property="og:updated_time" content="2019-09-30T06:06:41.242Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM类加载机制">
 <meta name="twitter:description" content="Java程序运行时，有两个阶段，编译和运行。编译阶段将Java文件编译成class字节码文件，然后在运行阶段将class文件加载到内存，并对class文件解释执行。">
@@ -419,7 +419,7 @@
 <li>初始化主类(执行main方法的)。</li>
 </ul>
 <h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>对于任何一个类，都需要由加载他的类加载器以及这个类本身来确立他在JVM中的唯一性。比较两个类是否相等，首先应该是建立在同一个类加载器上的。两个类即使来自于同一个class文件，由不同的类加载器加载，这两个加载的类也是不相等的。</p>
-<h3 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h3><p><img src="https://img-blog.csdn.net/20180813145521896?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM4MDc1NDI1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<h3 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h3><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822785993-1569822786000.png" alt="title"></p>
 <p>   双亲委派机制，其工作原理的是，如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务(搜索范围内没有这个类)，子加载器才会尝试自己去加载，这就是双亲委派模式。</p>
 <p>避免了类加载的混乱。比如说，在classpath下定义了一个java.lang.Object，要是没有双亲委派模型，那么应用程序类加载器会加载这个类，那么就会与启动类加载器加载的Object类冲突。但是要是有类加载机制，那么将会交给启动类加载器，这样加载的还是java自带的Object类，就不会产生冲突。</p>
 <h3 id="破坏双亲委派模型"><a href="#破坏双亲委派模型" class="headerlink" title="破坏双亲委派模型"></a>破坏双亲委派模型</h3><p>如何破坏双亲委派模型？</p>
@@ -581,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
