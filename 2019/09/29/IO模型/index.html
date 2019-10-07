@@ -81,15 +81,27 @@
 
 
 
+<meta name="description" content="Socket与ServerSocket网络通信需要一对socket，即通信的两端各有一个socket，两个socket之间形成一个管道，进行数据流的通信。ServerSocketServerSocket监听服务器端的一个端口，当一个客户端发送来连接时，ServerSocket来处理连接，成功后返回一个常规的Socket对象，用来与客户端socket进行数据传输。 同步 异步 阻塞 非阻塞同步与异步">
 <meta name="keywords" content="IO,linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="I&#x2F;O">
+<meta property="og:title" content="I&#x2F;O模型">
 <meta property="og:url" content="http://yoursite.com/2019/09/29/IO模型/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="Socket与ServerSocket网络通信需要一对socket，即通信的两端各有一个socket，两个socket之间形成一个管道，进行数据流的通信。ServerSocketServerSocket监听服务器端的一个端口，当一个客户端发送来连接时，ServerSocket来处理连接，成功后返回一个常规的Socket对象，用来与客户端socket进行数据传输。 同步 异步 阻塞 非阻塞同步与异步">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-29T07:13:03.514Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557035867781-1557035868213.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037472070-1557037472074.png">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/25/169b2de92af4b59b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037653186-1557037653231.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037849336-1557037849341.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557039387817-1557039387825.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557039496514-1557039496560.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557212167413-1557212167863.png">
+<meta property="og:updated_time" content="2019-10-07T10:43:52.608Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="I&#x2F;O">
+<meta name="twitter:title" content="I&#x2F;O模型">
+<meta name="twitter:description" content="Socket与ServerSocket网络通信需要一对socket，即通信的两端各有一个socket，两个socket之间形成一个管道，进行数据流的通信。ServerSocketServerSocket监听服务器端的一个端口，当一个客户端发送来连接时，ServerSocket来处理连接，成功后返回一个常规的Socket对象，用来与客户端socket进行数据传输。 同步 异步 阻塞 非阻塞同步与异步">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557035867781-1557035868213.png">
 
 
 
@@ -125,7 +137,7 @@
 
 
 
-  <title>I/O | Gallon's Note</title>
+  <title>I/O模型 | Gallon's Note</title>
   
 
 
@@ -301,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">I/O</h1>
+          <h1 class="post-title" itemprop="name headline">I/O模型</h1>
         
 
         <div class="post-meta">
@@ -323,6 +335,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IO/" itemprop="url" rel="index">
+                    <span itemprop="name">IO</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -351,7 +385,60 @@
       
 
       
-        
+        <h2 id="Socket与ServerSocket"><a href="#Socket与ServerSocket" class="headerlink" title="Socket与ServerSocket"></a>Socket与ServerSocket</h2><p>网络通信需要一对socket，即通信的两端各有一个socket，两个socket之间形成一个管道，进行数据流的通信。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557035867781-1557035868213.png" alt="title"><br>ServerSocket<br>ServerSocket监听服务器端的一个端口，当一个客户端发送来连接时，ServerSocket来处理连接，成功后返回一个常规的Socket对象，用来与客户端socket进行数据传输。</p>
+<h1 id="同步-异步-阻塞-非阻塞"><a href="#同步-异步-阻塞-非阻塞" class="headerlink" title="同步 异步 阻塞 非阻塞"></a>同步 异步 阻塞 非阻塞</h1><p><strong>同步与异步主要是从消息通知机制角度来说的。</strong><br>当一个同步调用发出后，调用者要一直等待返回消息（结果）后，才能进行后续的执行；当一个异步过程调用发出后，调用者不能立刻得到返回消息（结果），实际处理这个调用的部件在完成后，通过<strong>状态、通知和回调</strong>来通知调用者。异步是调用完成后由别人来通知他。</p>
+<p>阻塞与非阻塞主要是程序（线程）等待消息通知时的状态角度来说的。<br>阻塞调用是指调用结果返回之前，当前线程会被挂起，一直处于等待消息通知，不能够执行其他业务。<br>非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回。如果在这个等待的过程中，等待者除了等待消息通知之外不能做其它的事情，那么该机制就是阻塞的。</p>
+<p>阻塞与同步是不同的。如果这个线程在等待函数返回时，仍在执行其他消息处理，那么这就是同步非阻塞。如果这个线程在等待函数返回时，没有执行其他消息处理，而是挂起等待，那么就是同步阻塞</p>
+<h1 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h1><p>操作系统将内存空间分为了<strong>内核空间和用户空间</strong>。<br>进程切换非常的耗资源，所以能不挂起进程就不挂起进程。<br>将进程阻塞是让出CPU资源。</p>
+<p>对于一次IO访问（以read举例），数据会先被拷贝到操作系统内核的缓冲区中，然后才会从操作系统内核的缓冲区拷贝到应用程序的地址空间。所以说，当一个read操作发生时，它会经历两个阶段：1. 等待数据准备 (Waiting for the data to be ready)2. 将数据从内核拷贝到进程中 (Copying the data from the kernel to the process)</p>
+<h1 id="Linux-IO的五种模型"><a href="#Linux-IO的五种模型" class="headerlink" title="Linux IO的五种模型"></a>Linux IO的五种模型</h1><h2 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037472070-1557037472074.png" alt="title"></p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/25/169b2de92af4b59b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p>当应用进程调用了recvfrom这个系统调用，kernel就开始了IO的第一个阶段：准备数据（对于网络IO来说，很多时候数据在一开始还没有到达。比如，还没有收到一个完整的UDP包。这个时候kernel就要等待足够的数据到来）。这个过程需要等待，也就是说数据被拷贝到操作系统内核的缓冲区中是需要一个过程的。而在进程这边，整个应用进程会被阻塞（当然，是进程自己选择的阻塞）。当kernel一直等到数据准备好了，它就会将数据从kernel中拷贝到用户内存，然后kernel返回结果，应用进程才解除block的状态，重新运行起来。在内核执行I/O的两个阶段，都是阻塞的。<strong>每个连接都需要配套一个线程，不适合高并发的情况。</strong></p>
+<p><strong>在阻塞的过程中，这个线程被挂起了，但是他让出了CPU，其他应用进程可以继续占用CPU执行。</strong></p>
+<h2 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h2><p>基于轮询的方式。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037653186-1557037653231.png" alt="title"><br>当所请求的I/O操作不能满足要求时候，不把本进程投入睡眠，而是返回一个错误。也就是说当数据没有到达时并不等待，而是以一个错误返回。并且进程会多次轮询的请求I/O操作。应用程序的线程需要不断的进行 I/O 系统调用，轮询数据是否已经准备好，如果没有准备好，继续轮询，直到完成系统调用为止 。这样，好处是线程不需要一直阻塞，但是需要不断地进行I/O系统调用，<strong>不断轮询，浪费CPU</strong>。不断发起I/O操作及其浪费CPU资源。同步非阻塞就是 “每隔一会儿瞄一眼进度条” 的轮询（polling）方式。<br>需要注意，拷贝数据整个过程，进程仍然是属于阻塞的状态。</p>
+<h2 id="I-O多路复用"><a href="#I-O多路复用" class="headerlink" title="I/O多路复用"></a>I/O多路复用</h2><p>基于操作系统的poll，select，epoll。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037849336-1557037849341.png" alt="title"><br>非阻塞IO问题：<br>由于同步非阻塞方式需要不断主动轮询，轮询占据了很大一部分过程，轮询会消耗大量的CPU时间，但是服务器端可能会有多个连接，这样他对每一个连接都这样做，要是连接数量太多时，是不适合的。</p>
+<p>IO多路复用有两个特别的系统调用select、poll、epoll函数。select调用是内核级别的，select轮询相对非阻塞的轮询的区别在于—<strong>前者可以等待多个socket，能实现同时对多个IO端口进行监听</strong>，当其中任何一个socket的数据准好了，就能返回进行可读，然后进程再进行recvform系统调用，将数据由内核拷贝到用户进程，当然这个过程是阻塞的。</p>
+<p>select/epoll的好处就在于单个process就可以同时处理多个网络连接的IO。它的基本原理就是select，poll，epoll这个function<strong>会不断的轮询所负责的所有socket</strong>，当某个socket有数据到达了，就通知用户进程。</p>
+<p>这几个函数也会使进程阻塞，但是和阻塞I/O所不同的的，<strong>这两个函数可以同时阻塞多个I/O操作</strong>（只需要阻塞一个select函数）。而且可以同时对多个读操作，多个写操作的I/O函数进行检测，直到有数据可读或可写时（注意不是全部数据可读或可写），才真正调用I/O操作函数。</p>
+<p>上面的图和blocking IO的图其实并没有太大的不同，在两个阶段都需要阻塞。当连接数量很少的时候，I/O多路复用可能比BIO效率还要低，因为I/O多路复用需要多执行一个select内核操作。但是I/O多路复用的优势在于他可以处理更多的连接，而不是处理单个连接速度更快。与传统的多线程/多进程模型比，I/O多路复用的最大优势是系统开销小，系统不需要创建新的额外进程或者线程，也不需要维护这些进程和线程的运行，降底了系统的维护工作量，节省了系统资源。</p>
+<h2 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557039387817-1557039387825.png" alt="title"><br>在信号驱动式I/O模型中，应用程序使用套接口进行信号驱动I/O，并安装一个信号处理函数，进程继续运行并不阻塞。当数据准备好时，进程会收到一个SIGIO信号，可以在信号处理函数中调用I/O操作函数处理数据。</p>
+<p>基本不怎么用。</p>
+<h2 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557039496514-1557039496560.png" alt="title"><br>用户进程进行aio_read系统调用之后，无论内核数据是否准备好，都会<strong>直接返回给用户进程</strong>，然后用户态进程可以去做别的事情。等到socket数据准备好了，内核直接复制数据给进程，然后从内核<strong>向进程发送通知（回调函数）</strong>。IO两个阶段，进程都是非阻塞的。</p>
+<p>异步 I/O 与信号驱动 I/O 的区别在于，异步 I/O 的信号是通知应用进程 I/O 完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>注意：同步非阻塞I/O和I/O多路复用，在返回可读条件后，都需要再调用一次I/O操作，进行复制数据。首先一个IO操作其实分成了两个步骤：发起IO请求和实际的IO操作，同步IO和异步IO的区别就在于第二个步骤是否阻塞，如果实际的IO读写阻塞请求进程，那么就是同步IO，因此阻塞IO、非阻塞IO、IO复用、信号驱动IO都是同步IO，如果不阻塞，而是操作系统帮你做完IO操作再将结果返回给你，那么就是异步IO。阻塞IO和非阻塞IO的区别在于第一步，发起IO请求是否会被阻塞，如果阻塞直到完成那么就是传统的阻塞IO，如果不阻塞，那么就是非阻塞IO。</p>
+<h1 id="select-poll-epoll"><a href="#select-poll-epoll" class="headerlink" title="select poll epoll"></a>select poll epoll</h1><p>目前支持I/O多路复用的系统调用有 select，poll，epoll，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，<strong>一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作</strong>。select，pselect，poll，epoll本质上都是同步I/O。</p>
+<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><p>用于表述指向文件的引用的抽象化概念。。<br>当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。</p>
+<h2 id="Linux的socket事件wakeup-callback机制"><a href="#Linux的socket事件wakeup-callback机制" class="headerlink" title="Linux的socket事件wakeup callback机制"></a>Linux的socket事件wakeup callback机制</h2><p>linux wakeup callback机制是IO多路复用的本质。</p>
+<p>Linux通过socket睡眠队列来管理所有等待socket的某个事件的进程（Process），同时通过wakeup机制来异步唤醒整个睡眠队列上等待事件的Process，通知Process相关事件发生。</p>
+<p>每个socket维护了一个队列，比如socket可读的时候，内核就会唤醒队列里的各个Process，并且执行每个Process的callback函数。</p>
+<p>每一个socket都有sleep_list,当某个进程所关心的事件在socket中并没有发生，那么将进程插入到sleep_list，当socket的时间发生了，那么就去遍历他sleep_list中的每个进程的callback函数。</p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>我们以read事件为例子。<br>当socket上所监听的事件发生了，那么相应的进程就去处理。那么怎么获取监听的事件发生呢？<br>我们应该block在等待事件的发生上，这个事件简单点就是关心的N个socket中一个或多个socket有数据可读了，当block解除的时候，就意味着，我们一定可以找到一个或多个socket上有可读的数据。</p>
+<p>根据wakeup callback。<br>所以，进程需要同时插入到我们管理的这好多个socket的sleep_list上等待任意一个socket可读事件发生而被唤醒，当Process被唤醒的时候，其callback里面应该有个逻辑去检查具体哪些socket可读了。</p>
+<p>举个例子：<br>假设c1，c2，c3连接到了服务器端，我们想监听他们的读事件，因此我们将进程p1插入到他们与服务器各自的socket中sleep_list中去，此时没有事件发生，因此进程处于睡眠状态，当c1客户端发送来了数据，有数据读取的时候，p1进程被唤醒。<br>伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private int sk_event;</span><br><span class="line"></span><br><span class="line">void poll() &#123;</span><br><span class="line">    //其他逻辑...</span><br><span class="line">    when (receive queue is not empty) &#123;</span><br><span class="line">        sk_event |= POLL_IN；</span><br><span class="line">    &#125;</span><br><span class="line">   //其他逻辑...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当receive queue不为空的时候（即收到了消息），我们就给这个socket的sk_event添加一个POLL_IN事件，用来<strong>表示当前这个socket可读</strong>。将来Process遍历到这个socket，发现其sk_event包含POLL_IN的时候，就可以对这个socket进行读取数据操作了。</p>
+<p>接下来，p1执行select，select会将需要监控的readfds集合拷贝到内核空间（因为内核才能通知说某个socket可读），然后遍历自己监控的socket，挨个调用socket的poll逻辑以便检查该socket是否有可读事件。<br>遍历完所有的socket后，如果没有任何一个sk可读，那么select会调用schedule，使得Process进入睡眠（或者睡眠timeout这么长时间）。如果在timeout时间内某个socket上有数据可读了，或者等待timeout了，则调用select的Process会被唤醒。<br>伪代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (socket in readfds) &#123;</span><br><span class="line">    sk_event.evt = socket.poll();</span><br><span class="line">    sk_event.sk = socket;</span><br><span class="line">    return_event_for_process;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);</span><br></pre></td></tr></table></figure>
+
+<p>select 函数监视的文件描述符分3类，分别是writefds、readfds、和exceptfds。调用后select函数会阻塞，<strong>直到有描述符就绪</strong>（有数据 可读、可写、或者有except），或者超时（timeout指定等待时间，如果立即返回设为null即可），<strong>函数返回</strong>。<strong>当select函数返回后，可以通过遍历fdset，来找到就绪的描述符。</strong><br>select缺点：<br>1.文件描述符的数量存在最大限制，在Linux上一般为1024。</p>
+<p>2.对socket进行扫描时是线性扫描，即采用轮询的方法，效率较低。<br>每次select()都需要扫描所有的fd_set。而epoll是通过注册回调函数来实现的，所以epoll效率大大高于select.</p>
+<p>3.需要维护一个用来存放大量fd的数据结构，这样会使得用户空间和内核空间在传递该结构时复制开销大。</p>
+<h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><p>解决了文件描述符数量限制的情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int poll (struct pollfd *fds, unsigned int nfds, int timeout);</span><br></pre></td></tr></table></figure>
+
+<p>poll本质上和select没有区别，它将用户传入的数组拷贝到内核空间，然后查询每个fd对应的设备状态，如果设备就绪则在设备等待队列中加入一项并继续遍历，如果遍历完所有fd后没有发现就绪设备，则挂起当前进程，直到设备就绪或者主动超时，被唤醒后它又要再次遍历fd。这个过程经历了多次无谓的遍历。<br>与select两点区别：<br>1.文件描述符大小不限制。<br>2.不同与select使用三个位图来表示三个fdset的方式，poll使用一个 pollfd的指针实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct pollfd &#123;</span><br><span class="line">    int fd; /* file descriptor */</span><br><span class="line">    short events; /* requested events to watch */</span><br><span class="line">    short revents; /* returned events witnessed */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>pollfd结构包含了要监视的event和发生的event。</p>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><p>解决了需要循环遍历文件描述符的缺点，解决了需要将大量的fds从内核拷贝到用户空间的问题。</p>
+<p>将大量的fds从内核拷贝到用户空间的解决：<br>共享内存。<br>epoll通过内核与用户空间mmap同一块内存来解决。mmap将用户空间的一块地址和内核空间的一块地址同时映射到相同的一块物理内存地址（不管是用户空间还是内核空间都是虚拟地址，最终要通过地址映射映射到物理地址），使得这块物理内存对内核和对用户均可见，减少用户态和内核态之间的数据交换。</p>
+<p>需要循环遍历文件描述符的解决：<br>epoll引入了一个中间层，一个双向链表ready_list，一个单独的睡眠队列single_epoll_wait_list。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557212167413-1557212167863.png" alt="title"><br>1.调用epoll之前，我们希望我们的MyProcess可以管理四个socket。<br>2.四个socket都没有事件，这时候MyProcess进入single_epoll_wait_list并且sleep。<br>3.有一个socket（大红色）收到了数据，触发其wait_entry_sk，把这个socket加入到ready_list里。<br>4.MyProcess被唤醒（从single_epoll_wait_list出来了表示被唤醒），来处理ready_list中的所有socket：遍历epoll的ready_list，挨个调用每个socket的poll逻辑收集发生的事件，对于监控可读事件而已，ready_list上的每个socket都是有数据可读的，这里的遍历必要的。</p>
+<p>epoll有两种工作模式，LT和ET。<br>LT模式：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，应用程序可以不立即处理该事件。下次调用epoll_wait时，会再次响应应用程序并通知此事件。<br>ET模式：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，应用程序必须立即处理该事件。如果不处理，下次调用epoll_wait时，不会再次响应应用程序并通知此事件。</p>
+<p><a href="https://blog.csdn.net/j080624/article/details/78468396" target="_blank" rel="noopener">ServerSocket与Socket</a><br><a href="https://www.jianshu.com/p/486b0965c296" target="_blank" rel="noopener">Linux 五种IO模型</a><br><a href="https://www.jianshu.com/p/dfd940e7fca2" target="_blank" rel="noopener">select、poll、epoll详解</a><br><a href="https://segmentfault.com/a/1190000003063859#articleHeader15" target="_blank" rel="noopener">Linux IO模式及 select、poll、epoll详解</a><br><a href="https://wyj.shiwuliang.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SELECT%E3%80%81POLL%E5%92%8CEPOLL%20.html" target="_blank" rel="noopener">深入理解select，poll，epoll</a></p>
+
       
     </div>
     
@@ -392,6 +479,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/30/IO线程模型/" rel="prev" title="IO线程模型">
+                IO线程模型 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -443,8 +534,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -461,7 +561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -472,7 +572,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -483,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -529,6 +629,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket与ServerSocket"><span class="nav-text">Socket与ServerSocket</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#同步-异步-阻塞-非阻塞"><span class="nav-text">同步 异步 阻塞 非阻塞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概念说明"><span class="nav-text">概念说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-IO的五种模型"><span class="nav-text">Linux IO的五种模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞IO"><span class="nav-text">阻塞IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非阻塞IO"><span class="nav-text">非阻塞IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O多路复用"><span class="nav-text">I/O多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号驱动IO"><span class="nav-text">信号驱动IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步IO"><span class="nav-text">异步IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#select-poll-epoll"><span class="nav-text">select poll epoll</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件描述符"><span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的socket事件wakeup-callback机制"><span class="nav-text">Linux的socket事件wakeup callback机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select"><span class="nav-text">select</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#poll"><span class="nav-text">poll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll"><span class="nav-text">epoll</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

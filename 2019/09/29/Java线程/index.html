@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Java并发,">
 
 
 
@@ -81,14 +81,18 @@
 
 
 
+<meta name="description" content="并发作用将多核CPU的计算能力发挥到极致，性能得到提升。 面对复杂业务模型，并行程序会比串行程序更适应业务需求，而并发编程更能吻合这种业务拆分。 并发缺点 线程安全问题。 频繁的上下文切换。  概念并发与并行Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of thi">
+<meta name="keywords" content="Java并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java线程">
 <meta property="og:url" content="http://yoursite.com/2019/09/29/Java线程/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="并发作用将多核CPU的计算能力发挥到极致，性能得到提升。 面对复杂业务模型，并行程序会比串行程序更适应业务需求，而并发编程更能吻合这种业务拆分。 并发缺点 线程安全问题。 频繁的上下文切换。  概念并发与并行Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of thi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-29T05:53:25.674Z">
+<meta property="og:updated_time" content="2019-10-07T10:43:55.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java线程">
+<meta name="twitter:description" content="并发作用将多核CPU的计算能力发挥到极致，性能得到提升。 面对复杂业务模型，并行程序会比串行程序更适应业务需求，而并发编程更能吻合这种业务拆分。 并发缺点 线程安全问题。 频繁的上下文切换。  概念并发与并行Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of thi">
 
 
 
@@ -350,7 +354,14 @@
       
 
       
-        
+        <h2 id="并发作用"><a href="#并发作用" class="headerlink" title="并发作用"></a>并发作用</h2><p>将多核CPU的计算能力发挥到极致，性能得到提升。</p>
+<p>面对复杂业务模型，并行程序会比串行程序更适应业务需求，而并发编程更能吻合这种业务拆分。</p>
+<h2 id="并发缺点"><a href="#并发缺点" class="headerlink" title="并发缺点"></a>并发缺点</h2><ul>
+<li>线程安全问题。</li>
+<li>频繁的上下文切换。</li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h3><p>Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once。并发指的是多个任务交替进行，而<strong>并行则是指真正意义上的“同时进行</strong>”。实际上，如果系统内只有一个CPU，而使用多线程时，那么真实系统环境下不能并行，只能通过切换时间片的方式交替进行，而成为并发执行任务。真正的并行也只能出现在拥有多个CPU的系统中。</p>
+<h3 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h3><h3 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h3><h3 id="临界区资源"><a href="#临界区资源" class="headerlink" title="临界区资源"></a>临界区资源</h3>
       
     </div>
     
@@ -364,6 +375,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java并发/" rel="tag"># Java并发</a>
+          
+        </div>
       
 
       
@@ -384,8 +401,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/29/IO模型/" rel="prev" title="I/O">
-                I/O <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/29/IO模型/" rel="prev" title="I/O模型">
+                I/O模型 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -438,8 +455,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -456,7 +482,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -467,7 +493,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -478,7 +504,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -524,6 +550,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#并发作用"><span class="nav-text">并发作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发缺点"><span class="nav-text">并发缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发与并行"><span class="nav-text">并发与并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步与异步"><span class="nav-text">同步与异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞与非阻塞"><span class="nav-text">阻塞与非阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临界区资源"><span class="nav-text">临界区资源</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
