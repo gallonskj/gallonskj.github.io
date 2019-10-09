@@ -81,15 +81,22 @@
 
 
 
+<meta name="description" content="进程进程是资源分配的基本单位，他是程序运行时的一个实例。程序运行时，系统会创建一个进程，并分配相关的资源。 程序是静态的，进程是动态的。一个程序可以对应多个进程，一个进程可以包括多个程序。 进程=程序+数据+状态信息。">
 <meta name="keywords" content="OS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统进程">
 <meta property="og:url" content="http://yoursite.com/2019/10/07/操作系统进程/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="进程进程是资源分配的基本单位，他是程序运行时的一个实例。程序运行时，系统会创建一个进程，并分配相关的资源。 程序是静态的，进程是动态的。一个程序可以对应多个进程，一个进程可以包括多个程序。 进程=程序+数据+状态信息。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-07T13:55:32.932Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560068275561-1560068275567.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560078704085-1560078704092.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560080472816-1560080472823.png">
+<meta property="og:updated_time" content="2019-10-08T12:20:58.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统进程">
+<meta name="twitter:description" content="进程进程是资源分配的基本单位，他是程序运行时的一个实例。程序运行时，系统会创建一个进程，并分配相关的资源。 程序是静态的，进程是动态的。一个程序可以对应多个进程，一个进程可以包括多个程序。 进程=程序+数据+状态信息。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560068275561-1560068275567.png">
 
 
 
@@ -373,7 +380,104 @@
       
 
       
-        
+        <h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程是<strong>资源分配的基本单位</strong>，他是程序运行时的一个实例。<br>程序运行时，系统会创建一个进程，并分配相关的资源。</p>
+<p><strong>程序是静态的，进程是动态的</strong>。一个程序可以对应多个进程，一个进程可以包括多个程序。</p>
+<p>进程=程序+数据+状态信息。</p>
+<a id="more"></a>
+
+<h3 id="PCB-进程控制块"><a href="#PCB-进程控制块" class="headerlink" title="PCB(进程控制块)"></a>PCB(进程控制块)</h3><p>每个进程都有一个进程控制块，他是<strong>进程的唯一标识</strong>。<br>进程块描述进程的基本信息和运行状态。所谓的进程的创建与销毁，就是对PCB的创建与销毁。</p>
+<p>各个进程块在内存中<strong>应该是以链表的形式存储</strong>的，因为进程块需要频繁的进行插入与删除。</p>
+<h3 id="进程的生命周期"><a href="#进程的生命周期" class="headerlink" title="进程的生命周期"></a>进程的生命周期</h3><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560068275561-1560068275567.png" alt="title"><br><strong>最主要的就是就绪，运行，阻塞三个状态。</strong><br>操作系统创建一个进程完成后，并为其分配了除了cpu之外的所有的资源，那么进程进入<strong>就绪(ready)状态</strong>，当CPU处于空闲的时候，就绪状态的进程占用CPU，进入<strong>运行（running）状态</strong>。正在执行的进程，由于等待某个事件发生而无法执行时，便放弃CPU而处于<strong>阻塞（waiting）状态</strong>。</p>
+<ul>
+<li><p>ready-&gt;running<br>当没有其他进程占用CPU，所有的ready进程就可以去竞争CPU，获得CPU的进程进入running状态。</p>
+</li>
+<li><p>running-&gt;waiting<br>正在执行的进程，因为等待某个事件发生而放弃CPU时，进入waiting状态。比如I/O阻塞，申请缓冲区不能满足、等待信件等。</p>
+</li>
+<li><p>running-&gt;ready<br>处于执行状态的进程在其执行过程中，因分配给它的一个时间片已用完或更高优先级的进程抢占而不得不让出处理机，于是进程从执行状态转变成就绪状态。</p>
+</li>
+<li><p>waiting-&gt;ready<br>当等待事件完成的时候，从阻塞进入就绪态。<br>需要正在运行的进程对他唤醒。</p>
+</li>
+</ul>
+<h3 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h3><p>因为所有的进程都有自己独立的地址空间。</p>
+<ul>
+<li><p>页表以及地址空间的切换。</p>
+</li>
+<li><p>寄存器，程序计数器，堆栈的切换。</p>
+</li>
+</ul>
+<p>进程上下文切换过程：</p>
+<ul>
+<li><p>保存现场。暂停当前进程，从运行态变为其他状态，保存当前进程的上下文，包括CPU寄存器状态，程序计数器状态等。保存在PCB中。</p>
+</li>
+<li><p>选取进程。调度另一个进程从就绪转为运行。</p>
+</li>
+<li><p>恢复现场。从内存中恢复下一个要执行的进程的上下文，恢复该进程原来的状态到寄存器，恢复程序执行上一次暂停的地方。从PCB中取。</p>
+<p>在进程切换的过程中，页表会改变，地址空间会改变，高速缓存中的存储的数据过期，也需要进行切换。</p>
+</li>
+</ul>
+<h3 id="进程挂起"><a href="#进程挂起" class="headerlink" title="进程挂起"></a>进程挂起</h3><p>将<strong>进程从内存转移到磁盘上</strong>。<br>进程挂起状态包括<strong>阻塞挂起</strong>（在外存，处于阻塞）和就绪挂起（在外存，就绪状态）。</p>
+<p>进程挂起状态转换：</p>
+<ul>
+<li>阻塞到阻塞挂起。内存不够时，将阻塞状态的进程移到外存，变为阻塞挂起状态。</li>
+<li>就绪到就绪挂起。有高优先级阻塞和低优先级就绪，那么将低优先级挂起。</li>
+<li>运行到就绪挂起。</li>
+</ul>
+<p>挂起是将进程从内存转移到磁盘，而阻塞是由于资源得不到满足暂时无法获取CPU，还是在内存的。</p>
+<h3 id="状态队列"><a href="#状态队列" class="headerlink" title="状态队列"></a>状态队列</h3><p><strong>操作系统中维护了多个队列，不同的队列来表示不同的状态。</strong><br>就绪队列，阻塞队列，运行队列等。<br>方便操作系统管理进程。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560078704085-1560078704092.png" alt="title"></p>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>当我们并发的需求时，如果采用多进程的话，因为进程每个进程都有自己的独立空间，进程间通信麻烦，还有进程切换的时候需要进行保护现场恢复现场，十分耗费资源，效率低下。<br>于是，引入了线程。</p>
+<p>线程是轻量级的进程。所有的线程共享进程的地址空间，进程间开销小，通信方便。<br>进程中的所有线程共享代码，文件等资源。<br>但是，<strong>他们都有自己的堆栈，寄存器等</strong>。</p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560080472816-1560080472823.png" alt="title"></p>
+<p>进程是资源分配的角色，线程是执行功能的角色。<br>一个线程崩溃，整个进程崩溃。因此，在对于安全性过高的场合，我们一般使用进程来解决并发问题。比如说，我们的浏览器，每开一个界面，就创建一个进程。</p>
+<h3 id="OS中两种线程"><a href="#OS中两种线程" class="headerlink" title="OS中两种线程"></a>OS中两种线程</h3><p><strong>根据操作系统能够感知到线程，分为用户线程以及内核线程。</strong></p>
+<h4 id="内核线程"><a href="#内核线程" class="headerlink" title="内核线程"></a>内核线程</h4><p>内核完成线程的创建以及管理。<br>内核分配CPU是以线程为单位的。</p>
+<p>优点：</p>
+<ul>
+<li>一个线程阻塞不会导致整个进程阻塞。</li>
+<li>内核会为每一个线程分配CPU，对于多线程的进程，时间片时间大大增加。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>线程切换要从用户态转移到内核态，耗费大，速度慢。</li>
+</ul>
+<h4 id="用户线程"><a href="#用户线程" class="headerlink" title="用户线程"></a>用户线程</h4><p>用户级的线程库完成线程的创建以及管理。<br><strong>内核资源的分配仍然是按照进程（用户进程）进行分配的。</strong><br>不依赖于操作系统的内核，<strong>操作系统感受不到用户线程的存在</strong>。</p>
+<p>缺点：</p>
+<ul>
+<li>因此，对于操作系统来说，这个用户线程所属的进程是没有线程的，因此，<strong>一个线程的阻塞将导致整个进程的阻塞</strong>，因为，对于操作系统来说，他看到的只是这个进程，这个用户线程阻塞，对操作系统来说就是整个进程阻塞，所以这个进程将会阻塞。</li>
+<li>因为没有操作系统的管制，一个用户线程拿到了分配给这个进程的时间片，他会一直霸占着，除非她主动放弃，或者到这个时间片结束，可能会导致别的用户线程没有机会执行。</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>但是，用户线程切换不需要从用户态转到内核态，消耗小，速度快。</li>
+</ul>
+<p>总的来说，对于用户线程，操作系统是感受不到，<strong>还是会把它看作一个进程来进行处理</strong>。</p>
+<p><a href="https://www.cnblogs.com/Lee-johnH/p/6663618.html" target="_blank" rel="noopener">内核线程与用户线程</a></p>
+<h3 id="多线程模型"><a href="#多线程模型" class="headerlink" title="多线程模型"></a>多线程模型</h3><p>将用户线程与内核线程绑定。主要有一对一，多对一，以及多对多。操作系统中主要使用多对多。</p>
+<h4 id="多对一"><a href="#多对一" class="headerlink" title="多对一"></a>多对一</h4><p>多个用户线程与一个内核线程绑定。</p>
+<p>缺点是一个线程阻塞，这多个用户线程都会被阻塞。</p>
+<h4 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h4><p>一个用户线程绑定一个内核线程。</p>
+<p>缺点是每创建一个用户级线程都需要创建一个内核级线程与其对应，这样创建线程的开销比较大，会影响到应用程序的性能。</p>
+<h4 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h4><p>将 n 个用户级线程映射到 m 个内核级线程上，要求 m &lt;= n。</p>
+<p>不会出现一个用户线程阻塞，所有线程都阻塞的情况。</p>
+<p>详解<a href="https://www.cnblogs.com/stemon/p/4855583.html" target="_blank" rel="noopener">多线程模型</a></p>
+<h2 id="与进程区别"><a href="#与进程区别" class="headerlink" title="与进程区别"></a>与进程区别</h2><ul>
+<li>进程是资源分配的最小单位，线程是程序执行的最小单位。</li>
+<li>进程有自己的独立空间，每创建一个进程，都要为他分配独立的地址空间，花费很大。而线程是共享进程地址空间的，花费要小很多。</li>
+<li>进程之间的通信需要以通信的方式（IPC)进行，需要通过内核来通信。而线程可以通过共享变量等方式进行。</li>
+<li>进程之间切换时间比线程之间切换时间要大得多。因为进程之间页表是不同的，需要切换页表，开销比较大。因为各个进程页表不同，TLB，缓存信息可能都需要重新加载。而线程是共享的。</li>
+<li>一个进程死掉，对其他进程没有影响；一个线程死掉，整个进程就会崩溃。<br><strong>当一个线程向非法地址读取或者写入，无法确认这个操作是否会影响同一进程中的其它线程，所以只能是整个进程一起崩溃。</strong></li>
+</ul>
+<h2 id="线程切换"><a href="#线程切换" class="headerlink" title="线程切换"></a>线程切换</h2><p>与进程上下文切换不同的是，线程上下文切换没有页表以及地址空间的切换，因为同一个进程的线程共享同一个地址空间。只需要进行程序计数器，寄存器，以及线程的堆栈的切换。</p>
+<h2 id="fork-and-exec"><a href="#fork-and-exec" class="headerlink" title="fork and exec"></a>fork and exec</h2><p>linux的fork 和exec 函数。</p>
+<p>fork() 复制出一个子进程，<strong>这个进程几乎是当前进程的一个拷贝</strong>：子进程和父进程使用相同的代码段；子进程复制父进程的堆栈段和数据段。这样，父进程的所有数据都可以留给子进程，但是，子进程一旦开始运行，<strong>虽然它继承了父进程的一切数据，但实际上数据却已经分开，相互之间不再有影响了</strong>，也就是说，它们之间不再共享任何数据了。它们再要交互信息时，只有通过进程间通信来实现，这将是我们下面的内容。既然它们如此相象，系统如何来区分它们呢？这<strong>由函数的返回值来决定的</strong>。对于父进程， fork函数返回了子程序的进程号，而对于子程序，fork函数则返回零。在操作系统中，我们用ps函数就可以看到不同的进程号，对父进程而言，它的进程号是由比它更低 层的系统调用赋予的，而对于子进程而言，它的进程号即是fork函数对父进程的返回值。在程序设计中，父进程和子进程都要调用函数fork（）下面的代码，而我们就是利用fork（）函数对父子进程的不同返回值用if…else…语句来实现让父子进程完成不同的功能。</p>
+<p>exec将替换现有进程，执行exec的程序。</p>
+<p>一个进程一旦调用exec类函数，它本身就”死亡”了，<strong>系统把代码段替换成新的程序的代码，废弃原有的数据段和堆栈段</strong>，并为新程序分配新的数据段与堆栈段，唯一留下的，就是进程号，也就是说，对系统而言，还是同一个进程，不过已经是另一个程序了。</p>
+<h2 id="僵尸进程和孤儿进程"><a href="#僵尸进程和孤儿进程" class="headerlink" title="僵尸进程和孤儿进程"></a>僵尸进程和孤儿进程</h2><p>正常情况下，子进程是通过父进程创建的，子进程在创建新的进程。子进程的结束和父进程的运行是一个异步过程,即父进程永远无法预测子进程 到底什么时候结束。</p>
+<p>一个子进exit()之后，内核释放该进程所有的资源,包括打开的文件,占用的内存等。 但是仍然为其保留一定的信息(包括进程号the process ID,退出状态the termination status of the process,运行时间the amount of CPU time taken by the process等)。直到父进程通过wait / waitpid来取时才释放。这样，一个进程才算是完全终止掉。</p>
+<p>当一个父进程迟迟没有调用wait()，这个子进程内存中保存的信息就迟迟不会释放，包括进程号也不会释放，操作系统的进程号是有限的，因此僵尸进程的危害很大。</p>
+<p>当一个父进程退出，子进程还在运行，那么子进程将会称为孤儿进程。孤儿进程会被init进程处理，使用wait()完成进程的终止等，因此，孤儿进程是没有坏处的。</p>
+<p><strong>孤儿进程：一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。孤儿进程将被init进程(进程号为1)所收养，并由init进程对它们完成状态收集工作。</strong></p>
+<p><strong>僵尸进程：一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵死进程。</strong></p>
+
       
     </div>
     
@@ -412,6 +516,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/08/操作系统同步互斥/" rel="prev" title="操作系统同步互斥">
+                操作系统同步互斥 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -463,8 +571,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -481,7 +598,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -549,6 +666,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PCB-进程控制块"><span class="nav-text">PCB(进程控制块)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的生命周期"><span class="nav-text">进程的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程切换"><span class="nav-text">进程切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程挂起"><span class="nav-text">进程挂起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态队列"><span class="nav-text">状态队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OS中两种线程"><span class="nav-text">OS中两种线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内核线程"><span class="nav-text">内核线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户线程"><span class="nav-text">用户线程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程模型"><span class="nav-text">多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多对一"><span class="nav-text">多对一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一对一"><span class="nav-text">一对一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多对多"><span class="nav-text">多对多</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与进程区别"><span class="nav-text">与进程区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程切换"><span class="nav-text">线程切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fork-and-exec"><span class="nav-text">fork and exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#僵尸进程和孤儿进程"><span class="nav-text">僵尸进程和孤儿进程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
