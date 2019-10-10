@@ -283,6 +283,293 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/volatile关键字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/09/volatile关键字/" itemprop="url">volatile关键字</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-09T20:18:33+08:00">
+                2019-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/synchronized关键字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/09/synchronized关键字/" itemprop="url">synchronized关键字</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-09T15:40:32+08:00">
+                2019-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="锁定的是对象"><a href="#锁定的是对象" class="headerlink" title="锁定的是对象"></a>锁定的是对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class T &#123;</span><br><span class="line">	private Object o=new Object();</span><br><span class="line">	private int count=10;</span><br><span class="line">	public void m() &#123;</span><br><span class="line">		synchronized(o) &#123;</span><br><span class="line">			count--;</span><br><span class="line">			System.out.println(Thread.currentThread().getName()+&quot;count=&quot;+count);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/09/synchronized关键字/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/操作系统同步互斥/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -375,41 +662,15 @@
 
       
         
-          
-            <h2 id="TSL指令"><a href="#TSL指令" class="headerlink" title="TSL指令"></a>TSL指令</h2><p>类似于java的CAS。</p>
+          <h2 id="TSL指令"><a href="#TSL指令" class="headerlink" title="TSL指令"></a>TSL指令</h2><p>类似于java的CAS。</p>
 <p>Test and set lock.<strong>这是一个原子操作，他的读写操作是不分开的</strong>。</p>
-<p>TSL指令实现锁机制：当lock为0时，任何进程都可以使用TSL指令将其设置为1，然后访问临界区，操作结束时，再将lock重新设置为0.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void acquire(int *lock)&#123;</span><br><span class="line">    while(TestAndSet(*lock));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void release(int *lock)&#123;</span><br><span class="line">    *lock = 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在acquire函数中，如果TestAndSet返回1，那么while循环就一直执行（也就是在这里等待），直到另一个线程调用release。当然，这个实现看起来不太好，主要是<strong>等待的线程会不停的检查，浪费CPU，这个问题称之为忙等待</strong>（busy-wait or spin-wait），所以这个lock的实现也叫自旋锁spinlock。解决办法是如果需要等待，那么该线程主动交出执行权，让其他线程有机会执行，这种方式称之为让权等待（yield-wait or sleep-wait），应用开发人员使用的互斥锁一都是指这种情况。</p>
-<p>以上的这些机制都是忙等待。<br>当一个进程想进入临界区，先检查是否允许进入，若不允许，将会原地等待，直到允许为止。<br>浪费CPU。</p>
-<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>可以同时多个线程访问临界区，有P,V两个原子操作。</p>
-<p>P(): 如果信号量大于 0 ，执行 -1 操作；如果信号量等于 0，进程睡眠，等待信号量大于 0；</p>
-<p>V(); 对信号量执行 +1 操作，唤醒睡眠的进程让其完成 P操作。</p>
-<p>要是信号量的取值变为了1，那么就变成了互斥量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mutex=<span class="keyword">new</span> Semaphore(<span class="number">1</span>)</span><br><span class="line">mutex.P();</span><br><span class="line">临界区</span><br><span class="line">mutex.V();</span><br></pre></td></tr></table></figure>
-
-<p>信号量主要可以解决两类问题。</p>
-<ul>
-<li><strong>互斥问题</strong>。同一时刻只可以有一个线程访问某一个临界资源。</li>
-<li><strong>同步问题</strong>。线程A需要等待线程B执行完毕后才可以继续执行。</li>
-</ul>
-<h3 id="信号量解决生产者消费者问题"><a href="#信号量解决生产者消费者问题" class="headerlink" title="信号量解决生产者消费者问题"></a>信号量解决生产者消费者问题</h3><ul>
-<li>同一时刻，只能有一个生产者或者是消费者访问缓冲区。(互斥问题)</li>
-<li>缓冲区满时，生产者需要等待消费者消费。(同步问题)</li>
-<li>缓冲区空时，消费者需要等待生产者生产。(同步问题)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//互斥量</span></span><br><span class="line">mutex = <span class="keyword">new</span> Semophore(<span class="number">1</span>);</span><br><span class="line"><span class="comment">//代表缓冲区有多少产品</span></span><br><span class="line">products = <span class="keyword">new</span> Semophore(<span class="number">0</span>);</span><br><span class="line"><span class="comment">//代表缓冲区里有多大位置</span></span><br><span class="line">remainPosition = <span class="keyword">new</span> Semophore(n);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//生产者</span></span><br><span class="line">remainPosition-&gt;P();</span><br><span class="line">mutex-&gt;P();</span><br><span class="line">Add();</span><br><span class="line">mutex-&gt;V();</span><br><span class="line">products-&gt;V();</span><br><span class="line"></span><br><span class="line"><span class="comment">//消费者，先去申请产品，在空出一个位置</span></span><br><span class="line">products-&gt;P();</span><br><span class="line">mutex-&gt;P();</span><br><span class="line">Remove();</span><br><span class="line">mutex-&gt;V();</span><br><span class="line">remainPosition-V();</span><br></pre></td></tr></table></figure>
-
-<p>注意，empty-&gt;P()和mutex-&gt;P()不可以交换顺序。</p>
-<p>要是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mutex-&gt;P()</span><br><span class="line">empty-P();</span><br></pre></td></tr></table></figure>
-
-<p><strong>假设我们现在的empty已经是0了，mutex先执行也变为了0，但是当执行到下一步empty-P()，发现自己需要阻塞，但是mutex还未释放，会造成死锁。</strong><br>两个V()操作可以交换顺序。</p>
-<h2 id="管程-Monitor"><a href="#管程-Monitor" class="headerlink" title="管程(Monitor)"></a>管程(Monitor)</h2><p><strong>管程=互斥量+条件变量</strong>。<br><strong>互斥量：可以保证共享资源在同一时间只能有一个进程访问</strong>。<br><strong>条件变量：正在管程内的线程可以放弃对管程的控制权，等待某些条件发生再继续执行</strong>。<br>每个条件变量实际上代表的是一个等待队列。<br>当wait时，进程释放锁，挂起，并插入该条件变量的等待队列。<br>signal时，唤醒条件变量等待队列中的进程。</p>
-<p>任意时刻管程中只能有一个活跃进程。<br>条件变量：解决死锁问题，挂起进程。<br>条件变量。wait：释放锁，挂起 notify：<strong>唤醒等待队列中一个线程</strong>。防止死锁。</p>
-<h3 id="管程解决生产者消费者问题"><a href="#管程解决生产者消费者问题" class="headerlink" title="管程解决生产者消费者问题"></a>管程解决生产者消费者问题</h3>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/08/操作系统同步互斥/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1190,6 +1451,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1218,16 +1501,15 @@
 
       
         
-          
-            <h2 id="并发作用"><a href="#并发作用" class="headerlink" title="并发作用"></a>并发作用</h2><p>将多核CPU的计算能力发挥到极致，性能得到提升。</p>
+          <h2 id="并发作用"><a href="#并发作用" class="headerlink" title="并发作用"></a>并发作用</h2><p>将多核CPU的计算能力发挥到极致，性能得到提升。</p>
 <p>面对复杂业务模型，并行程序会比串行程序更适应业务需求，而并发编程更能吻合这种业务拆分。</p>
-<h2 id="并发缺点"><a href="#并发缺点" class="headerlink" title="并发缺点"></a>并发缺点</h2><ul>
-<li>线程安全问题。</li>
-<li>频繁的上下文切换。</li>
-</ul>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h3><p>Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once。并发指的是多个任务交替进行，而<strong>并行则是指真正意义上的“同时进行</strong>”。实际上，如果系统内只有一个CPU，而使用多线程时，那么真实系统环境下不能并行，只能通过切换时间片的方式交替进行，而成为并发执行任务。真正的并行也只能出现在拥有多个CPU的系统中。</p>
-<h3 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h3><h3 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h3><h3 id="临界区资源"><a href="#临界区资源" class="headerlink" title="临界区资源"></a>临界区资源</h3>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/29/Java线程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1568,299 +1850,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/20/JVM类加载机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SKJin">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/2.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gallon's Note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/20/JVM类加载机制/" itemprop="url">JVM类加载机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T21:37:24+08:00">
-                2019-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Java程序运行时，有两个阶段，编译和运行。编译阶段将Java文件编译成class字节码文件，然后在运行阶段将class文件加载到内存，并对class文件解释执行。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/20/JVM类加载机制/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/20/Java内存管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SKJin">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/2.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gallon's Note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/20/Java内存管理/" itemprop="url">Java内存管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T14:30:04+08:00">
-                2019-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。</p>
-<p><strong>字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。</strong>运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/20/Java内存管理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1913,7 +1902,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1924,7 +1913,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
