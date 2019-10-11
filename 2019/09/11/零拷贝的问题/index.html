@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="IO,操作系统,">
+  <meta name="keywords" content="IO,OS,">
 
 
 
@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题  一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA">
-<meta name="keywords" content="IO,操作系统">
+<meta name="description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
+<meta name="keywords" content="IO,OS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="零拷贝的问题">
 <meta property="og:url" content="http://yoursite.com/2019/09/11/零拷贝的问题/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
-<meta property="og:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题  一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA">
+<meta property="og:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196128657-1563196128663.png">
@@ -97,10 +97,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201645767-1563201645775.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197393350-1563197393357.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197595055-1563197595060.png">
-<meta property="og:updated_time" content="2019-09-30T06:13:44.300Z">
+<meta property="og:updated_time" content="2019-10-11T02:33:48.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="零拷贝的问题">
-<meta name="twitter:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题  一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA">
+<meta name="twitter:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png">
 
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/操作系统/" itemprop="url" rel="index">
-                    <span itemprop="name">操作系统</span>
+                  <a href="/categories/IO/" itemprop="url" rel="index">
+                    <span itemprop="name">IO</span>
                   </a>
                 </span>
 
@@ -385,8 +385,9 @@
       
 
       
-        <a id="more"></a>
-<h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p>
+        <h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p>
+<a id="more"></a>
+
 <p>详细可见：<a href="https://www.cnblogs.com/JohnABC/p/5821660.html" target="_blank" rel="noopener">内核缓冲区问题</a></p>
 <p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png" alt="title"></p>
 <p>一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器<strong>通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间</strong>。</p>
@@ -435,7 +436,7 @@
           
             <a href="/tags/IO/" rel="tag"># IO</a>
           
-            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+            <a href="/tags/OS/" rel="tag"># OS</a>
           
         </div>
       
@@ -539,7 +540,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -561,7 +562,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557039387817-1557039387825.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557039496514-1557039496560.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557212167413-1557212167863.png">
-<meta property="og:updated_time" content="2019-10-07T10:43:52.608Z">
+<meta property="og:updated_time" content="2019-10-11T02:37:01.999Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="I&#x2F;O模型">
 <meta name="twitter:description" content="Socket与ServerSocket网络通信需要一对socket，即通信的两端各有一个socket，两个socket之间形成一个管道，进行数据流的通信。ServerSocketServerSocket监听服务器端的一个端口，当一个客户端发送来连接时，ServerSocket来处理连接，成功后返回一个常规的Socket对象，用来与客户端socket进行数据传输。 同步 异步 阻塞 非阻塞同步与异步">
@@ -387,6 +387,8 @@
       
         <h2 id="Socket与ServerSocket"><a href="#Socket与ServerSocket" class="headerlink" title="Socket与ServerSocket"></a>Socket与ServerSocket</h2><p>网络通信需要一对socket，即通信的两端各有一个socket，两个socket之间形成一个管道，进行数据流的通信。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557035867781-1557035868213.png" alt="title"><br>ServerSocket<br>ServerSocket监听服务器端的一个端口，当一个客户端发送来连接时，ServerSocket来处理连接，成功后返回一个常规的Socket对象，用来与客户端socket进行数据传输。</p>
 <h1 id="同步-异步-阻塞-非阻塞"><a href="#同步-异步-阻塞-非阻塞" class="headerlink" title="同步 异步 阻塞 非阻塞"></a>同步 异步 阻塞 非阻塞</h1><p><strong>同步与异步主要是从消息通知机制角度来说的。</strong><br>当一个同步调用发出后，调用者要一直等待返回消息（结果）后，才能进行后续的执行；当一个异步过程调用发出后，调用者不能立刻得到返回消息（结果），实际处理这个调用的部件在完成后，通过<strong>状态、通知和回调</strong>来通知调用者。异步是调用完成后由别人来通知他。</p>
+<a id="more"></a>
+
 <p>阻塞与非阻塞主要是程序（线程）等待消息通知时的状态角度来说的。<br>阻塞调用是指调用结果返回之前，当前线程会被挂起，一直处于等待消息通知，不能够执行其他业务。<br>非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回。如果在这个等待的过程中，等待者除了等待消息通知之外不能做其它的事情，那么该机制就是阻塞的。</p>
 <p>阻塞与同步是不同的。如果这个线程在等待函数返回时，仍在执行其他消息处理，那么这就是同步非阻塞。如果这个线程在等待函数返回时，没有执行其他消息处理，而是挂起等待，那么就是同步阻塞</p>
 <h1 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h1><p>操作系统将内存空间分为了<strong>内核空间和用户空间</strong>。<br>进程切换非常的耗资源，所以能不挂起进程就不挂起进程。<br>将进程阻塞是让出CPU资源。</p>
@@ -561,7 +563,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +585,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

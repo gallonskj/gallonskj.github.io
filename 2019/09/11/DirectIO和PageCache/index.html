@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="IO,操作系统,">
+  <meta name="keywords" content="IO,OS,">
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="PageCachePageCache一页有4KB左右。 当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。  上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时">
-<meta name="keywords" content="IO,操作系统">
+<meta name="keywords" content="IO,OS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DirectIO和PageCache">
 <meta property="og:url" content="http://yoursite.com/2019/09/11/DirectIO和PageCache/index.html">
@@ -90,7 +90,7 @@
 <meta property="og:description" content="PageCachePageCache一页有4KB左右。 当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。  上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png">
-<meta property="og:updated_time" content="2019-09-30T06:07:35.701Z">
+<meta property="og:updated_time" content="2019-10-11T02:37:21.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DirectIO和PageCache">
 <meta name="twitter:description" content="PageCachePageCache一页有4KB左右。 当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。  上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时">
@@ -360,6 +360,10 @@
 <p>当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。</p>
 <p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png" alt="title"></p>
 <p>上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时候，先写进DirectByteBuffer中，当buffer中数据满的时候，先写入PageCache，再写入磁盘。</p>
+<a id="more"></a>
+
+
+
 <p>同样的，读取数据也是一样的，将数据以及其邻近的一些数据读取到PageCache。</p>
 <p>例如，当用户发起一个 fileChannel.read(4kb) 之后，实际发生了两件事</p>
 <ol>
@@ -396,7 +400,7 @@
           
             <a href="/tags/IO/" rel="tag"># IO</a>
           
-            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+            <a href="/tags/OS/" rel="tag"># OS</a>
           
         </div>
       
@@ -500,7 +504,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -522,7 +526,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

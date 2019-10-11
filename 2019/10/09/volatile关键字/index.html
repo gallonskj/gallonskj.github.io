@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="并发,java,">
+  <meta name="keywords" content="java,并发,">
 
 
 
@@ -81,15 +81,20 @@
 
 
 
-<meta name="keywords" content="并发,java">
+<meta name="description" content="Java 内存模型JMM定义了内存中各个共享变量访问的规则。 共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。  JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。">
+<meta name="keywords" content="java,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile关键字">
 <meta property="og:url" content="http://yoursite.com/2019/10/09/volatile关键字/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="Java 内存模型JMM定义了内存中各个共享变量访问的规则。 共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。  JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-09T13:02:34.945Z">
+<meta property="og:image" content="https://img-blog.csdn.net/20170608221857890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamF2YXplamlhbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2019-10-11T02:34:50.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile关键字">
+<meta name="twitter:description" content="Java 内存模型JMM定义了内存中各个共享变量访问的规则。 共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。  JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20170608221857890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamF2YXplamlhbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 
@@ -373,7 +378,81 @@
       
 
       
-        
+        <h2 id="Java-内存模型"><a href="#Java-内存模型" class="headerlink" title="Java 内存模型"></a>Java 内存模型</h2><p>JMM定义了内存中各个共享变量访问的规则。</p>
+<p>共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。</p>
+<p><img src="https://img-blog.csdn.net/20170608221857890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamF2YXplamlhbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="img"></p>
+<p>JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。</p>
+<a id="more"></a>
+
+<p><strong>线程对变量的操作(读取赋值等)必须在工作内存中进行</strong>，首先要将变量从主内存拷贝的自己的工作内存空间，然后对变量进行操作，操作完成后再将变量写回主内存，不能直接操作主内存中的变量。</p>
+<p>工作内存是每个线程的私有数据区域，因此不同的线程间无法访问对方的工作内存，线程间的通信(传值)必须通过主内存来完成。</p>
+<p>设置工作内存的<strong>目的主要是为了解决内存与处理器速度不一致的问题</strong>，一般来说，主内存存放在内存中，工作内存存放在高速缓存中，因此，工作内存数据操作速度很快。</p>
+<p>但是，JMM有一个问题，就是主内存与工作内存不一致的问题，可能工作内存修改了某个工作变量，但是没有同步到主内存中。</p>
+<!--more-->
+
+<h2 id="重排序问题"><a href="#重排序问题" class="headerlink" title="重排序问题"></a>重排序问题</h2><p>计算机在执行程序时，为了提高性能，编译器和处理器的常常会对指令做重排。</p>
+<p>如果两个操作访问同一个变量，且这两个操作中有一个为写操作，此时这两个操作之间就存在数据依赖性。</p>
+<p>当两条指令没有数据依赖性的时候，就又可能对他进行指令重排序。</p>
+<h2 id="JMM-三个特性"><a href="#JMM-三个特性" class="headerlink" title="JMM 三个特性"></a>JMM 三个特性</h2><p>JMM规定了三个特性，原子性，有序性，可见性。</p>
+<p>其中，重排序破坏了有序性，JMM内存结构破坏了可见性。</p>
+<h3 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h3><p>原子性是指<strong>一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉</strong>。</p>
+<p>JMM中read，load，use，store，write都是原子操作，所以，基本数据类型的操作都是具备原子性的(long和double例外，因为long和double占64位，可能存在读取半个变量)。</p>
+<p>如果应用场景需要一个更大的原子范围，可以使用sychronized等来解决。</p>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改。变量更新后，主内存中立即更新，并且根据缓存一致性协议，其他线程中的变量也会更新。</p>
+<p>除了sychronized和volatile，final也具有可见性，因为final是不可以被修改的。但是，也有一个前提，被final修饰的字段在构造器中一旦初始化完成，并且没有this引用逃逸，那么其他线程就能看到final字段的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThisEscape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> id;</span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">final</span> String name;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="title">ThisEscape</span><span class="params">(EventSource&lt;EventListener&gt; source)</span> </span>&#123;</span><br><span class="line">            id = <span class="number">1</span>;</span><br><span class="line">            source.registerListener(<span class="keyword">new</span> EventListener() &#123;</span><br><span class="line">                  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">                        System.out.println(<span class="string">"id: "</span>+ThisEscape.<span class="keyword">this</span>.id);</span><br><span class="line">                        System.out.println(<span class="string">"name: "</span>+ThisEscape.<span class="keyword">this</span>.name);</span><br><span class="line">                  &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            name = <span class="string">"flysqrlboy"</span>;</span><br><span class="line">            </span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>ThisEscape在构造函数中引入了一个内部类EventListener，而内部类会自动的持有其外部类（这里是ThisEscape）的this引用。source.registerListener会将内部类发布出去，从而ThisEscape.this引用也随着内部类被发布了出去。但此时ThisEscape对象还没有构造完成 —— id已被赋值为1，但name还没被赋值，仍然为null。</p>
+<h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h3><h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p>volatile保证可见性与有序性，但是不保证原子性。</p>
+<h3 id="保证可见性"><a href="#保证可见性" class="headerlink" title="保证可见性"></a>保证可见性</h3><p>在生成汇编代码时会在volatile修饰的共享变量进行写操作的时候会多出<strong>Lock前缀的指令。</strong></p>
+<p>如果对声明了volatile的变量进行写操作，JVM就会向处理器发送一条Lock前缀的指令，将这个变量所在缓存行的数据写回到系统内存。但是，就算写回到内存，如果其他处理器缓存的值还是旧的，再执行计算操作就会有问题。</p>
+<p>所以，在多处理器下，为了保证各个处理器的缓存是一致的，就会实现<strong>缓存一致性</strong>协议：当CPU写数据时，如果发现操作的变量是共享变量，即在其他CPU中也存在该变量的副本，会发出信号通知其他CPU将该变量的缓存行置为无效状态，因此当其他CPU需要读取这个变量时，发现自己缓存中缓存该变量的缓存行是无效的，那么它就会从内存重新读取。</p>
+<p>这样针对volatile变量通过这样的机制就使得每个线程都能获得该变量的最新值。</p>
+<h3 id="保证顺序性"><a href="#保证顺序性" class="headerlink" title="保证顺序性"></a>保证顺序性</h3><p>volatile会在内存中和插入一个内存屏障指令(lock指令)，来禁止指令重排序。</p>
+<p>因此，volatile读操作跟普通变量相比，没有什么差别，但是写操作因为要插入许多内存屏障，因此，效率会低一些。</p>
+<h2 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h2><p>在发生操作B之前，操作A产生的影响都能被操作B观察到，“影响”包括修改了内存中共享变量的值、发送了消息、调用了方法等，它与时间上的先后发生基本没有太大关系。</p>
+<ul>
+<li><p>程序次序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作</p>
+</li>
+<li><p>管程锁定规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。同步快中线程安全。</p>
+</li>
+<li><p>volatile变量规则：对一个volatile变量的写操作happens-before对这个变量的读操作。</p>
+</li>
+<li><p>线程启动规则：Thread.start() happens before 所有操作。</p>
+</li>
+<li><p>传递性：如果A happens-before B，且B happens-before C，那么A happens-before C</p>
+</li>
+<li><p>线程终止规则：线程中所有操作都happens-before对此线程的终止检测。</p>
+</li>
+<li><p>对象finalize规则：一个对象的初始化完成（构造函数执行结束）先行于发生它的finalize()方法的开始</p>
+</li>
+<li><p>程序中断规则：对线程interrupted()方法的调用先行于被中断线程的代码检测到中断时间的发生。</p>
+</li>
+</ul>
+<p>满足任意一个原则，对于读写共享变量来说，就是线程安全。</p>
+<h2 id="关于可见性的一些问题"><a href="#关于可见性的一些问题" class="headerlink" title="关于可见性的一些问题"></a>关于可见性的一些问题</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">T</span> </span>&#123;</span><br><span class="line">	<span class="comment">/*volatile*/</span> <span class="keyword">boolean</span> running=<span class="keyword">true</span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">m</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"m start"</span>);</span><br><span class="line">		<span class="keyword">while</span>(running) &#123;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"m end"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">		T t =<span class="keyword">new</span> T();</span><br><span class="line">		<span class="keyword">new</span> Thread(()-&gt;t.m(),<span class="string">"t1"</span>).start();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//睡眠1s，保证t1先执行</span></span><br><span class="line">			TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		t.running=<span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码肯定是无法停止t1线程的，加上volatile就可以了。</p>
+<p>那么，对m加上sychronized呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> running=<span class="keyword">true</span>;</span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">m</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"m start"</span>);</span><br><span class="line">        <span class="keyword">while</span>(running) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"m end"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        T t =<span class="keyword">new</span> T();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;t.m(),<span class="string">"t1"</span>).start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        t.running=<span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样还是不可以的，因为sychronied修饰的代码块中并没有改写running变量,synchronized会把同步块内更新的值再给同步到内存中。</p>
+<p>但是，当我在循环里里面加了一个打印输出的语句，就可以终止线程了，为什么呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Thread;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> running=<span class="keyword">true</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">m</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"m start"</span>);</span><br><span class="line">        <span class="keyword">while</span>(running) &#123;</span><br><span class="line">            System.out.println(<span class="string">"2"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"m end"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        T t =<span class="keyword">new</span> T();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;t.m(),<span class="string">"t1"</span>).start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        t.running=<span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上，JVM对于现代的机器做了最大程度的优化，也就是说，最大程度的保障了线程和主存之间的及时的同步，也就是相当于虚拟机尽可能的帮我们加了个volatile，但是，当CPU被一直占用的时候，同步就会出现不及时，也就出现了后台线程一直不结束的情况。</p>
+<p>也就是说，在cpu空闲的时候，可能会更新一下主内存的内容。</p>
+<p>比如，我们在循环中sleep一下，亦可以结束线程。</p>
+<h2 id="volatile使用场景"><a href="#volatile使用场景" class="headerlink" title="volatile使用场景"></a>volatile使用场景</h2><h3 id="状态标志"><a href="#状态标志" class="headerlink" title="状态标志"></a>状态标志</h3><p>用<code>volatile</code>来修饰一个<code>Boolean</code>状态标志，用于指示发生了某一次的重要事件，例如完成初始化或者请求停机。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="keyword">boolean</span> shutdownRequested;</span><br><span class="line"> </span><br><span class="line">...</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span> </span>&#123; shutdownRequested = <span class="keyword">true</span>; &#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    <span class="keyword">while</span> (!shutdownRequested) &#123; </span><br><span class="line">        <span class="comment">// do stuff</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h3><p>通过volatile禁止指令重排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用 volatile 修饰。</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton sInstance;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (sInstance == <span class="keyword">null</span>) &#123; <span class="comment">//(0)</span></span><br><span class="line">           <span class="keyword">synchronized</span> (Singleton.class) &#123; <span class="comment">//(1)         </span></span><br><span class="line">               <span class="keyword">if</span> (sInstance == <span class="keyword">null</span>) &#123;  <span class="comment">//(2)           </span></span><br><span class="line">                   sInstance = <span class="keyword">new</span> Singleton(); <span class="comment">//(3)    </span></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> sInstance;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="读操作远远大于写操作"><a href="#读操作远远大于写操作" class="headerlink" title="读操作远远大于写操作"></a>读操作远远大于写操作</h3><p>如果读操作远远超过写操作，您可以结合使用内部锁和<code>volatile</code>变量来减少公共代码路径的开销。下面的代码中使用<code>synchronized</code>确保增量操作是原子的，并使用<code>volatile</code>保证当前结果的可见性。如果更新不频繁的话，该方法可实现更好的性能，因为读路径的开销仅仅涉及<code>volatile</code>读操作，这通常要优于一个无竞争的锁获取的开销。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheesyCounter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> value; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">increment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -390,9 +469,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/并发/" rel="tag"># 并发</a>
-          
             <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/并发/" rel="tag"># 并发</a>
           
         </div>
       
@@ -414,6 +493,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/10/单例模式/" rel="prev" title="单例模式">
+                单例模式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -465,8 +548,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -483,7 +575,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -505,7 +597,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -551,6 +643,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-内存模型"><span class="nav-text">Java 内存模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重排序问题"><span class="nav-text">重排序问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMM-三个特性"><span class="nav-text">JMM 三个特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原子性"><span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可见性"><span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序性"><span class="nav-text">有序性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile"><span class="nav-text">volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#保证可见性"><span class="nav-text">保证可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保证顺序性"><span class="nav-text">保证顺序性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#happens-before"><span class="nav-text">happens-before</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于可见性的一些问题"><span class="nav-text">关于可见性的一些问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile使用场景"><span class="nav-text">volatile使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态标志"><span class="nav-text">状态标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DCL"><span class="nav-text">DCL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读操作远远大于写操作"><span class="nav-text">读操作远远大于写操作</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

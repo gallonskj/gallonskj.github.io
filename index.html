@@ -283,6 +283,307 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/10/Lock-and-AQS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/10/Lock-and-AQS/" itemprop="url">Lock and AQS</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-10T20:26:05+08:00">
+                2019-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="JUC包"><a href="#JUC包" class="headerlink" title="JUC包"></a>JUC包</h2><p>JUC包目录。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/3/163260cff7a637f5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="concurrent目录结构.png"></p>
+<p>其中包含了两个子包：atomic以及lock，另外在concurrent下的阻塞队列以及executors，<strong>这些类主要是依靠volatile以及CAS实现的</strong>。</p>
+<p>整体结构如图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/3/163260cff7cb847c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="concurrent包实现整体示意图.png"></p>
+<h2 id="Lock简介"><a href="#Lock简介" class="headerlink" title="Lock简介"></a>Lock简介</h2><p>Lock是一个接口。</p>
+<p>与synchronized相比，Lock<strong>拥有了锁获取和释放的可操作性，可中断的获取锁以及超时获取锁等</strong>多种synchronized关键字所不具备的同步特性。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/10/Lock-and-AQS/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/10/单例模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/10/单例模式/" itemprop="url">单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-10T19:00:09+08:00">
+                2019-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>一开始，我们写的单例模式是这样的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Singleton instance = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是，这种方式有一个问题，就是无法解决多线程问题。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/10/单例模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/volatile关键字/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -375,9 +676,17 @@
 
       
         
-          
-            
-          
+          <h2 id="Java-内存模型"><a href="#Java-内存模型" class="headerlink" title="Java 内存模型"></a>Java 内存模型</h2><p>JMM定义了内存中各个共享变量访问的规则。</p>
+<p>共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。</p>
+<p><img src="https://img-blog.csdn.net/20170608221857890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamF2YXplamlhbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="img"></p>
+<p>JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/09/volatile关键字/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -957,47 +1266,16 @@
 
       
         
-          
-            <h2 id="什么是操作系统"><a href="#什么是操作系统" class="headerlink" title="什么是操作系统"></a>什么是操作系统</h2><p>操作系统主要进行应用程序管理，资源管理，外设管理等工作。</p>
+          <h2 id="什么是操作系统"><a href="#什么是操作系统" class="headerlink" title="什么是操作系统"></a>什么是操作系统</h2><p>操作系统主要进行应用程序管理，资源管理，外设管理等工作。</p>
 <p><strong>在操作系统中，将CPU抽象为进程，将内存抽象为地址空间，将磁盘抽象为文件。</strong><br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/30/1559223725482-1559223725514.png" alt="title"></p>
-<p>OS=shell+kernel.shell就是GUI或者是命令行。Kernel是操作系统的核心。<br>kernel主要完成的工作包括<strong>CPU调度，物理内存虚拟内存的管理，文件系统的管理，中断处理，外设管理等</strong>。</p>
-<p>kernel的特征：</p>
-<ul>
-<li><strong>并发</strong>（应用并发执行）。</li>
-<li><strong>共享</strong>。某一个公共资源是可以共享访问的还是互斥访问的。</li>
-<li><strong>虚拟化</strong>。将物理实体虚拟化为逻辑实体。主要包括时分复用(时间片)和空分复用(虚拟内存)。</li>
-<li><strong>异步</strong>。</li>
-</ul>
-<h2 id="OS启动过程"><a href="#OS启动过程" class="headerlink" title="OS启动过程"></a>OS启动过程</h2><p>Disk：存储bootloader以及OS.<br>BIOS:基本IO处理系统。</p>
-<p>最先放入内存的是BIOS启动固件。BIOS的第一步是检测外设，完成后，将bootloader加载进内存，并且CPU控制权转交给bootloader，bootloader再将磁盘上的OS加载进内存，这是OS掌控CPU。</p>
-<p>BIOS—&gt;加载bootloader—&gt;加载OS。（所以说我们安装系统的时候要先进入BIOS设置启动项，这个启动项就是bootloader）。</p>
-<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/30/1559224752551-1559224752559.png" alt="title"></p>
-<h2 id="系统调用，中断，异常"><a href="#系统调用，中断，异常" class="headerlink" title="系统调用，中断，异常"></a>系统调用，中断，异常</h2><p>都需要从用户态转移到内核态。</p>
-<h3 id="中断机制"><a href="#中断机制" class="headerlink" title="中断机制"></a>中断机制</h3><p>来源于外设。</p>
-<p>为了<strong>支持CPU 和设备之间 的 并行操作</strong>。当IO事件完成之后，设备中断通知CPU，CPU在进行相应事件的处理。可以看作是一种异步操作啊。</p>
-<p>当CPU 启动设备进行输入/输出后 ，设备便可以独立工作，CPU 转去处理与此次输入/输出不相关的 事情；当设备完成输入/输出后，通过向CPU 发中断报告此次 输入/输出的结果，让CPU 决定如何处理以后的事情。</p>
-<h4 id="中断过程"><a href="#中断过程" class="headerlink" title="中断过程"></a>中断过程</h4><ul>
-<li>设备（硬件）将中断事件的ID传递给中断寄存器。不<strong>同的中断ID范围代表不同的中断类型</strong>。</li>
-<li>CPU在执行完一条指令后，会查看中断寄存器，假如有中断的话，进行中断处理。</li>
-<li>CPU保存现场。保存各种寄存器等。</li>
-<li>CPU 根据中断码查中断向量表，获得与该中断相关的处理程序的入口地址。</li>
-<li>进行相应中断处理。</li>
-<li>恢复之前保存的处理状态。</li>
-</ul>
-<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>来源于应用程序。CPU执行指令非法。</p>
-<p>异常过程与中断过程差不多，也是保存现场，处理，恢复现场这几个过程。</p>
-<p>但是不同的是，异常一般是交给进程自己来处理，而中断是由内核的中断函数来处理，根据不同的中断类型执行不同的中断函数。</p>
-<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>当应用程序需要调用系统级别的函数请求。</p>
-<h4 id="系统调用过程"><a href="#系统调用过程" class="headerlink" title="系统调用过程"></a>系统调用过程</h4><ul>
-<li>每一个系统调用对应一个系统调用号。</li>
-<li>根据系统调用号选取相应的系统调用例程进行系统调用。</li>
-<li>返回系统调用结果。</li>
-</ul>
-<p>系统调用需要从用户态切换到内核态。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>系统调用，中断，异常机制其实都是大同小异。在操作系统中都维持着一个表，中断是中断号和中断函数对应，系统调用是系统调用号和系统调用函数，根据ID去调用相应的函数，返回结果。</p>
-<p>而且OS都需要从用户态转到内核态。</p>
-
-          
+<p>OS=shell+kernel.shell就是GUI或者是命令行。Kernel是操作系统的核心。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/07/操作系统概述/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1136,39 +1414,18 @@
 
       
         
-          
-            <h1 id="阻塞I-O"><a href="#阻塞I-O" class="headerlink" title="阻塞I/O"></a>阻塞I/O</h1><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557216950760-1557216950760.png" alt="title"></p>
+          <h1 id="阻塞I-O"><a href="#阻塞I-O" class="headerlink" title="阻塞I/O"></a>阻塞I/O</h1><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557216950760-1557216950760.png" alt="title"></p>
 <ul>
 <li>每一条连接都需要建立一个独立的线程来处理，机器耗费线程资源。</li>
-<li>当没有数据读写时，线程还会阻塞。<h1 id="Reactor模式"><a href="#Reactor模式" class="headerlink" title="Reactor模式"></a>Reactor模式</h1></li>
+<li>当没有数据读写时，线程还会阻塞。</li>
 </ul>
-<p><strong>IO多路复用+线程池来实现</strong>。<br>I/O多路复用来解决会有多个线程阻塞的问题，IO多路复用只会造成一个线程阻塞。<br>线程池不必为每个连接都建立一个新的线程。</p>
-<p>Reactor模型，是指通过一个或多个输入同时传递给服务处理器的服务请求的事件驱动处理模式。 服务端程序处理传入多路请求，并将它们同步分派给请求对应的处理线程，Reactor模式也叫Dispatcher模式，即<strong>I/O多路复用统一监听事件，收到事件后分发</strong>(Dispatch给某进程)。</p>
-<p>Reactor两个关键组成：</p>
-<ul>
-<li>Reactor<br>负责监听和分发事件，分发给适当的处理程序来对IO事件做出反应。</li>
-<li>Handler<br>处理程序执行I/O事件要完成的实际事件.<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557217752478-1557217752483.png" alt="title"><h2 id="单Reactor"><a href="#单Reactor" class="headerlink" title="单Reactor"></a>单Reactor</h2><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557217879896-1557217879896.png" alt="title"></li>
-<li>Reactor对象通过select不断轮询监控客户端请求事件，收到事件后通过dispatch进行分发</li>
-<li>如果是建立连接请求事件，则由Acceptor通过accept处理连接请求，然后创建一个Handler对象处理连接完成后的后续业务处理</li>
-<li>如果不是建立连接事件，则Reactor会分发调用连接对应的Handler来响应</li>
-<li>Handler会完成read-&gt;业务处理-&gt;send的完整业务流程<h2 id="单Reactor多线程"><a href="#单Reactor多线程" class="headerlink" title="单Reactor多线程"></a>单Reactor多线程</h2>主要通过建立一个线程池。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557218020262-1557218020277.png" alt="title"><br>Worker线程池会分配独立的线程完成真正的业务处理，如何将响应结果发给Handler进行处理。</li>
-</ul>
-<h2 id="主从Reactor多线程"><a href="#主从Reactor多线程" class="headerlink" title="主从Reactor多线程"></a>主从Reactor多线程</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557218140668-1557218140683.png" alt="title"></p>
-<ul>
-<li>Reactor主线程MainReactor对象通过select监控建立连接事件，收到事件后通过Acceptor接收，处理建立连接事件。</li>
-<li>Accepto处理建立连接事件后，MainReactor将Socket分配Reactor子线程给<strong>SubReactor进行处理</strong>。</li>
-<li>SubReactor将Socket加入连接队列进行监听，并创建一个Handler用于处理各种连接事件，例如读写操作。</li>
-<li>当有新的事件发生时，SubReactor会调用连接对应的Handler进行响应</li>
-<li>Handler通过read读取数据后，会分发给后面的Worker线程池进行业务处理</li>
-<li>Worker线程池会分配独立的线程完成真正的业务处理，如何将响应结果发给Handler进行处理</li>
-<li>Handler收到响应结果后通过send将响应结果返回给client<h2 id="NIO代码"><a href="#NIO代码" class="headerlink" title="NIO代码"></a>NIO代码</h2></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> nioDemo;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.CharBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SelectionKey;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.Selector;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.ServerSocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/*服务器端，:接收客户端发送过来的数据并显示，</span></span><br><span class="line"><span class="comment"> *服务器把上接收到的数据加上"echo from service:"再发送回去*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceSocketChannelDemo</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TCPEchoServer</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">        <span class="comment">/*服务器地址*/</span></span><br><span class="line">        <span class="keyword">private</span> InetSocketAddress localAddress; </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">TCPEchoServer</span><span class="params">(<span class="keyword">int</span> port)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.localAddress = <span class="keyword">new</span> InetSocketAddress(port);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">            ServerSocketChannel ssc = <span class="keyword">null</span>;</span><br><span class="line">            Selector selector = <span class="keyword">null</span>;           </span><br><span class="line">            Random rnd = <span class="keyword">new</span> Random();   </span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">/*创建选择器*/</span></span><br><span class="line">                selector = Selector.open();</span><br><span class="line">                <span class="comment">/*创建服务器通道*/</span></span><br><span class="line">                ssc = ServerSocketChannel.open();</span><br><span class="line">                ssc.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">                <span class="comment">/*设置监听服务器的端口，设置最大连接缓冲数为100*/</span></span><br><span class="line">                ssc.bind(localAddress, <span class="number">100</span>);</span><br><span class="line">                <span class="comment">/*服务器通道只能对tcp链接事件感兴趣*/</span></span><br><span class="line">                ssc.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e1) &#123;</span><br><span class="line">                System.out.println(<span class="string">"server start failed"</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125; </span><br><span class="line">            System.out.println(<span class="string">"server start with address : "</span> + localAddress);  </span><br><span class="line">            <span class="comment">/*服务器线程被中断后会退出*/</span></span><br><span class="line">            <span class="keyword">try</span>&#123;   </span><br><span class="line">                <span class="keyword">while</span>(!Thread.currentThread().isInterrupted())&#123;      </span><br><span class="line">                    <span class="keyword">int</span> n = selector.select();</span><br><span class="line">                    <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    Set&lt;SelectionKey&gt; keySet = selector.selectedKeys();</span><br><span class="line">                    Iterator&lt;SelectionKey&gt; it = keySet.iterator();</span><br><span class="line">                    SelectionKey key = <span class="keyword">null</span>; </span><br><span class="line">                    <span class="keyword">while</span>(it.hasNext())&#123;               </span><br><span class="line">                        key = it.next();</span><br><span class="line">                        <span class="comment">/*防止下次select方法返回已处理过的通道*/</span></span><br><span class="line">                        it.remove();           </span><br><span class="line">                        <span class="comment">/*若发现异常，说明客户端连接出现问题,但服务器要保持正常*/</span></span><br><span class="line">                        <span class="keyword">try</span>&#123;</span><br><span class="line">                            <span class="comment">/*ssc通道只能对链接事件感兴趣*/</span></span><br><span class="line">                            <span class="keyword">if</span>(key.isAcceptable())&#123;  </span><br><span class="line">                                <span class="comment">/*accept方法会返回一个普通通道，</span></span><br><span class="line"><span class="comment">                                     每个通道在内核中都对应一个socket缓冲区*/</span></span><br><span class="line">                                SocketChannel sc = ssc.accept();</span><br><span class="line">                                sc.configureBlocking(<span class="keyword">false</span>);      </span><br><span class="line">                     <span class="comment">/*向选择器注册这个通道和普通通道感兴趣的事件，同时提供这个新通道相关的缓冲区*/</span></span><br><span class="line">                                <span class="keyword">int</span> interestSet = SelectionKey.OP_READ;                   </span><br><span class="line">                                sc.register(selector, interestSet, <span class="keyword">new</span> Buffers(<span class="number">256</span>,<span class="number">256</span>));</span><br><span class="line">                                System.out.println(<span class="string">"accept from"</span>+ sc.getRemoteAddress());</span><br><span class="line">                            &#125;    </span><br><span class="line">                            <span class="comment">/*（普通）通道感兴趣读事件且有数据可读*/</span></span><br><span class="line">                            <span class="keyword">if</span>(key.isReadable())&#123;           </span><br><span class="line">                                <span class="comment">/*通过SelectionKey获取通道对应的缓冲区*/</span></span><br><span class="line">                                Buffers  buffers = (Buffers)key.attachment();</span><br><span class="line">                                ByteBuffer readBuffer = buffers.getReadBuffer();</span><br><span class="line">                                ByteBuffer writeBuffer = buffers.gerWriteBuffer();</span><br><span class="line">                                 </span><br><span class="line">                                <span class="comment">/*通过SelectionKey获取对应的通道*/</span></span><br><span class="line">                                SocketChannel sc = (SocketChannel) key.channel();</span><br><span class="line">                                 </span><br><span class="line">                                <span class="comment">/*从底层socket读缓冲区中读入数据*/</span></span><br><span class="line">                                sc.read(readBuffer);</span><br><span class="line">                                readBuffer.flip();</span><br><span class="line">                                 </span><br><span class="line">                                <span class="comment">/*解码显示，客户端发送来的信息*/</span></span><br><span class="line">                                CharBuffer cb = utf8.decode(readBuffer);</span><br><span class="line">                                System.out.println(cb.array());                 </span><br><span class="line">                                readBuffer.rewind(); </span><br><span class="line">                                <span class="comment">/*准备好向客户端发送的信息*/</span></span><br><span class="line">                                <span class="comment">/*先写入"echo:"，再写入收到的信息*/</span></span><br><span class="line">                                writeBuffer.put(<span class="string">"echo from service:"</span>.getBytes(<span class="string">"UTF-8"</span>));</span><br><span class="line">                                writeBuffer.put(readBuffer);</span><br><span class="line">                                readBuffer.clear();  </span><br><span class="line">                                <span class="comment">/*设置通道写事件*/</span></span><br><span class="line">                                key.interestOps(key.interestOps() | SelectionKey.OP_WRITE);</span><br><span class="line">                                                                 </span><br><span class="line">                            &#125;</span><br><span class="line">                             </span><br><span class="line">                            <span class="comment">/*通道感兴趣写事件且底层缓冲区有空闲*/</span></span><br><span class="line">                            <span class="keyword">if</span>(key.isWritable())&#123; </span><br><span class="line">                                doSomething();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                            System.out.println(<span class="string">"service encounter client error"</span>);</span><br><span class="line">                            <span class="comment">/*若客户端连接出现异常，从Seletcor中移除这个key*/</span></span><br><span class="line">                            key.cancel();</span><br><span class="line">                            key.channel().close();</span><br><span class="line">                        &#125;</span><br><span class="line"> </span><br><span class="line">                    &#125;   </span><br><span class="line">                    Thread.sleep(rnd.nextInt(<span class="number">500</span>));</span><br><span class="line">                &#125;</span><br><span class="line">                 </span><br><span class="line">            &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">                System.out.println(<span class="string">"serverThread is interrupted"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e1) &#123;</span><br><span class="line">                System.out.println(<span class="string">"serverThread selecotr error"</span>);</span><br><span class="line">            &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">                <span class="keyword">try</span>&#123;</span><br><span class="line">                    selector.close();</span><br><span class="line">                &#125;<span class="keyword">catch</span>(IOException e)&#123;</span><br><span class="line">                    System.out.println(<span class="string">"selector close failed"</span>);</span><br><span class="line">                &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">                    System.out.println(<span class="string">"server close"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, IOException</span>&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> TCPEchoServer(<span class="number">8080</span>));</span><br><span class="line">        thread.start();</span><br><span class="line">        Thread.sleep(<span class="number">100000</span>);</span><br><span class="line">        <span class="comment">/*结束服务器线程*/</span></span><br><span class="line">        thread.interrupt();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Proactor模型（异步）"><a href="#Proactor模型（异步）" class="headerlink" title="Proactor模型（异步）"></a>Proactor模型（异步）</h1><p>主要的核心在于回调机制。<br>Reactor在接收事件后需要交给Reactor处理。而Proactor直接由操作系统来处理相关事件，然后返回结果。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557218800106-1557218800122.png" alt="title"></p>
-<p><a href="https://juejin.im/post/5b908419e51d450e704230f0#heading-11" target="_blank" rel="noopener">理解高性能网络模型</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/30/IO线程模型/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1307,62 +1564,15 @@
 
       
         
-          
-            <h2 id="Socket与ServerSocket"><a href="#Socket与ServerSocket" class="headerlink" title="Socket与ServerSocket"></a>Socket与ServerSocket</h2><p>网络通信需要一对socket，即通信的两端各有一个socket，两个socket之间形成一个管道，进行数据流的通信。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557035867781-1557035868213.png" alt="title"><br>ServerSocket<br>ServerSocket监听服务器端的一个端口，当一个客户端发送来连接时，ServerSocket来处理连接，成功后返回一个常规的Socket对象，用来与客户端socket进行数据传输。</p>
+          <h2 id="Socket与ServerSocket"><a href="#Socket与ServerSocket" class="headerlink" title="Socket与ServerSocket"></a>Socket与ServerSocket</h2><p>网络通信需要一对socket，即通信的两端各有一个socket，两个socket之间形成一个管道，进行数据流的通信。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557035867781-1557035868213.png" alt="title"><br>ServerSocket<br>ServerSocket监听服务器端的一个端口，当一个客户端发送来连接时，ServerSocket来处理连接，成功后返回一个常规的Socket对象，用来与客户端socket进行数据传输。</p>
 <h1 id="同步-异步-阻塞-非阻塞"><a href="#同步-异步-阻塞-非阻塞" class="headerlink" title="同步 异步 阻塞 非阻塞"></a>同步 异步 阻塞 非阻塞</h1><p><strong>同步与异步主要是从消息通知机制角度来说的。</strong><br>当一个同步调用发出后，调用者要一直等待返回消息（结果）后，才能进行后续的执行；当一个异步过程调用发出后，调用者不能立刻得到返回消息（结果），实际处理这个调用的部件在完成后，通过<strong>状态、通知和回调</strong>来通知调用者。异步是调用完成后由别人来通知他。</p>
-<p>阻塞与非阻塞主要是程序（线程）等待消息通知时的状态角度来说的。<br>阻塞调用是指调用结果返回之前，当前线程会被挂起，一直处于等待消息通知，不能够执行其他业务。<br>非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回。如果在这个等待的过程中，等待者除了等待消息通知之外不能做其它的事情，那么该机制就是阻塞的。</p>
-<p>阻塞与同步是不同的。如果这个线程在等待函数返回时，仍在执行其他消息处理，那么这就是同步非阻塞。如果这个线程在等待函数返回时，没有执行其他消息处理，而是挂起等待，那么就是同步阻塞</p>
-<h1 id="概念说明"><a href="#概念说明" class="headerlink" title="概念说明"></a>概念说明</h1><p>操作系统将内存空间分为了<strong>内核空间和用户空间</strong>。<br>进程切换非常的耗资源，所以能不挂起进程就不挂起进程。<br>将进程阻塞是让出CPU资源。</p>
-<p>对于一次IO访问（以read举例），数据会先被拷贝到操作系统内核的缓冲区中，然后才会从操作系统内核的缓冲区拷贝到应用程序的地址空间。所以说，当一个read操作发生时，它会经历两个阶段：1. 等待数据准备 (Waiting for the data to be ready)2. 将数据从内核拷贝到进程中 (Copying the data from the kernel to the process)</p>
-<h1 id="Linux-IO的五种模型"><a href="#Linux-IO的五种模型" class="headerlink" title="Linux IO的五种模型"></a>Linux IO的五种模型</h1><h2 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037472070-1557037472074.png" alt="title"></p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/3/25/169b2de92af4b59b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
-<p>当应用进程调用了recvfrom这个系统调用，kernel就开始了IO的第一个阶段：准备数据（对于网络IO来说，很多时候数据在一开始还没有到达。比如，还没有收到一个完整的UDP包。这个时候kernel就要等待足够的数据到来）。这个过程需要等待，也就是说数据被拷贝到操作系统内核的缓冲区中是需要一个过程的。而在进程这边，整个应用进程会被阻塞（当然，是进程自己选择的阻塞）。当kernel一直等到数据准备好了，它就会将数据从kernel中拷贝到用户内存，然后kernel返回结果，应用进程才解除block的状态，重新运行起来。在内核执行I/O的两个阶段，都是阻塞的。<strong>每个连接都需要配套一个线程，不适合高并发的情况。</strong></p>
-<p><strong>在阻塞的过程中，这个线程被挂起了，但是他让出了CPU，其他应用进程可以继续占用CPU执行。</strong></p>
-<h2 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h2><p>基于轮询的方式。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037653186-1557037653231.png" alt="title"><br>当所请求的I/O操作不能满足要求时候，不把本进程投入睡眠，而是返回一个错误。也就是说当数据没有到达时并不等待，而是以一个错误返回。并且进程会多次轮询的请求I/O操作。应用程序的线程需要不断的进行 I/O 系统调用，轮询数据是否已经准备好，如果没有准备好，继续轮询，直到完成系统调用为止 。这样，好处是线程不需要一直阻塞，但是需要不断地进行I/O系统调用，<strong>不断轮询，浪费CPU</strong>。不断发起I/O操作及其浪费CPU资源。同步非阻塞就是 “每隔一会儿瞄一眼进度条” 的轮询（polling）方式。<br>需要注意，拷贝数据整个过程，进程仍然是属于阻塞的状态。</p>
-<h2 id="I-O多路复用"><a href="#I-O多路复用" class="headerlink" title="I/O多路复用"></a>I/O多路复用</h2><p>基于操作系统的poll，select，epoll。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557037849336-1557037849341.png" alt="title"><br>非阻塞IO问题：<br>由于同步非阻塞方式需要不断主动轮询，轮询占据了很大一部分过程，轮询会消耗大量的CPU时间，但是服务器端可能会有多个连接，这样他对每一个连接都这样做，要是连接数量太多时，是不适合的。</p>
-<p>IO多路复用有两个特别的系统调用select、poll、epoll函数。select调用是内核级别的，select轮询相对非阻塞的轮询的区别在于—<strong>前者可以等待多个socket，能实现同时对多个IO端口进行监听</strong>，当其中任何一个socket的数据准好了，就能返回进行可读，然后进程再进行recvform系统调用，将数据由内核拷贝到用户进程，当然这个过程是阻塞的。</p>
-<p>select/epoll的好处就在于单个process就可以同时处理多个网络连接的IO。它的基本原理就是select，poll，epoll这个function<strong>会不断的轮询所负责的所有socket</strong>，当某个socket有数据到达了，就通知用户进程。</p>
-<p>这几个函数也会使进程阻塞，但是和阻塞I/O所不同的的，<strong>这两个函数可以同时阻塞多个I/O操作</strong>（只需要阻塞一个select函数）。而且可以同时对多个读操作，多个写操作的I/O函数进行检测，直到有数据可读或可写时（注意不是全部数据可读或可写），才真正调用I/O操作函数。</p>
-<p>上面的图和blocking IO的图其实并没有太大的不同，在两个阶段都需要阻塞。当连接数量很少的时候，I/O多路复用可能比BIO效率还要低，因为I/O多路复用需要多执行一个select内核操作。但是I/O多路复用的优势在于他可以处理更多的连接，而不是处理单个连接速度更快。与传统的多线程/多进程模型比，I/O多路复用的最大优势是系统开销小，系统不需要创建新的额外进程或者线程，也不需要维护这些进程和线程的运行，降底了系统的维护工作量，节省了系统资源。</p>
-<h2 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557039387817-1557039387825.png" alt="title"><br>在信号驱动式I/O模型中，应用程序使用套接口进行信号驱动I/O，并安装一个信号处理函数，进程继续运行并不阻塞。当数据准备好时，进程会收到一个SIGIO信号，可以在信号处理函数中调用I/O操作函数处理数据。</p>
-<p>基本不怎么用。</p>
-<h2 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/05/1557039496514-1557039496560.png" alt="title"><br>用户进程进行aio_read系统调用之后，无论内核数据是否准备好，都会<strong>直接返回给用户进程</strong>，然后用户态进程可以去做别的事情。等到socket数据准备好了，内核直接复制数据给进程，然后从内核<strong>向进程发送通知（回调函数）</strong>。IO两个阶段，进程都是非阻塞的。</p>
-<p>异步 I/O 与信号驱动 I/O 的区别在于，异步 I/O 的信号是通知应用进程 I/O 完成，而信号驱动 I/O 的信号是通知应用进程可以开始 I/O。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>注意：同步非阻塞I/O和I/O多路复用，在返回可读条件后，都需要再调用一次I/O操作，进行复制数据。首先一个IO操作其实分成了两个步骤：发起IO请求和实际的IO操作，同步IO和异步IO的区别就在于第二个步骤是否阻塞，如果实际的IO读写阻塞请求进程，那么就是同步IO，因此阻塞IO、非阻塞IO、IO复用、信号驱动IO都是同步IO，如果不阻塞，而是操作系统帮你做完IO操作再将结果返回给你，那么就是异步IO。阻塞IO和非阻塞IO的区别在于第一步，发起IO请求是否会被阻塞，如果阻塞直到完成那么就是传统的阻塞IO，如果不阻塞，那么就是非阻塞IO。</p>
-<h1 id="select-poll-epoll"><a href="#select-poll-epoll" class="headerlink" title="select poll epoll"></a>select poll epoll</h1><p>目前支持I/O多路复用的系统调用有 select，poll，epoll，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，<strong>一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作</strong>。select，pselect，poll，epoll本质上都是同步I/O。</p>
-<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><p>用于表述指向文件的引用的抽象化概念。。<br>当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。</p>
-<h2 id="Linux的socket事件wakeup-callback机制"><a href="#Linux的socket事件wakeup-callback机制" class="headerlink" title="Linux的socket事件wakeup callback机制"></a>Linux的socket事件wakeup callback机制</h2><p>linux wakeup callback机制是IO多路复用的本质。</p>
-<p>Linux通过socket睡眠队列来管理所有等待socket的某个事件的进程（Process），同时通过wakeup机制来异步唤醒整个睡眠队列上等待事件的Process，通知Process相关事件发生。</p>
-<p>每个socket维护了一个队列，比如socket可读的时候，内核就会唤醒队列里的各个Process，并且执行每个Process的callback函数。</p>
-<p>每一个socket都有sleep_list,当某个进程所关心的事件在socket中并没有发生，那么将进程插入到sleep_list，当socket的时间发生了，那么就去遍历他sleep_list中的每个进程的callback函数。</p>
-<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>我们以read事件为例子。<br>当socket上所监听的事件发生了，那么相应的进程就去处理。那么怎么获取监听的事件发生呢？<br>我们应该block在等待事件的发生上，这个事件简单点就是关心的N个socket中一个或多个socket有数据可读了，当block解除的时候，就意味着，我们一定可以找到一个或多个socket上有可读的数据。</p>
-<p>根据wakeup callback。<br>所以，进程需要同时插入到我们管理的这好多个socket的sleep_list上等待任意一个socket可读事件发生而被唤醒，当Process被唤醒的时候，其callback里面应该有个逻辑去检查具体哪些socket可读了。</p>
-<p>举个例子：<br>假设c1，c2，c3连接到了服务器端，我们想监听他们的读事件，因此我们将进程p1插入到他们与服务器各自的socket中sleep_list中去，此时没有事件发生，因此进程处于睡眠状态，当c1客户端发送来了数据，有数据读取的时候，p1进程被唤醒。<br>伪代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private int sk_event;</span><br><span class="line"></span><br><span class="line">void poll() &#123;</span><br><span class="line">    //其他逻辑...</span><br><span class="line">    when (receive queue is not empty) &#123;</span><br><span class="line">        sk_event |= POLL_IN；</span><br><span class="line">    &#125;</span><br><span class="line">   //其他逻辑...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当receive queue不为空的时候（即收到了消息），我们就给这个socket的sk_event添加一个POLL_IN事件，用来<strong>表示当前这个socket可读</strong>。将来Process遍历到这个socket，发现其sk_event包含POLL_IN的时候，就可以对这个socket进行读取数据操作了。</p>
-<p>接下来，p1执行select，select会将需要监控的readfds集合拷贝到内核空间（因为内核才能通知说某个socket可读），然后遍历自己监控的socket，挨个调用socket的poll逻辑以便检查该socket是否有可读事件。<br>遍历完所有的socket后，如果没有任何一个sk可读，那么select会调用schedule，使得Process进入睡眠（或者睡眠timeout这么长时间）。如果在timeout时间内某个socket上有数据可读了，或者等待timeout了，则调用select的Process会被唤醒。<br>伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (socket in readfds) &#123;</span><br><span class="line">    sk_event.evt = socket.poll();</span><br><span class="line">    sk_event.sk = socket;</span><br><span class="line">    return_event_for_process;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);</span><br></pre></td></tr></table></figure>
-
-<p>select 函数监视的文件描述符分3类，分别是writefds、readfds、和exceptfds。调用后select函数会阻塞，<strong>直到有描述符就绪</strong>（有数据 可读、可写、或者有except），或者超时（timeout指定等待时间，如果立即返回设为null即可），<strong>函数返回</strong>。<strong>当select函数返回后，可以通过遍历fdset，来找到就绪的描述符。</strong><br>select缺点：<br>1.文件描述符的数量存在最大限制，在Linux上一般为1024。</p>
-<p>2.对socket进行扫描时是线性扫描，即采用轮询的方法，效率较低。<br>每次select()都需要扫描所有的fd_set。而epoll是通过注册回调函数来实现的，所以epoll效率大大高于select.</p>
-<p>3.需要维护一个用来存放大量fd的数据结构，这样会使得用户空间和内核空间在传递该结构时复制开销大。</p>
-<h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><p>解决了文件描述符数量限制的情况。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int poll (struct pollfd *fds, unsigned int nfds, int timeout);</span><br></pre></td></tr></table></figure>
-
-<p>poll本质上和select没有区别，它将用户传入的数组拷贝到内核空间，然后查询每个fd对应的设备状态，如果设备就绪则在设备等待队列中加入一项并继续遍历，如果遍历完所有fd后没有发现就绪设备，则挂起当前进程，直到设备就绪或者主动超时，被唤醒后它又要再次遍历fd。这个过程经历了多次无谓的遍历。<br>与select两点区别：<br>1.文件描述符大小不限制。<br>2.不同与select使用三个位图来表示三个fdset的方式，poll使用一个 pollfd的指针实现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct pollfd &#123;</span><br><span class="line">    int fd; /* file descriptor */</span><br><span class="line">    short events; /* requested events to watch */</span><br><span class="line">    short revents; /* returned events witnessed */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>pollfd结构包含了要监视的event和发生的event。</p>
-<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><p>解决了需要循环遍历文件描述符的缺点，解决了需要将大量的fds从内核拷贝到用户空间的问题。</p>
-<p>将大量的fds从内核拷贝到用户空间的解决：<br>共享内存。<br>epoll通过内核与用户空间mmap同一块内存来解决。mmap将用户空间的一块地址和内核空间的一块地址同时映射到相同的一块物理内存地址（不管是用户空间还是内核空间都是虚拟地址，最终要通过地址映射映射到物理地址），使得这块物理内存对内核和对用户均可见，减少用户态和内核态之间的数据交换。</p>
-<p>需要循环遍历文件描述符的解决：<br>epoll引入了一个中间层，一个双向链表ready_list，一个单独的睡眠队列single_epoll_wait_list。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/05/07/1557212167413-1557212167863.png" alt="title"><br>1.调用epoll之前，我们希望我们的MyProcess可以管理四个socket。<br>2.四个socket都没有事件，这时候MyProcess进入single_epoll_wait_list并且sleep。<br>3.有一个socket（大红色）收到了数据，触发其wait_entry_sk，把这个socket加入到ready_list里。<br>4.MyProcess被唤醒（从single_epoll_wait_list出来了表示被唤醒），来处理ready_list中的所有socket：遍历epoll的ready_list，挨个调用每个socket的poll逻辑收集发生的事件，对于监控可读事件而已，ready_list上的每个socket都是有数据可读的，这里的遍历必要的。</p>
-<p>epoll有两种工作模式，LT和ET。<br>LT模式：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，应用程序可以不立即处理该事件。下次调用epoll_wait时，会再次响应应用程序并通知此事件。<br>ET模式：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，应用程序必须立即处理该事件。如果不处理，下次调用epoll_wait时，不会再次响应应用程序并通知此事件。</p>
-<p><a href="https://blog.csdn.net/j080624/article/details/78468396" target="_blank" rel="noopener">ServerSocket与Socket</a><br><a href="https://www.jianshu.com/p/486b0965c296" target="_blank" rel="noopener">Linux 五种IO模型</a><br><a href="https://www.jianshu.com/p/dfd940e7fca2" target="_blank" rel="noopener">select、poll、epoll详解</a><br><a href="https://segmentfault.com/a/1190000003063859#articleHeader15" target="_blank" rel="noopener">Linux IO模式及 select、poll、epoll详解</a><br><a href="https://wyj.shiwuliang.com/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3SELECT%E3%80%81POLL%E5%92%8CEPOLL%20.html" target="_blank" rel="noopener">深入理解select，poll，epoll</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/29/IO模型/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1543,313 +1753,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/25/字节码执行引擎/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SKJin">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/2.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gallon's Note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/25/字节码执行引擎/" itemprop="url">字节码执行引擎</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-25T09:57:50+08:00">
-                2019-09-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="分派"><a href="#分派" class="headerlink" title="分派"></a>分派</h2><p>重载和重写在JVM中是如何实现的？</p>
-<h3 id="静态分派"><a href="#静态分派" class="headerlink" title="静态分派"></a>静态分派</h3><p>重载的实现。</p>
-<p>重载时是通过参数的静态类型而不是实际类型决定使用哪个重载函数。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Father是静态类型 ， Son是实际类型。</span></span><br><span class="line">Father father = <span class="keyword">new</span> Son();</span><br></pre></td></tr></table></figure>
-
-<p>发生在编译阶段。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Father father = <span class="keyword">new</span> Son();          <span class="comment">//静态分派</span></span><br><span class="line">        print(father);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(Father father)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"this is father"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(Son son)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"this is son"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出：this is father</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="动态分派"><a href="#动态分派" class="headerlink" title="动态分派"></a>动态分派</h3><p>重写的实现。</p>
-<p>发生在运行阶段。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicDispatch</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span></span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="keyword">extends</span> <span class="title">Human</span></span>&#123; </span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123; </span><br><span class="line">			System.out.println(<span class="string">"man say hello!"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Woman</span> <span class="keyword">extends</span> <span class="title">Human</span></span>&#123; </span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123; </span><br><span class="line">			System.out.println(<span class="string">"woman say hello!"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		Human man=<span class="keyword">new</span> Man();</span><br><span class="line">		Human woman=<span class="keyword">new</span> Woman();</span><br><span class="line">		man.sayHello();</span><br><span class="line">		woman.sayHello();</span><br><span class="line">		man=<span class="keyword">new</span> Woman();</span><br><span class="line">		man.sayHello(); </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们从invokevirtual指令的多态查找过程开始说起，invokevirtual指令的运行时解析过程大致分为以下几个步骤：</p>
-<p>1、找到操作数栈顶的第一个元素所指向的对象的实际类型，记作C。<br>2、如果在类型C中找到与常量中的描述符和简单名称相符合的方法，然后进行访问权限验证，如果验证通过则返回这个方法的直接引用，查找过程结束；如果验证不通过，则抛出java.lang.IllegalAccessError异常。<br>3、否则未找到，就按照继承关系从下往上依次对类型C的各个父类进行第2步的搜索和验证过程。<br>4、如果始终没有找到合适的方法，则跑出java.lang.AbstractMethodError异常。</p>
-<p><strong>由于invokevirtual指令执行的第一步就是在运行期确定接收者的实际类型，所以两次调用中的invokevirtual指令把常量池中的类方法符号引用解析到了不同的直接引用上</strong>，这个过程就是Java语言方法重写的本质。我们把这种在运行期根据实际类型确定方法执行版本的分派过程称为动态分派。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/21/JVM垃圾收集机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SKJin">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/2.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gallon's Note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/21/JVM垃圾收集机制/" itemprop="url">JVM垃圾收集机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-21T15:19:28+08:00">
-                2019-09-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>GC需要完成三件事：</p>
-<ul>
-<li>哪些对象需要回收？</li>
-<li>何时进行回收？</li>
-<li>怎么样回收？</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/21/JVM垃圾收集机制/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1902,7 +1805,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1924,7 +1827,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
