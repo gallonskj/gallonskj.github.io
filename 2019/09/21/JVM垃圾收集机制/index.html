@@ -98,7 +98,7 @@
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791482414-1570791482420.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791517720-1570791517725.png">
-<meta property="og:updated_time" content="2019-10-11T10:59:06.164Z">
+<meta property="og:updated_time" content="2019-10-22T08:29:47.569Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM垃圾收集机制">
 <meta name="twitter:description" content="GC需要完成三件事：  哪些对象需要回收？ 何时进行回收？ 怎么样回收？">
@@ -529,18 +529,16 @@
 </ul>
 <h3 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h3><p>用来替代CMS的。</p>
 <h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
-<li><p>采用的是标记-整理算法+复制算法，避免产生内存空间碎片。。标记整理出需要回收的region，region间使用复制算法。</p>
-</li>
-<li><p>将整个Java堆分成一个个相等的独立区域，虽然还有分代的概念，但各个代不再是连续的，<strong>新生代和老年代不再物理隔离</strong>。。</p>
-</li>
-<li><p>可预测的停顿。</p>
-</li>
+<li>采用的是标记-整理算法+复制算法，避免产生内存空间碎片。标记整理出需要回收的region，region间使用复制算法。因此，从整体上看，G1是基于标记-整理的，从局部上来看(两个region之间)，是复制算法。</li>
+<li>一般的垃圾收集器将内存分为Eden，Survior以及Old三类，且各个代都是连续的。而G1将整个Java堆分成一个个相等的独立区域，虽然还有分代的概念，但各个代不再是连续的，<strong>新生代和老年代不再物理隔离</strong>。内存的粒度变得更小了。</li>
+<li>可预测的停顿。G1每次回收不是收集整代内存，而是根据优先列表收集几块内存(region)，到底要回收多少需要看用户的垃圾收集时间配置，配置的时间长，收集的就多。</li>
+<li>如果应用的内存非常吃紧，对内存进行部分回收根本不够，始终要进行整个Heap的回收，那么G1要做的工作量就一点也不会比其它垃圾回收器少，而且因为本身算法复杂了一点，可能比其它回收器还要差。因此G1比较适合内存稍大一点的应用(一般来说至少4G以上)。</li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791517720-1570791517725.png" alt="title"></p>
 <p>通过引入 Region 的概念，从而将原来的一整块内存空间划分成多个的小空间，使得每个小空间可以单独进行垃圾回收。这种划分方法带来了很大的灵活性，使得可预测的停顿时间模型成为可能。通过记录每个 Region 垃圾回收时间以及回收所获得的空间（这两个值是通过过去回收的经验获得），并维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的 Region。</p>
 <p>每个 Region 都有一个 Remembered Set，用来记录该 Region 对象的引用对象所在的 Region。通过使用 Remembered Set，在做可达性分析的时候就可以避免全堆扫描。</p>
 <h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ul>
-<li>服务端多核CPU、JVM内存占用较大的应用。</li>
+<li>服务端多核CPU、<strong>JVM内存占用较大</strong>的应用。</li>
 <li>运行过程中会产生大量内存碎片。</li>
 <li>想要可控的，可预期的GC停顿时间。</li>
 </ul>
@@ -548,8 +546,9 @@
 <li>初始标记，标记GC Roots直接关联对象，需要暂停，时间短</li>
 <li>并发标记，对GC Roots进行可达性分析，并发执行，时间比较长。</li>
 <li>最终标记，修正并发标记阶段而产生的变动，这一段是暂停的。</li>
-<li>筛选回收，将各个region根据回收价值和回收成本进行排序，然后进行收集。这个阶段需要暂停用户线程。<h2 id="Minor-GC-and-Full-GC"><a href="#Minor-GC-and-Full-GC" class="headerlink" title="Minor GC and Full GC"></a>Minor GC and Full GC</h2><h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3>回收新生代，因为新生代对象存活时间很短，因此Minor GC会频繁进行，执行速度也比较快。<br>当Eden区域满了的话，会触发Minor GC。</li>
+<li>筛选回收，将各个region根据回收价值和回收成本进行排序，然后进行收集。这个阶段需要暂停用户线程。 </li>
 </ul>
+<h2 id="Minor-GC-and-Full-GC"><a href="#Minor-GC-and-Full-GC" class="headerlink" title="Minor GC and Full GC"></a>Minor GC and Full GC</h2><h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3><p>回收新生代，因为新生代对象存活时间很短，因此Minor GC会频繁进行，执行速度也比较快。<br>当Eden区域满了的话，会触发Minor GC。</p>
 <h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3><p>回收新生代和老年代，老年代因为存活时间比较长，因此Full GC很少执行，速度也比较慢。</p>
 <p>触发Full GC：</p>
 <ul>
@@ -575,6 +574,7 @@
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/youyou1543724847/article/details/52728154" target="_blank" rel="noopener">OopMap详解</a></p>
 <p><a href="https://www.iteye.com/blog/dsxwjhf-2201685" target="_blank" rel="noopener">OopMap与Remembered Set</a></p>
+<p><a href="https://www.cnblogs.com/aspirant/p/8663872.html" target="_blank" rel="noopener">G1垃圾收集器</a></p>
 
       
     </div>
@@ -718,7 +718,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

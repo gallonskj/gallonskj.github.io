@@ -91,10 +91,10 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190228160847399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0dhbGxvbl9f,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822524477-1569822524482.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/20/Java内存管理/!%5Btitle%5D(https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570783997573-1570783997591.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570783997573-1570783997591.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822602260-1569822602265.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822636543-1569822636547.png">
-<meta property="og:updated_time" content="2019-10-11T08:56:48.588Z">
+<meta property="og:updated_time" content="2019-10-22T07:14:55.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存管理">
 <meta name="twitter:description" content="运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。 字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。">
@@ -409,7 +409,7 @@
 <p>元空间与永久代最大的不同就是，元空间并不在JVM中，<strong>而是在本地内存</strong>。主要原因还是因为永久代的大小难以确定，容易发生OOM，而移到元空间，只会受到本地内存大小的限制。</p>
 <h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><p>运行时常量池是方法区的一部分。</p>
 <p>class常量池：我们写的每一个Java类被编译后，就会形成一份class文件；class文件中除了包含类的版本、字段、方法、接口等描述信息外，还有一项信息就是常量池(constant pool table)，用于存放编译器生成的各种字面量(Literal)和符号引用(Symbolic References)。</p>
-<p><img src="!%5Btitle%5D(https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570783997573-1570783997591.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570783997573-1570783997591.png" alt="title"></p>
 <p>class常量池在类加载完成后就会放入运行时常量池存放。</p>
 <p>字符串常量池：存放字符串，位于堆内。<strong>常量池中同时存在字符串常量和字符串引用。</strong>直接赋值和用字符串调用String构造函数都可能导致常量池中生成字符串常量;<strong>而intern()方法会尝试将堆中对象的引用放入常量池</strong>。</p>
 <h2 id="类加载子系统"><a href="#类加载子系统" class="headerlink" title="类加载子系统"></a>类加载子系统</h2><p>类加载子系统负责<strong>从文件系统或者网络中</strong>加载 Class 信息，加载的类信息存放于一块称 为方法区的内存空间。</p>
@@ -577,7 +577,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
