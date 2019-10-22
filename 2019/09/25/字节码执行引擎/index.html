@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="分派重载和重写在JVM中是如何实现的？ 静态分派重载的实现。 重载时是通过参数的静态类型而不是实际类型决定使用哪个重载函数。 12//Father是静态类型 ， Son是实际类型。Father father = new Son();  发生在编译阶段。 12345678910111213141516	void test() &amp;#123;        Father father = new Son">
+<meta name="description" content="方法调用方法调用就是确定调用哪一个方法。 在编译阶段，即将java文件转化为class文件，class文件中存储的是方法的符号引用(类似于一个代号吧)，而不是直接引用(内存地址)，因为类还没有加载到内存嘛，所以具体的内存地址肯定是不知道的。">
 <meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字节码执行引擎">
+<meta property="og:title" content="JVM字节码执行引擎">
 <meta property="og:url" content="http://yoursite.com/2019/09/25/字节码执行引擎/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
-<meta property="og:description" content="分派重载和重写在JVM中是如何实现的？ 静态分派重载的实现。 重载时是通过参数的静态类型而不是实际类型决定使用哪个重载函数。 12//Father是静态类型 ， Son是实际类型。Father father = new Son();  发生在编译阶段。 12345678910111213141516	void test() &amp;#123;        Father father = new Son">
+<meta property="og:description" content="方法调用方法调用就是确定调用哪一个方法。 在编译阶段，即将java文件转化为class文件，class文件中存储的是方法的符号引用(类似于一个代号吧)，而不是直接引用(内存地址)，因为类还没有加载到内存嘛，所以具体的内存地址肯定是不知道的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-11T02:31:56.151Z">
+<meta property="og:updated_time" content="2019-10-13T03:12:17.625Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="字节码执行引擎">
-<meta name="twitter:description" content="分派重载和重写在JVM中是如何实现的？ 静态分派重载的实现。 重载时是通过参数的静态类型而不是实际类型决定使用哪个重载函数。 12//Father是静态类型 ， Son是实际类型。Father father = new Son();  发生在编译阶段。 12345678910111213141516	void test() &amp;#123;        Father father = new Son">
+<meta name="twitter:title" content="JVM字节码执行引擎">
+<meta name="twitter:description" content="方法调用方法调用就是确定调用哪一个方法。 在编译阶段，即将java文件转化为class文件，class文件中存储的是方法的符号引用(类似于一个代号吧)，而不是直接引用(内存地址)，因为类还没有加载到内存嘛，所以具体的内存地址肯定是不知道的。">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>字节码执行引擎 | Gallon's Note</title>
+  <title>JVM字节码执行引擎 | Gallon's Note</title>
   
 
 
@@ -304,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">字节码执行引擎</h1>
+          <h1 class="post-title" itemprop="name headline">JVM字节码执行引擎</h1>
         
 
         <div class="post-meta">
@@ -376,15 +376,25 @@
       
 
       
-        <h2 id="分派"><a href="#分派" class="headerlink" title="分派"></a>分派</h2><p>重载和重写在JVM中是如何实现的？</p>
+        <h2 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h2><p>方法调用就是确定调用哪一个方法。</p>
+<p>在编译阶段，即将java文件转化为class文件，<strong>class文件中存储的是方法的符号引用(类似于一个代号吧)，而不是直接引用</strong>(内存地址)，因为类还没有加载到内存嘛，所以具体的内存地址肯定是不知道的。</p>
+<a id="more"></a>
+
+<p>在类加载的阶段，会将一部分符号引用转化为直接引用，前提是</p>
+<blockquote>
+<p>方法在程序运行前就可以确定他是哪一个。</p>
+</blockquote>
+<p>比如说private和static两类方法，这是因为<strong>这两类方法都不可能被继承或者是被重写，只可能有唯一的版本</strong>。别的方法就有可能被重写，存在多个版本，难以确定。</p>
+<p>除了这两类，还有构造方法以及final方法，这几个都是不可能被重写的，可以唯一确定。</p>
+<p>所以，<strong>私有方法，final方法，构造方法，static方法在编译期间既可以完全确定</strong>，<strong>在类加载阶段</strong>直接将符号引用转化为直接引用，其他方法都是在运行期间才能确定。</p>
+<h2 id="分派"><a href="#分派" class="headerlink" title="分派"></a>分派</h2><p>重载和重写在JVM中是如何实现的？</p>
 <h3 id="静态分派"><a href="#静态分派" class="headerlink" title="静态分派"></a>静态分派</h3><p>重载的实现。</p>
-<p>重载时是通过参数的静态类型而不是实际类型决定使用哪个重载函数。</p>
+<p>重载时是<strong>通过参数的静态类型</strong>而不是实际类型决定使用哪个重载函数。</p>
+<p>所以，重载的实现需要参数类型或者个数不同。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Father是静态类型 ， Son是实际类型。</span></span><br><span class="line">Father father = <span class="keyword">new</span> Son();</span><br></pre></td></tr></table></figure>
 
 <p>发生在编译阶段。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Father father = <span class="keyword">new</span> Son();          <span class="comment">//静态分派</span></span><br><span class="line">        print(father);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(Father father)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"this is father"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(Son son)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"this is son"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出：this is father</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
 
 <h3 id="动态分派"><a href="#动态分派" class="headerlink" title="动态分派"></a>动态分派</h3><p>重写的实现。</p>
 <p>发生在运行阶段。</p>
@@ -514,7 +524,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -525,7 +535,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -536,7 +546,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -592,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分派"><span class="nav-text">分派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态分派"><span class="nav-text">静态分派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态分派"><span class="nav-text">动态分派</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法调用"><span class="nav-text">方法调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分派"><span class="nav-text">分派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态分派"><span class="nav-text">静态分派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态分派"><span class="nav-text">动态分派</span></a></li></ol></li></ol></div>
             
 
           </div>

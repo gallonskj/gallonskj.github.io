@@ -89,20 +89,20 @@
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="GC需要完成三件事：  哪些对象需要回收？ 何时进行回收？ 怎么样回收？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd090876bda5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd090880f55d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd090426063b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd09088768fc?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd0908bddc3b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd093e82e813?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790645663-1570790645677.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790798889-1570790798894.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790833699-1570790833708.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790877299-1570790877304.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790910233-1570790910238.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791153063-1570791153069.png">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd093e8919b1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd093e76a0ad?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2019-09-30T06:07:02.167Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791482414-1570791482420.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791517720-1570791517725.png">
+<meta property="og:updated_time" content="2019-10-11T10:59:06.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM垃圾收集机制">
 <meta name="twitter:description" content="GC需要完成三件事：  哪些对象需要回收？ 何时进行回收？ 怎么样回收？">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/3/21/1699fd090876bda5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790645663-1570790645677.png">
 
 
 
@@ -408,7 +408,7 @@
 <p>引用计数法就是每当加了一个引用，引用计数器加一，一个引用失效，引用计数器减一，引用计数器为零时该对象死亡。</p>
 <p>但是引用计数无法解决的是<strong>循环引用</strong>的问题。</p>
 <p>循环引用：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699fd090876bda5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790645663-1570790645677.png" alt="title"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		MyObject object1 = <span class="keyword">new</span> MyObject();</span><br><span class="line">        MyObject object2 = <span class="keyword">new</span> MyObject();</span><br><span class="line">          </span><br><span class="line">        object1.object = object2;</span><br><span class="line">        object2.object = object1;</span><br><span class="line">          </span><br><span class="line">        object1 = <span class="keyword">null</span>;</span><br><span class="line">        object2 = <span class="keyword">null</span>;</span><br><span class="line">        System.gc();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="finalize"><a href="#finalize" class="headerlink" title="finalize()"></a>finalize()</h4><p>即使某个对象是不可达的，也并不一定非死不可。宣告一个对象死亡，要经过两次标记过程：<strong>第一个是GC Roots不可达，第二步是此对象是否有必要执行finalize()方法</strong>。</p>
@@ -419,7 +419,7 @@
 <p>由此可见，SAVE对象的finalize()方法确实执行了，并在收集前成功逃脱了。</p>
 <p>代码中有两段完全一样的方法，第一次成功逃脱，第二次因为已经执行过了finalize()方法，所以也就不在执行了，因此第二段代码逃脱失败。</p>
 <p>然而，并不鼓励使用finalize()方法。</p>
-<h2 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h2><p><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699fd090880f55d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h2 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790798889-1570790798894.png" alt="title"></p>
 <ul>
 <li><p>强引用：</p>
 <p>强引用是使用最普遍的引用。Object obj =new Object(); <strong>如果一个对象具有强引用，那垃圾回收器绝不会回收它</strong>。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足的问题。</p>
@@ -444,9 +444,9 @@
 </ul>
 <p>对于jdk8之后方法区变为了元空间，如果Metaspace的空间占用达到了设定的最大值，也会触发GC来收集死亡对象和类的加载器。</p>
 <p><a href="https://www.sczyh30.com/posts/Java/jvm-metaspace/" target="_blank" rel="noopener">MetaSpace GC</a></p>
-<h2 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法"></a>GC算法</h2><h3 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记-清除"></a>标记-清除</h3><p><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699fd090426063b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h2 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法"></a>GC算法</h2><h3 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记-清除"></a>标记-清除</h3><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790833699-1570790833708.png" alt="title"></p>
 <p>标记出所有需要回收的对象，然后将做了标记的都给清除。缺点是导致内存碎片化。</p>
-<h3 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h3><p><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699fd09088768fc?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<h3 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h3><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790877299-1570790877304.png" alt="title"></p>
 <p>将内存一般分为A区域，一半分为B区域。图中我们将前两行分为A，后两行分为B。刚开始的时候，我们只使用A区域的内存，而不使用B区域的内存。</p>
 <p>第一次GC，经过一次可达性分析后，我们将A中存活对象直接复制到B区域，然后直接将整块A区域清除。A区域变成未使用的。第二次GC，同理，将B的存活对象复制到A，将B清除，B变为空。</p>
 <p>这样A和B区域交互使用。</p>
@@ -454,7 +454,7 @@
 <p>新生代主要使用的是复制算法。一般来说，Eden：Survior1：Survior2=8：1：1，因为每次GC新生代垃圾都会有75%-90%，这样，直接将Eden幸存的对象复制到Survior1区域中，然后将Eden区域清除，第二次清除时，将Eden区域和S1区域幸村对象复制到S2区域，将Eden和S1区域清除，就这样，S1，S2两个区域交替使用，新生代内存利用空间可以达到90%，而且解决了内存碎片化的问题。注意，当Survior内存区域不够时（多于10%对象存活），可以向老年代进行分配担保。</p>
 <p><strong>适用于存活率比较低的对象，要是存活率过高的话，会造成大量复制，效率变低</strong>。</p>
 <h3 id="标记-整理"><a href="#标记-整理" class="headerlink" title="标记-整理"></a>标记-整理</h3><p>复制算法在对象存活率较高时就会产生一个问题，因为要进行过多的复制操作，效率会降低，而且浪费空间会比较多。对于老年代，存活对象率比较高，而且对象比较大，占用内存大，所以不宜使用复制算法，采用标记整理算法。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699fd0908bddc3b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570790910233-1570790910238.png" alt="title"></p>
 <p>将存活的对象移到回收对象留下的空间里，以形成连续的内存。</p>
 <p>适用于存活率较高的。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>新生代中，每次GC都有大量对象死去，少量存活，选用复制算法。</p>
@@ -485,7 +485,7 @@
 <p>抢先式中断是把所有的线程都中断，然后把不在安全点上的线程恢复，直到他到达安全点上。</p>
 <p>主动式中断：设置一个中断标志，各个线程主动区轮询这个标志，发现中断标志为真时，自己主动挂起。</p>
 <h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p><strong>所有的收集器都避免不了stop the word，只可能尽可能的缩短。</strong></p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699fd093e82e813?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791153063-1570791153069.png" alt="title"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p>以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。</p>
 <ul>
 <li>单线程与多线程：单线程指的是垃圾收集器只使用一个线程，而多线程使用多个线程；</li>
@@ -512,7 +512,7 @@
 <p>Parallel Scavenge新生代采用复制算法，Parallel old老年代采用标记-整理。</p>
 <h3 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h3><p><strong>基于标记-清除算法。并不是标记整理。</strong></p>
 <p>注重于获取最短停顿时间。并发收集，分区处理。停顿时间短，在垃圾收集的时候，JVM还可以运行。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699fd093e8919b1?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791482414-1570791482420.png" alt="title"></p>
 <p>分为以下四个流程：</p>
 <ul>
 <li>初始标记：仅仅只是标记一下 GC Roots 能直接关联到的对象，速度很快，需要停顿。</li>
@@ -536,7 +536,8 @@
 <li><p>可预测的停顿。</p>
 </li>
 </ul>
-<p><img src="https://user-gold-cdn.xitu.io/2019/3/21/1699fd093e76a0ad?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="G1堆内存分布">通过引入 Region 的概念，从而将原来的一整块内存空间划分成多个的小空间，使得每个小空间可以单独进行垃圾回收。这种划分方法带来了很大的灵活性，使得可预测的停顿时间模型成为可能。通过记录每个 Region 垃圾回收时间以及回收所获得的空间（这两个值是通过过去回收的经验获得），并维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的 Region。</p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570791517720-1570791517725.png" alt="title"></p>
+<p>通过引入 Region 的概念，从而将原来的一整块内存空间划分成多个的小空间，使得每个小空间可以单独进行垃圾回收。这种划分方法带来了很大的灵活性，使得可预测的停顿时间模型成为可能。通过记录每个 Region 垃圾回收时间以及回收所获得的空间（这两个值是通过过去回收的经验获得），并维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的 Region。</p>
 <p>每个 Region 都有一个 Remembered Set，用来记录该 Region 对象的引用对象所在的 Region。通过使用 Remembered Set，在做可达性分析的时候就可以避免全堆扫描。</p>
 <h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ul>
 <li>服务端多核CPU、JVM内存占用较大的应用。</li>
@@ -547,8 +548,9 @@
 <li>初始标记，标记GC Roots直接关联对象，需要暂停，时间短</li>
 <li>并发标记，对GC Roots进行可达性分析，并发执行，时间比较长。</li>
 <li>最终标记，修正并发标记阶段而产生的变动，这一段是暂停的。</li>
-<li>筛选回收，将各个region根据回收价值和回收成本进行排序，然后进行收集。这个阶段需要暂停用户线程。<h2 id="Minor-GC-and-Full-GC"><a href="#Minor-GC-and-Full-GC" class="headerlink" title="Minor GC and Full GC"></a>Minor GC and Full GC</h2><h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3>回收新生代，因为新生代对象存活时间很短，因此Minor GC会频繁进行，执行速度也比较快。<br>当Eden区域满了的话，会触发Minor GC。<h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3>回收新生代和老年代，老年代因为存活时间比较长，因此Full GC很少执行，速度也比较慢。</li>
+<li>筛选回收，将各个region根据回收价值和回收成本进行排序，然后进行收集。这个阶段需要暂停用户线程。<h2 id="Minor-GC-and-Full-GC"><a href="#Minor-GC-and-Full-GC" class="headerlink" title="Minor GC and Full GC"></a>Minor GC and Full GC</h2><h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3>回收新生代，因为新生代对象存活时间很短，因此Minor GC会频繁进行，执行速度也比较快。<br>当Eden区域满了的话，会触发Minor GC。</li>
 </ul>
+<h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3><p>回收新生代和老年代，老年代因为存活时间比较长，因此Full GC很少执行，速度也比较慢。</p>
 <p>触发Full GC：</p>
 <ul>
 <li><p>老年代空间不足。</p>
@@ -613,8 +615,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/25/字节码执行引擎/" rel="prev" title="字节码执行引擎">
-                字节码执行引擎 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/25/字节码执行引擎/" rel="prev" title="JVM字节码执行引擎">
+                JVM字节码执行引擎 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -694,7 +696,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -705,7 +707,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -716,7 +718,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

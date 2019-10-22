@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="并发,java,">
+  <meta name="keywords" content="java,并发,">
 
 
 
@@ -82,19 +82,19 @@
 
 
 <meta name="description" content="Java 内存模型JMM定义了内存中各个共享变量访问的规则。 共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。  JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。">
-<meta name="keywords" content="并发,java">
+<meta name="keywords" content="java,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile关键字">
 <meta property="og:url" content="http://yoursite.com/2019/10/09/volatile关键字/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="Java 内存模型JMM定义了内存中各个共享变量访问的规则。 共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。  JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdn.net/20170608221857890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamF2YXplamlhbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2019-10-11T02:34:50.211Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570784481491-1570784481498.png">
+<meta property="og:updated_time" content="2019-10-11T11:49:08.184Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile关键字">
 <meta name="twitter:description" content="Java 内存模型JMM定义了内存中各个共享变量访问的规则。 共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。  JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20170608221857890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamF2YXplamlhbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570784481491-1570784481498.png">
 
 
 
@@ -380,7 +380,7 @@
       
         <h2 id="Java-内存模型"><a href="#Java-内存模型" class="headerlink" title="Java 内存模型"></a>Java 内存模型</h2><p>JMM定义了内存中各个共享变量访问的规则。</p>
 <p>共享变量包括包括实例字段 静态字段和构成数组的元素，即所有线程都可以访问到的，不包括局部变量和方法参数，这是线程私有的。</p>
-<p><img src="https://img-blog.csdn.net/20170608221857890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamF2YXplamlhbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570784481491-1570784481498.png" alt="title"></p>
 <p>JMM规定了所有共享变量都存储在主内存，每条线程还有自己的工作内存，工作内存除了存储线程私有的局部变量以及方法参数等，还有该线程中需要用到的主内存中的共享变量的拷贝。</p>
 <a id="more"></a>
 
@@ -388,8 +388,6 @@
 <p>工作内存是每个线程的私有数据区域，因此不同的线程间无法访问对方的工作内存，线程间的通信(传值)必须通过主内存来完成。</p>
 <p>设置工作内存的<strong>目的主要是为了解决内存与处理器速度不一致的问题</strong>，一般来说，主内存存放在内存中，工作内存存放在高速缓存中，因此，工作内存数据操作速度很快。</p>
 <p>但是，JMM有一个问题，就是主内存与工作内存不一致的问题，可能工作内存修改了某个工作变量，但是没有同步到主内存中。</p>
-<!--more-->
-
 <h2 id="重排序问题"><a href="#重排序问题" class="headerlink" title="重排序问题"></a>重排序问题</h2><p>计算机在执行程序时，为了提高性能，编译器和处理器的常常会对指令做重排。</p>
 <p>如果两个操作访问同一个变量，且这两个操作中有一个为写操作，此时这两个操作之间就存在数据依赖性。</p>
 <p>当两条指令没有数据依赖性的时候，就又可能对他进行指令重排序。</p>
@@ -469,9 +467,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/并发/" rel="tag"># 并发</a>
-          
             <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/并发/" rel="tag"># 并发</a>
           
         </div>
       
@@ -575,7 +573,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -586,7 +584,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -597,7 +595,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
