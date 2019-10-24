@@ -19,8 +19,8 @@
         <category>容器</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>并发</tag>
+        <tag>java</tag>
         <tag>容器</tag>
       </tags>
   </entry>
@@ -32,8 +32,8 @@
         <category>并发</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>并发</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -44,19 +44,20 @@
         <category>并发</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>并发</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[读写锁]]></title>
     <url>%2F2019%2F10%2F14%2F%E8%AF%BB%E5%86%99%E9%94%81%2F</url>
-    <content type="text"><![CDATA[ReentrantReadWriteLock：一个资源能够被多个读线程访问，或者被一个写线程访问，但是不能同时存在读写线程。 读锁是共享锁，可以有多个线程读；而写锁是独占锁，同时只可能有一个线程写。 共享变量读锁可以多线程访问，写锁只可以有一个线程访问，我们很容易想到可以使用两个变量来表示读写状态。但是，AQS却只是使用一个state来实现。 123456789static final int SHARED_SHIFT = 16;static final int SHARED_UNIT = (1 &lt;&lt; SHARED_SHIFT);static final int MAX_COUNT = (1 &lt;&lt; SHARED_SHIFT) - 1;static final int EXCLUSIVE_MASK = (1 &lt;&lt; SHARED_SHIFT) - 1;/** Returns the number of shared holds represented in count */static int sharedCount(int c) &#123; return c &gt;&gt;&gt; SHARED_SHIFT; &#125;/** Returns the number of exclusive holds represented in count */static int exclusiveCount(int c) &#123; return c &amp; EXCLUSIVE_MASK; &#125; 举个例子来看： 这里有两个关键方法sharedCount和exclusiveCount，通过名字可以看出sharedCount是共享锁的数量，exclusiveCount是独占锁的数量。 共享锁通过对c像右位移16位获得，独占锁通过和16位的1与运算获得。 state前十六位代表读锁，后十六位代表写锁。 举个例子，当获取读锁的线程有3个，写锁的线程有1个（当然这是不可能同时有的），state就表示为0000 0000 0000 0011 0000 0000 0000 0001，高16位代表读锁，通过向右位移16位（c &gt;&gt;&gt; SHARED_SHIFT）得倒10进制的3，通过和0000 0000 0000 0000 1111 1111 1111 1111与运算（c &amp; EXCLUSIVE_MASK），获得10进制的1。 由于16位最大全1表示为65535，所以读锁和写锁最多可以获取65535个。 WriteLock写锁是一把独占锁，同时只可能有一个线程访问，而且不可能与读锁同时存在，所以与ReentrantLock不同的是，WriteLock不仅要判断是否还有其它写线程占用，还要考虑是否还有读线程占用。 读锁是否存在。因为要确保写锁的操作对读锁是可见的。如果在存在读锁的情况下允许获取写锁，那么那些已经获取读锁的其他线程可能就无法感知当前写线程的操作。因此只有等读锁完全释放后，写锁才能够被当前线程所获取，一旦写锁获取了，所有其他读、写线程均会被阻塞。 123456789101112131415161718192021protected final boolean tryAcquire(int acquires) &#123; Thread current = Thread.currentThread(); int c = getState(); //获取共享变量state int w = exclusiveCount(c); //获取写锁数量 if (c != 0) &#123; //有读锁或者写锁 // (Note: if c != 0 and w == 0 then shared count != 0) if (w == 0 || current != getExclusiveOwnerThread()) //写锁为0（证明有读锁），或者持有写锁的线程不为当前线程 return false; if (w + exclusiveCount(acquires) &gt; MAX_COUNT) throw new Error("Maximum lock count exceeded"); // Reentrant acquire setState(c + acquires); //当前线程持有写锁，为重入锁，+acquires即可 return true; &#125; if (writerShouldBlock() || !compareAndSetState(c, c + acquires)) //CAS操作失败，多线程情况下被抢占，获取锁失败。CAS成功则获取锁成功 return false; setExclusiveOwnerThread(current); return true;&#125; 锁降级在获取写锁的时候，如果资源存在读锁，那么肯定是无法获取写锁的。 但是，在获取读锁的时候， 如果对资源加了写锁，其他线程无法再获得写锁与读锁，但是持有写锁的线程，可以对资源加读锁（锁降级），主要原因是因为在同一个线程内，写锁所做的修改读锁时立即可见的，但是在别的线程内就没有可见性了。 12345678910111213141516171819202122232425262728class CachedData &#123; Object data; //保证状态可见性 volatile boolean cacheValid; ReentrantReadWriteLock rwl = new ReentrantReadWriteLock(); void processCachedData() &#123; rwl.readLock().lock(); if (!cacheValid) &#123; // 在获取写锁前必须释放读锁 rwl.readLock().unlock(); rwl.writeLock().lock(); //再次检查其他线程是否已经抢到 if (!cacheValid) &#123; //获取数据 data = ... cacheValid = true; &#125; // 在释放写锁之前通过获取读锁来降级 rwl.readLock().lock(); //释放写锁，保持读锁 rwl.writeLock().unlock(); &#125; use(data); rwl.readLock().unlock(); &#125; &#125; ReadLock 申请读锁，资源上没有写锁，且读锁数量小于最大值，申请读锁成功。 申请读锁，资源上有写锁，且写锁就在本线程上，那么申请成功。 读写锁 锁降级 读写锁]]></content>
+    <content type="text"><![CDATA[ReentrantReadWriteLock：一个资源能够被多个读线程访问，或者被一个写线程访问，但是不能同时存在读写线程。 读锁是共享锁，可以有多个线程读；而写锁是独占锁，同时只可能有一个线程写。 共享变量读锁可以多线程访问，写锁只可以有一个线程访问，我们很容易想到可以使用两个变量来表示读写状态。但是，AQS却只是使用一个state来实现。 123456789static final int SHARED_SHIFT = 16;static final int SHARED_UNIT = (1 &lt;&lt; SHARED_SHIFT);static final int MAX_COUNT = (1 &lt;&lt; SHARED_SHIFT) - 1;static final int EXCLUSIVE_MASK = (1 &lt;&lt; SHARED_SHIFT) - 1;/** Returns the number of shared holds represented in count */static int sharedCount(int c) &#123; return c &gt;&gt;&gt; SHARED_SHIFT; &#125;/** Returns the number of exclusive holds represented in count */static int exclusiveCount(int c) &#123; return c &amp; EXCLUSIVE_MASK; &#125; 举个例子来看： 这里有两个关键方法sharedCount和exclusiveCount，通过名字可以看出sharedCount是共享锁的数量，exclusiveCount是独占锁的数量。 共享锁通过对c像右位移16位获得，独占锁通过和16位的1与运算获得。 state前十六位代表读锁，后十六位代表写锁。 举个例子，当获取读锁的线程有3个，写锁的线程有1个（当然这是不可能同时有的），state就表示为0000 0000 0000 0011 0000 0000 0000 0001，高16位代表读锁，通过向右位移16位（c &gt;&gt;&gt; SHARED_SHIFT）得倒10进制的3，通过和0000 0000 0000 0000 1111 1111 1111 1111与运算（c &amp; EXCLUSIVE_MASK），获得10进制的1。 由于16位最大全1表示为65535，所以读锁和写锁最多可以获取65535个。 WriteLock写锁是一把独占锁，同时只可能有一个线程访问，而且不可能与读锁同时存在，所以与ReentrantLock不同的是，WriteLock不仅要判断是否还有其它写线程占用，还要考虑是否还有读线程占用。 读锁是否存在。因为要确保写锁的操作对读锁是可见的。如果在存在读锁的情况下允许获取写锁，那么那些已经获取读锁的其他线程可能就无法感知当前写线程的操作。因此只有等读锁完全释放后，写锁才能够被当前线程所获取，一旦写锁获取了，所有其他读、写线程均会被阻塞。 123456789101112131415161718192021protected final boolean tryAcquire(int acquires) &#123; Thread current = Thread.currentThread(); int c = getState(); //获取共享变量state int w = exclusiveCount(c); //获取写锁数量 if (c != 0) &#123; //有读锁或者写锁 // (Note: if c != 0 and w == 0 then shared count != 0) if (w == 0 || current != getExclusiveOwnerThread()) //写锁为0（证明有读锁），或者持有写锁的线程不为当前线程 return false; if (w + exclusiveCount(acquires) &gt; MAX_COUNT) throw new Error("Maximum lock count exceeded"); // Reentrant acquire setState(c + acquires); //当前线程持有写锁，为重入锁，+acquires即可 return true; &#125; if (writerShouldBlock() || !compareAndSetState(c, c + acquires)) //CAS操作失败，多线程情况下被抢占，获取锁失败。CAS成功则获取锁成功 return false; setExclusiveOwnerThread(current); return true;&#125; 锁降级在获取写锁的时候，如果资源存在读锁，因为可能存在多个不同的线程读，要是修改了线程除了本线程别的线程也感知不到，那么肯定是无法获取写锁的。 但是，在获取读锁的时候， 如果对资源加了写锁，其他线程无法再获得写锁与读锁，但是持有写锁的线程，可以对资源加读锁（锁降级），主要原因是因为在同一个线程内，写锁所做的修改读锁时立即可见的，但是在别的线程内就没有可见性了。 12345678910111213141516171819202122232425262728class CachedData &#123; Object data; //保证状态可见性 volatile boolean cacheValid; ReentrantReadWriteLock rwl = new ReentrantReadWriteLock(); void processCachedData() &#123; rwl.readLock().lock(); if (!cacheValid) &#123; // 在获取写锁前必须释放读锁 rwl.readLock().unlock(); rwl.writeLock().lock(); //再次检查其他线程是否已经抢到 if (!cacheValid) &#123; //获取数据 data = ... cacheValid = true; &#125; // 在释放写锁之前通过获取读锁来降级 rwl.readLock().lock(); //释放写锁，保持读锁 rwl.writeLock().unlock(); &#125; use(data); rwl.readLock().unlock(); &#125; &#125; ReadLock 申请读锁，资源上没有写锁，且读锁数量小于最大值，申请读锁成功。 申请读锁，资源上有写锁，且写锁就在本线程上，那么申请成功。 读写锁 锁降级 读写锁]]></content>
       <categories>
         <category>并发</category>
       </categories>
       <tags>
-        <tag>并发，java</tag>
+        <tag>并发</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -67,8 +68,8 @@
         <category>并发</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>并发</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -90,15 +91,15 @@
         <category>并发</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>并发</tag>
+        <tag>java</tag>
         <tag>源码分析</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[单例模式]]></title>
     <url>%2F2019%2F10%2F10%2F%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[一开始，我们写的单例模式是这样的。 123456789public class Singleton &#123; private Singleton instance = null; public Singleton getInstance()&#123; if(instance==null)&#123; instance = new Singleton(); &#125; return instance; &#125;&#125; 但是，这种方式有一个问题，就是无法解决多线程问题。 于是，对方法加锁： 123456789public class Singleton &#123; private Singleton instance = null; public synchronized Singleton getInstance()&#123; if(instance==null)&#123; //lineA instance = new Singleton(); &#125; return instance; &#125;&#125; 这样，就解决了并发的问题。 但是，在每次调用方法我们都需要加锁，加锁实际上性能会变低，实际上调用方法只会出现一次instance==null，以后的每一次调用都是直接返回instance对象。 因此，可以将if判断语句提取出来。 1234567891011public class Singleton &#123; private Singleton instance = null; public Singleton getInstance()&#123; if(instance==null) &#123; //lineA synchronized (this) &#123; instance = new Singleton(); &#125; &#125; return instance; &#125;&#125; 但是，这样还是有问题，假设线程A执行完了lineA进入同步语句，但还并没有创建实例，此时线程B也执行到了lineA，但是instance==null，还是会重复创建实例。 于是，采用DCL解决，在同步语句块内部再进行一次if判断。 12345678910111213public class Singleton &#123; private Singleton instance = null; public Singleton getInstance()&#123; if(instance==null) &#123; synchronized (this) &#123; if(instance==null) &#123; instance = new Singleton(); &#125; &#125; &#125; return instance; &#125;&#125; 那么，这样就没有问题了吗？ 并不是，因为new Singleton()这个语句实际上它并不是一个原子操作。 它有三条指令构成： 1.在堆中开辟一块内存（new） 2.调用对象的构造函数对内存进行初始化（invokespecial） 3.最后将引用赋值给变量（astore），这一句instance就赋值了。 所以，因为重排序的存在，CPU有可能产生指令重排序，比如1-3-2，这样的话，另一个线程可能在对象还没有初始化的时候就拿走了instance，造成问题。 于是，我们可以加上volatile，禁止指令重排序。 12345678910111213public class Singleton &#123; private volatile Singleton instance = null; public Singleton getInstance()&#123; if(instance==null) &#123; synchronized (this) &#123; if(instance==null) &#123; instance = new Singleton(); &#125; &#125; &#125; return instance; &#125;&#125; 单例模式]]></content>
+    <content type="text"><![CDATA[一开始，我们写的单例模式是这样的。 123456789public class Singleton &#123; private static Singleton instance = null; public static Singleton getInstance()&#123; if(instance==null)&#123; instance = new Singleton(); &#125; return instance; &#125;&#125; 但是，这种方式有一个问题，就是无法解决多线程问题。 于是，对方法加锁： 123456789public class Singleton &#123; private static Singleton instance = null; public static synchronized Singleton getInstance()&#123; if(instance==null)&#123; //lineA instance = new Singleton(); &#125; return instance; &#125;&#125; 这样，就解决了并发的问题。 但是，在每次调用方法我们都需要加锁，加锁实际上性能会变低，实际上调用方法只会出现一次instance==null，以后的每一次调用都是直接返回instance对象。 因此，可以将if判断语句提取出来。 1234567891011public class Singleton &#123; private static Singleton instance = null; public static Singleton getInstance()&#123; if(instance==null) &#123; //lineA synchronized (this) &#123; instance = new Singleton(); &#125; &#125; return instance; &#125;&#125; 但是，这样还是有问题，假设线程A执行完了lineA进入同步语句，但还并没有创建实例，此时线程B也执行到了lineA，但是instance==null，还是会重复创建实例。 于是，采用DCL解决，在同步语句块内部再进行一次if判断。 12345678910111213public class Singleton &#123; private static Singleton instance = null; public static Singleton getInstance()&#123; if(instance==null) &#123; synchronized (this) &#123; if(instance==null) &#123; instance = new Singleton(); &#125; &#125; &#125; return instance; &#125;&#125; 那么，这样就没有问题了吗？ 并不是，因为new Singleton()这个语句实际上它并不是一个原子操作。 它有三条指令构成： 1.在堆中开辟一块内存（new） 2.调用对象的构造函数对内存进行初始化（invokespecial） 3.最后将引用赋值给变量（astore），这一句instance就赋值了。 所以，因为重排序的存在，CPU有可能产生指令重排序，比如1-3-2，这样的话，另一个线程可能在对象还没有初始化的时候就拿走了instance，造成问题。 于是，我们可以加上volatile，禁止指令重排序。 12345678910111213public class Singleton &#123; private static volatile Singleton instance = null; public static Singleton getInstance()&#123; if(instance==null) &#123; synchronized (this) &#123; if(instance==null) &#123; instance = new Singleton(); &#125; &#125; &#125; return instance; &#125;&#125; 单例模式]]></content>
       <categories>
         <category>设计模式</category>
       </categories>
@@ -114,8 +115,8 @@
         <category>并发</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>并发</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -126,8 +127,8 @@
         <category>并发</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>并发</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -194,8 +195,8 @@
         <category>并发</category>
       </categories>
       <tags>
-        <tag>java</tag>
         <tag>并发</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -279,7 +280,7 @@
   <entry>
     <title><![CDATA[零拷贝的问题]]></title>
     <url>%2F2019%2F09%2F11%2F%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题 一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA：不需要通过CPU调度，由DMA控制器来处理，不需要麻烦CPU。 读写操作使用传统的I/O程序读取文件内容, 并写入到另一个文件(或Socket)。性能开销比较大： 上下文切换(context switch), 此处有4次用户态和内核态的切换 Buffer内存开销, 一个是应用程序buffer, 另一个是系统读取buffer以及socket buffer。 需要进行四次拷贝，2次DMA copy和两次CPU copy。传统IO四次内容拷贝： 先将文件内容从磁盘中拷贝到操作系统buffer 再从操作系统buffer拷贝到程序应用buffer 从程序buffer拷贝到socket buffer 从socket buffer拷贝到协议引擎.零拷贝 MMap将物理内存映射到虚拟内存中。 在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时，若虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，将相应的页面载入物理内存。 mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址，这样以后，进程无需再调用read或write对文件进行读写，而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。 省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。 mmap+write如何映射，见更多细节。 sendFile拷贝过程： 首先通过DMA copy将数据从磁盘读取到kernel buffer中 然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中 最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送sendfile与read/write方式相比，少了一次复制，少了两次上下文切换。改进后的sendFilesendFile中间copy到socket buffer这一步仍是多余的。改进后的：拷贝过程： DMA copy将磁盘数据copy到kernel buffer中 向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量 DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。 改进后的只有两次复制了。]]></content>
+    <content type="text"><![CDATA[传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。 详细可见：内核缓冲区问题 一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间。 DMA：不需要通过CPU调度，由DMA控制器来处理，不需要麻烦CPU。 读写操作使用传统的I/O程序读取文件内容, 并写入到另一个文件(或Socket)。性能开销比较大： 上下文切换(context switch), 此处有4次用户态和内核态的切换 Buffer内存开销, 一个是应用程序buffer, 另一个是系统读取buffer以及socket buffer。 需要进行四次拷贝，2次DMA copy和两次CPU copy。传统IO四次内容拷贝： 先将文件内容从磁盘中拷贝到操作系统buffer 再从操作系统buffer拷贝到程序应用buffer 从程序buffer拷贝到socket buffer 从socket buffer拷贝到协议引擎. 零拷贝MMap将物理内存映射到虚拟内存中。 在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时，若虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，将相应的页面载入物理内存。 mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址，这样以后，进程无需再调用read或write对文件进行读写，而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。 省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。 mmap+write如何映射，见更多细节。 sendFile拷贝过程： 首先通过DMA copy将数据从磁盘读取到kernel buffer中 然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中 最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送sendfile与read/write方式相比，少了一次复制，少了两次上下文切换。改进后的sendFilesendFile中间copy到socket buffer这一步仍是多余的。改进后的：拷贝过程： DMA copy将磁盘数据copy到kernel buffer中 向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量 DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。 改进后的只有两次复制了。]]></content>
       <categories>
         <category>IO</category>
       </categories>

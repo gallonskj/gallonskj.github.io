@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="并发，java,">
+  <meta name="keywords" content="并发,java,">
 
 
 
@@ -82,14 +82,14 @@
 
 
 <meta name="description" content="ReentrantReadWriteLock：一个资源能够被多个读线程访问，或者被一个写线程访问，但是不能同时存在读写线程。 读锁是共享锁，可以有多个线程读；而写锁是独占锁，同时只可能有一个线程写。 共享变量读锁可以多线程访问，写锁只可以有一个线程访问，我们很容易想到可以使用两个变量来表示读写状态。但是，AQS却只是使用一个state来实现。 123456789static final int S">
-<meta name="keywords" content="并发，java">
+<meta name="keywords" content="并发,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="读写锁">
 <meta property="og:url" content="http://yoursite.com/2019/10/14/读写锁/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="ReentrantReadWriteLock：一个资源能够被多个读线程访问，或者被一个写线程访问，但是不能同时存在读写线程。 读锁是共享锁，可以有多个线程读；而写锁是独占锁，同时只可能有一个线程写。 共享变量读锁可以多线程访问，写锁只可以有一个线程访问，我们很容易想到可以使用两个变量来表示读写状态。但是，AQS却只是使用一个state来实现。 123456789static final int S">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-16T08:46:23.509Z">
+<meta property="og:updated_time" content="2019-10-22T12:04:09.127Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读写锁">
 <meta name="twitter:description" content="ReentrantReadWriteLock：一个资源能够被多个读线程访问，或者被一个写线程访问，但是不能同时存在读写线程。 读锁是共享锁，可以有多个线程读；而写锁是独占锁，同时只可能有一个线程写。 共享变量读锁可以多线程访问，写锁只可以有一个线程访问，我们很容易想到可以使用两个变量来表示读写状态。但是，AQS却只是使用一个state来实现。 123456789static final int S">
@@ -391,7 +391,7 @@
 <p>读锁是否存在。因为要确保写锁的操作对读锁是<strong>可见的</strong>。如果在存在读锁的情况下允许获取写锁，那么那些已经获取读锁的其他线程可能就无法感知当前写线程的操作。因此只有等读锁完全释放后，写锁才能够被当前线程所获取，一旦写锁获取了，所有其他读、写线程均会被阻塞。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryAcquire</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Thread current = Thread.currentThread();</span><br><span class="line">    <span class="keyword">int</span> c = getState();  <span class="comment">//获取共享变量state</span></span><br><span class="line">    <span class="keyword">int</span> w = exclusiveCount(c); <span class="comment">//获取写锁数量</span></span><br><span class="line">    <span class="keyword">if</span> (c != <span class="number">0</span>) &#123; <span class="comment">//有读锁或者写锁</span></span><br><span class="line">        <span class="comment">// (Note: if c != 0 and w == 0 then shared count != 0)</span></span><br><span class="line">        <span class="keyword">if</span> (w == <span class="number">0</span> || current != getExclusiveOwnerThread()) <span class="comment">//写锁为0（证明有读锁），或者持有写锁的线程不为当前线程</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (w + exclusiveCount(acquires) &gt; MAX_COUNT)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Maximum lock count exceeded"</span>);</span><br><span class="line">        <span class="comment">// Reentrant acquire</span></span><br><span class="line">        setState(c + acquires);  <span class="comment">//当前线程持有写锁，为重入锁，+acquires即可</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (writerShouldBlock() ||</span><br><span class="line">        !compareAndSetState(c, c + acquires)) <span class="comment">//CAS操作失败，多线程情况下被抢占，获取锁失败。CAS成功则获取锁成功</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    setExclusiveOwnerThread(current);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="锁降级"><a href="#锁降级" class="headerlink" title="锁降级"></a>锁降级</h2><p>在获取写锁的时候，如果资源存在读锁，那么肯定是无法获取写锁的。</p>
+<h2 id="锁降级"><a href="#锁降级" class="headerlink" title="锁降级"></a>锁降级</h2><p>在获取写锁的时候，如果资源存在读锁，因为可能存在多个不同的线程读，要是修改了线程除了本线程别的线程也感知不到，那么肯定是无法获取写锁的。</p>
 <p>但是，在获取读锁的时候， 如果对资源加了写锁，其他线程无法再获得写锁与读锁，但是持有写锁的线程，可以对资源加读锁（锁降级），主要原因是因为在同一个线程内，写锁所做的修改读锁时立即可见的，但是在别的线程内就没有可见性了。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CachedData</span> </span>&#123;</span><br><span class="line">   Object data;</span><br><span class="line">     <span class="comment">//保证状态可见性</span></span><br><span class="line">   <span class="keyword">volatile</span> <span class="keyword">boolean</span> cacheValid;</span><br><span class="line">   ReentrantReadWriteLock rwl = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">processCachedData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     rwl.readLock().lock();</span><br><span class="line">     <span class="keyword">if</span> (!cacheValid) &#123;</span><br><span class="line">        <span class="comment">// 在获取写锁前必须释放读锁</span></span><br><span class="line">        rwl.readLock().unlock();</span><br><span class="line">        rwl.writeLock().lock();</span><br><span class="line">        <span class="comment">//再次检查其他线程是否已经抢到  </span></span><br><span class="line">        <span class="keyword">if</span> (!cacheValid) &#123;</span><br><span class="line">           <span class="comment">//获取数据</span></span><br><span class="line">          data = ...</span><br><span class="line">          cacheValid = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 在释放写锁之前通过获取读锁来降级</span></span><br><span class="line">        rwl.readLock().lock();</span><br><span class="line">        <span class="comment">//释放写锁，保持读锁</span></span><br><span class="line">        rwl.writeLock().unlock();</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     use(data);</span><br><span class="line">     rwl.readLock().unlock();</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
@@ -419,7 +419,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/并发，java/" rel="tag"># 并发，java</a>
+            <a href="/tags/并发/" rel="tag"># 并发</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -545,7 +547,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

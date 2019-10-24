@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201645767-1563201645775.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197393350-1563197393357.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197595055-1563197595060.png">
-<meta property="og:updated_time" content="2019-10-11T02:43:24.894Z">
+<meta property="og:updated_time" content="2019-10-22T12:09:31.929Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="零拷贝的问题">
 <meta name="twitter:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
@@ -400,9 +400,9 @@
 <li>先将文件内容从磁盘中拷贝到操作系统buffer</li>
 <li>再从操作系统buffer拷贝到程序应用buffer</li>
 <li>从程序buffer拷贝到socket buffer</li>
-<li>从socket buffer拷贝到协议引擎.<h1 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h1></li>
+<li>从socket buffer拷贝到协议引擎. </li>
 </ul>
-<h2 id="MMap"><a href="#MMap" class="headerlink" title="MMap"></a>MMap</h2><p>将物理内存映射到虚拟内存中。</p>
+<h1 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h1><h2 id="MMap"><a href="#MMap" class="headerlink" title="MMap"></a>MMap</h2><p>将物理内存映射到虚拟内存中。</p>
 <p>在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时，若<strong>虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，将相应的页面载入物理内存</strong>。</p>
 <p><strong>mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址</strong>，这样以后，进程无需再调用read或write对文件进行读写，<strong>而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址</strong>，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。</p>
 <p>省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201304883-1563201304890.png" alt="title"><br>它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201505296-1563201505300.png" alt="title"></p>
@@ -562,7 +562,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
