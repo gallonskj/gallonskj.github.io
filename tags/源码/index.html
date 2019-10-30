@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="并发,java,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -81,20 +81,13 @@
 
 
 
-<meta name="description" content="SemaphoreSemaphore叫做信号量，是一种共享锁，当其permit大于0时，线程可以获取锁，当permits小于0时，线程只能等待获取锁，等其他线程释放。 Semophore也有公平锁和非公平锁两种状态。 12345678910111213141516171819202122//公平共享锁尝试获取acquires个信号量protected int tryAcquireShared(in">
-<meta name="keywords" content="并发,java">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Semaphore and CountDownLatch">
-<meta property="og:url" content="http://yoursite.com/2019/10/16/Semaphore-and-CountDownLatch/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gallon&#39;s Note">
+<meta property="og:url" content="http://yoursite.com/tags/源码/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
-<meta property="og:description" content="SemaphoreSemaphore叫做信号量，是一种共享锁，当其permit大于0时，线程可以获取锁，当permits小于0时，线程只能等待获取锁，等其他线程释放。 Semophore也有公平锁和非公平锁两种状态。 12345678910111213141516171819202122//公平共享锁尝试获取acquires个信号量protected int tryAcquireShared(in">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/f71af66b-0d54-4399-a44b-f47b58321984.png">
-<meta property="og:updated_time" content="2019-10-22T06:30:31.274Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Semaphore and CountDownLatch">
-<meta name="twitter:description" content="SemaphoreSemaphore叫做信号量，是一种共享锁，当其permit大于0时，线程可以获取锁，当permits小于0时，线程只能等待获取锁，等其他线程释放。 Semophore也有公平锁和非公平锁两种状态。 12345678910111213141516171819202122//公平共享锁尝试获取acquires个信号量protected int tryAcquireShared(in">
-<meta name="twitter:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/f71af66b-0d54-4399-a44b-f47b58321984.png">
+<meta name="twitter:title" content="Gallon&#39;s Note">
 
 
 
@@ -124,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/10/16/Semaphore-and-CountDownLatch/">
+  <link rel="canonical" href="http://yoursite.com/tags/源码/">
 
 
 
 
 
-  <title>Semaphore and CountDownLatch | Gallon's Note</title>
+  <title>标签: 源码 | Gallon's Note</title>
   
 
 
@@ -149,7 +142,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,197 +268,52 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>源码<small>标签</small>
+        </h1>
+      </div>
 
-  
-  
-  
+      
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/16/Semaphore-and-CountDownLatch/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SKJin">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/2.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gallon's Note">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2019/10/26/Map容器/" itemprop="url">
+              
+                <span itemprop="name">Map容器</span>
+              
+            </a>
         
-          <h1 class="post-title" itemprop="name headline">Semaphore and CountDownLatch</h1>
-        
+      </h2>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-16T10:41:50+08:00">
-                2019-10-16
-              </time>
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-10-26T19:45:11+08:00" content="2019-10-26">
+          10-26
+        </time>
+      </div>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/并发/" itemprop="url" rel="index">
-                    <span itemprop="name">并发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p>Semaphore叫做信号量，是一种共享锁，当其permit大于0时，线程可以获取锁，当permits小于0时，线程只能等待获取锁，等其他线程释放。</p>
-<p>Semophore也有公平锁和非公平锁两种状态。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//公平共享锁尝试获取acquires个信号量</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">tryAcquireShared</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">if</span> (hasQueuedPredecessors()) <span class="comment">//前面是否有排队，有则返回获取失败</span></span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> available = getState(); <span class="comment">//剩余的信号量（旋转寿司店剩余的座位）</span></span><br><span class="line">        <span class="keyword">int</span> remaining = available - acquires;</span><br><span class="line">        <span class="keyword">if</span> (remaining &lt; <span class="number">0</span> ||</span><br><span class="line">            compareAndSetState(available, remaining)) <span class="comment">// 剩余信号量不够，够的情况下尝试获取（旋转寿司店座位不够，或者同时来两对情况抢座位）</span></span><br><span class="line">            <span class="keyword">return</span> remaining;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//非公平共享锁尝试获取acquires个信号量</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">int</span> <span class="title">nonfairTryAcquireShared</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> available = getState(); <span class="comment">//剩余的信号量（旋转寿司店剩余的座位）</span></span><br><span class="line">        <span class="keyword">int</span> remaining = available - acquires;</span><br><span class="line">        <span class="keyword">if</span> (remaining &lt; <span class="number">0</span> ||</span><br><span class="line">            compareAndSetState(available, remaining)) <span class="comment">// 剩余信号量不够，够的情况下尝试获取（旋转寿司店座位不够，或者同时来两对情侣抢座位）</span></span><br><span class="line">            <span class="keyword">return</span> remaining;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>CountDownLatch用于协调多个线程的同步，能让一个线程在等待其他线程执行完任务后，再继续执行。内部是通过一个计数器去完成实现。</p>
-<p>CountDownLatch是通过<strong>一个计数器</strong>来实现的，计数器的初始值为线程的数量。每当一个线程完成了自己的任务后，可以调用<strong>countDown()，计数器的值就会减1</strong>。当计数器值到达0时，它表示所有的线程已经完成了任务，然后<strong>在闭锁上等待的线程(使用await()阻塞)就可以恢复执行任务</strong>。</p>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
-<li><p>一个线程执行需要等待其他线程执行完毕，才能继续执行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       CountDownLatch latch = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">           <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">               System.out.println(Thread.currentThread().getName() + <span class="string">"---start"</span>);</span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                   Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">               &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                   e.printStackTrace();</span><br><span class="line">               &#125;</span><br><span class="line">               System.out.println(Thread.currentThread().getName() + <span class="string">"---finish"</span>);</span><br><span class="line">               <span class="comment">//计数器减一</span></span><br><span class="line">               latch.countDown();</span><br><span class="line">           &#125;).start();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="comment">//将主线程阻塞在latch，直到latch的计数器等于0</span></span><br><span class="line">           latch.await();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">       System.out.println(<span class="string">"执行完毕-----"</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><p>CountDownLatch通过state来表示计数器。</p>
-<ul>
-<li>await() 将当前线程阻塞在CountDownLatch上，直到计数器的数量减少至0.</li>
-<li>await(long timeout, TimeUnit unit)，与await()不同的是，设置了超时等待，等到了时间，不管计数器是不是0，都会继续执行。</li>
-<li>countDown()，计数器数量减一。当计数器数量减为0时，将await()的线程唤醒。</li>
-</ul>
-<h2 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h2><p>用来控制多个线程互相等待，只有当多个线程都到达时，这些线程才会继续执行。</p>
-<p>和 CountdownLatch 相似，都是通过维护计数器来实现的。线程执行 await() 方法之后计数器会减 1，并进行等待，直到计数器为 0，所有调用 await() 方法而在等待的线程才能继续执行。</p>
-<p>CyclicBarrier 和 CountdownLatch 的一个区别是，CyclicBarrier 的计数器通过调用 reset() 方法可以循环使用，所以它才叫做循环屏障。</p>
-<p>CyclicBarrier 有两个构造函数，其中 parties 指示计数器的初始值，barrierAction 在所有线程都到达屏障的时候会执行一次。</p>
-<p><img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/f71af66b-0d54-4399-a44b-f47b58321984.png" alt="img"></p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/并发/" rel="tag"># 并发</a>
-          
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/10/14/读写锁/" rel="next" title="读写锁">
-                <i class="fa fa-chevron-left"></i> 读写锁
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/19/线程池/" rel="prev" title="线程池">
-                线程池 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
       
     </div>
+
   </div>
+  
+  
+  
+
+  
 
 
           </div>
@@ -473,10 +321,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -497,17 +341,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -592,22 +427,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Semaphore"><span class="nav-text">Semaphore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CountDownLatch"><span class="nav-text">CountDownLatch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法"><span class="nav-text">常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CyclicBarrier"><span class="nav-text">CyclicBarrier</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -748,10 +567,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

@@ -108,7 +108,7 @@
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/22/1571733960743-1571733960748.png">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-<meta property="og:updated_time" content="2019-10-22T08:46:15.904Z">
+<meta property="og:updated_time" content="2019-10-24T03:02:09.314Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="synchronized关键字">
 <meta name="twitter:description" content="使用锁定的是对象1234567891011public class T &amp;#123;	private Object o=new Object();	private int count=10;	public void m() &amp;#123;		synchronized(o) &amp;#123;			count--;			System.out.println(Thread.currentThread().ge">
@@ -438,14 +438,14 @@
 <p>_EntryList：存放处于等待锁block状态的线程队列</p>
 <p>_recursions：锁的重入次数</p>
 <p>_count：用来记录该线程获取锁的次数、</p>
-<p>ObjectMonitor中有两个队列，_WaitSet 和 _EntryList，用来保存ObjectWaiter对象列表( 每个等待锁的线程都会被封装成ObjectWaiter对象)，_owner指向持有ObjectMonitor对象的线程，当多个线程同时访问一段同步代码时，首先会进入 _EntryList 集合，当线程获取到对象的monitor 后进入 _Owner 区域并把monitor中的owner变量设置为当前线程同时monitor中的计数器count加1，若线程调用 wait() 方法，将释放当前持有的monitor，owner变量恢复为null，count自减1，同时该线程进入 WaitSe t集合中等待被唤醒。若当前线程执行完毕也将释放monitor(锁)并复位变量的值，以便其他线程进入获取monitor(锁)。</p>
+<p>ObjectMonitor中有两个队列，_WaitSet 和 _EntryList，用来保存ObjectWaiter对象列表( 每个等待锁的线程都会被封装成ObjectWaiter对象)，_owner指向持有ObjectMonitor对象的线程，当多个线程同时访问一段同步代码时，首先会进入 _EntryList 集合，当线程获取到对象的monitor 后进入 _Owner 区域并把monitor中的owner变量设置为当前线程同时monitor中的计数器count加1，若线程调用 wait() 方法，将释放当前持有的monitor，owner变量恢复为null，count自减1，同时该线程进入 WaitSet集合中等待被唤醒。若当前线程执行完毕也将释放monitor(锁)并复位变量的值，以便其他线程进入获取monitor(锁)。</p>
 <p>若执行线程调用 notify/notifyAll 方法，WaitSet 中的线程被唤醒，进入EntryList 中阻塞，等 待获取锁标记。若执行线程的同步代码执行结束，同样会释放锁标记，monitor 中的_Owner 标记赋值为 null，且计数器赋值为 0 计算。</p>
 <p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/22/1571733665296-1571733665302.png" alt="title"></p>
 <h3 id="等待唤醒机制与synchronized"><a href="#等待唤醒机制与synchronized" class="headerlink" title="等待唤醒机制与synchronized"></a>等待唤醒机制与synchronized</h3><p>所谓等待唤醒机制本篇主要指的是notify/notifyAll和wait方法，在使用这3个方法时，必须处于synchronized代码块或synchronized方法中，否则就会抛出IllegalMonitorStateException异常。</p>
 <p>这是因为调用这几个方法前必须拿到当前对象的监视器monitor对象，也就是说notify/notifyAll和wait方法依赖于monitor对象，在前面的分析中，我们知道monitor 存在于对象头的Mark Word 中(存储monitor引用指针)，而synchronized关键字可以获取 monitor ，这也就是为什么notify/notifyAll和wait方法必须在synchronized代码块或者synchronized方法调用的原因。</p>
 <h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><p>锁的状态总共有四种：<strong>无锁状态、偏向锁、轻量级锁和重量级锁</strong>。随着锁的竞争，锁可以从偏向锁升级到轻量级锁，再升级的重量级锁。但是不可以降级。</p>
 <h3 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h3><p>sychronized就是重量级锁。</p>
-<p>Synchronized是通过对象内部的一个叫做监视器锁（monitor）来实现的。但是监视器锁本质又是依赖于底层的操作系统的Mutex Lock来实现的。而操作系统实现线程之间的切换这就需要从用户态转换到核心态，这个成本非常高，状态之间的转换需要相对比较长的时间，这就是为什么Synchronized效率低的原因。JDK为了sychronized的优化，引入了轻量级锁和偏向锁。</p>
+<p>Synchronized是通过对象内部的一个叫做监视器锁（monitor）来实现的。但是监视器锁本质又是依赖于底层的操作系统的Mutex Lock来实现的。而<strong>操作系统实现线程之间的切换这就需要从用户态转换到核心态</strong>，这个成本非常高，状态之间的转换需要相对比较长的时间，这就是为什么Synchronized效率低的原因。JDK为了sychronized的优化，引入了轻量级锁和偏向锁。</p>
 <p>一个依据：“<strong>对于绝大部分的锁，在整个同步周期内都是不存在竞争的</strong>。”</p>
 <p>这是轻量级锁和偏向锁的依据。</p>
 <h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>在大多数情况下，<strong>锁不仅不存在多线程竞争，而且总是由同一线程多次获得</strong>，因此为了减少同一线程获取锁(会涉及到一些CAS操作,耗时)的代价而引入偏向锁。</p>
@@ -631,7 +631,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -653,7 +653,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
