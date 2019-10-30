@@ -89,14 +89,14 @@
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。 Collection Collection主要分为三类：Set，List，Queue。 Set是无序存储，而且不会存储重复的元素。 Queue是一个队列，只能从一端插入元素，从另一端取出元素。 Map Map存储的是键值对。 ListArrayListArr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/10/19/容器/img/1571485852603-1571485852609.png">
-<meta property="og:image" content="http://yoursite.com/2019/10/19/容器/img/1571485852603-1571485852609-1572012322950.png">
-<meta property="og:image" content="http://yoursite.com/2019/10/19/容器/img/1571492127073-1571492127077.png">
+<meta property="og:image" content="http://yoursite.com/.com//1571485852603-1571485852609.png">
+<meta property="og:image" content="http://yoursite.com/.com//1571485852603-1571485852609-1572012322950.png">
+<meta property="og:image" content="http://yoursite.com/.com//1571492127073-1571492127077.png">
 <meta property="og:updated_time" content="2019-10-28T06:02:00.977Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="容器">
 <meta name="twitter:description" content="容器主要包括 Collection 和 Map 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。 Collection Collection主要分为三类：Set，List，Queue。 Set是无序存储，而且不会存储重复的元素。 Queue是一个队列，只能从一端插入元素，从另一端取出元素。 Map Map存储的是键值对。 ListArrayListArr">
-<meta name="twitter:image" content="http://yoursite.com/2019/10/19/容器/img/1571485852603-1571485852609.png">
+<meta name="twitter:image" content="http://yoursite.com/.com//1571485852603-1571485852609.png">
 
 
 
@@ -381,11 +381,11 @@
 
       
         <p>容器主要包括 <strong>Collection 和 Map</strong> 两种，Collection 存储着对象的集合，而 Map 存储着键值对（两个对象）的映射表。</p>
-<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><p><img src="img/1571485852603-1571485852609.png" alt="img"></p>
+<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><p><img src="/.com//1571485852603-1571485852609.png" alt="img"></p>
 <p>Collection主要分为三类：Set，List，Queue。</p>
 <p>Set是无序存储，而且不会存储重复的元素。</p>
 <p>Queue是一个队列，只能从一端插入元素，从另一端取出元素。</p>
-<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p><img src="img/1571485852603-1571485852609-1572012322950.png" alt="img"></p>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p><img src="/.com//1571485852603-1571485852609-1572012322950.png" alt="img"></p>
 <p>Map存储的是键值对。</p>
 <h1 id="List"><a href="#List" class="headerlink" title="List"></a>List</h1><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><p>ArrayList的底层实现是一个数组，其访问速度比较快，但是插入删除速度比较慢。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//transient表示这个成员不可以被序列化</span></span><br><span class="line"><span class="keyword">transient</span> Object[] elementData;</span><br></pre></td></tr></table></figure>
@@ -429,7 +429,7 @@
 <li>内存问题。COW每次写数据都需要重新拷贝一个数组，假如高并发写或者对象比较大，会造成频繁GC。COW其实是不适用于高并发频繁写的场景。</li>
 </ul>
 <h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><p>基于双向链表实现。</p>
-<p><img src="img/1571492127073-1571492127077.png" alt="img"></p>
+<p><img src="/.com//1571492127073-1571492127077.png" alt="img"></p>
 <h1 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h1><p>Set的核心概念就是<strong>集合内所有元素不重复</strong>。</p>
 <h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><p>基于HashTable实现。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
