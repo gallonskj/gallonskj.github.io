@@ -89,12 +89,13 @@
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="Queue主要有两类，一类是不阻塞的，一类是阻塞的。非阻塞队列主要有PriorityQueue 和 ConcurrentLinkedQueue。 Deque比如LinkedList以及ArrayDeque就是双端队列。其中，ArrayQueue是一个用数组实现的双端队列，可以在数组两端进行元素的插入以及删除，所以，这个数组必须是循环数组。LinkedList是基于双向链表的，容量没有限制，可在链表">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/10/29/Queue容器/Queue%E5%AE%B9%E5%99%A8.assets/16334a21947ee154">
-<meta property="og:updated_time" content="2019-10-30T01:37:41.828Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/29/Queue容器/img/1633459982863c26">
+<meta property="og:image" content="http://yoursite.com/_posts/img/16334a21947ee154">
+<meta property="og:updated_time" content="2019-10-30T02:05:06.550Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Queue容器">
 <meta name="twitter:description" content="Queue主要有两类，一类是不阻塞的，一类是阻塞的。非阻塞队列主要有PriorityQueue 和 ConcurrentLinkedQueue。 Deque比如LinkedList以及ArrayDeque就是双端队列。其中，ArrayQueue是一个用数组实现的双端队列，可以在数组两端进行元素的插入以及删除，所以，这个数组必须是循环数组。LinkedList是基于双向链表的，容量没有限制，可在链表">
-<meta name="twitter:image" content="http://yoursite.com/2019/10/29/Queue容器/Queue%E5%AE%B9%E5%99%A8.assets/16334a21947ee154">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/29/Queue容器/img/1633459982863c26">
 
 
 
@@ -423,8 +424,9 @@
 </ul>
 <h2 id="PriorityBlockingQueue"><a href="#PriorityBlockingQueue" class="headerlink" title="PriorityBlockingQueue"></a>PriorityBlockingQueue</h2><p>PriorityBlockingQueue是一个底层由数组实现的无界队列，并带有排序功能，同样采用ReentrantLock来控制并发。由于是无界的，所以插入元素时不会阻塞，没有队列满的状态，只有队列为空的状态。通过这两点特征其实可以猜测它应该是有一个独占锁（底层数组）和一个Condition（只通知消费）来实现的。</p>
 <h2 id="DelayQueue"><a href="#DelayQueue" class="headerlink" title="DelayQueue"></a>DelayQueue</h2><p>DelayQueue 是一个<strong>支持延时获取元素</strong>的阻塞队列， 内部采用优先队列 <strong>PriorityQueue</strong> 存储元素，同时元素必须实现 Delayed 接口；在创建元素时可以指定多久才可以从队列中获取当前元素，<strong>只有在延迟期满时才能从队列中提取元素。</strong></p>
-<p><img src="Queue%E5%AE%B9%E5%99%A8.assets/16334a21947ee154" alt="img"></p>
+<p><img src="img/1633459982863c26" alt="1.ConcurrentLinkedQueue初始化状态.png"></p>
 <p><a href="https://juejin.im/post/5bd1e4d7e51d4566a17a0f74#heading-2" target="_blank" rel="noopener">阻塞队列</a></p>
+<p><img src="/_posts/img/16334a21947ee154" alt="img"></p>
 
       
     </div>
