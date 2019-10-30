@@ -421,6 +421,7 @@
 </ul>
 <h2 id="PriorityBlockingQueue"><a href="#PriorityBlockingQueue" class="headerlink" title="PriorityBlockingQueue"></a>PriorityBlockingQueue</h2><p>PriorityBlockingQueue是一个底层由数组实现的无界队列，并带有排序功能，同样采用ReentrantLock来控制并发。由于是无界的，所以插入元素时不会阻塞，没有队列满的状态，只有队列为空的状态。通过这两点特征其实可以猜测它应该是有一个独占锁（底层数组）和一个Condition（只通知消费）来实现的。</p>
 <h2 id="DelayQueue"><a href="#DelayQueue" class="headerlink" title="DelayQueue"></a>DelayQueue</h2><p>DelayQueue 是一个<strong>支持延时获取元素</strong>的阻塞队列， 内部采用优先队列 <strong>PriorityQueue</strong> 存储元素，同时元素必须实现 Delayed 接口；在创建元素时可以指定多久才可以从队列中获取当前元素，<strong>只有在延迟期满时才能从队列中提取元素。</strong></p>
+<p><img src="Queue%E5%AE%B9%E5%99%A8.assets/16334a21947ee154" alt="img"></p>
 <p><a href="https://juejin.im/post/5bd1e4d7e51d4566a17a0f74#heading-2" target="_blank" rel="noopener">阻塞队列</a></p>
 
           
@@ -1056,63 +1057,14 @@
 
       
         
-          
-            <h2 id="创建线程池"><a href="#创建线程池" class="headerlink" title="创建线程池"></a>创建线程池</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//五个参数的构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue)</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>corePoolSize,核心线程数。</p>
-<p>线程池新建线程的时候，如果当前线程总数小于corePoolSize，则新建的是核心线程，如果超过corePoolSize，则新建的是非核心线程。</p>
-<p>即使核心线程处于闲置状态，核心线程也不会被销毁。</p>
-</li>
-<li><p>maximumPoolSize,最大线程数。线程池中能创建的最大的线程数。</p>
-</li>
-<li><p>keepAliveTime.当非核心线程数闲置时长超过keepAliveTime,就会将其销毁。</p>
-</li>
-<li><p>workQueue。</p>
-<p>该线程池中的任务队列：维护着等待执行的Runnable对象。</p>
-<p>当所有的核心线程都在干活时，新添加的任务会被添加到这个队列中等待处理，如果队列满了，则新建非核心线程执行任务。</p>
-</li>
-</ul>
-<h2 id="ThreadPoolExecutor的策略"><a href="#ThreadPoolExecutor的策略" class="headerlink" title="ThreadPoolExecutor的策略"></a>ThreadPoolExecutor的策略</h2><p>当一个任务被添加进线程池时：</p>
-<ol>
-<li>线程数量未达到corePoolSize，则新建一个线程(核心线程)执行任务</li>
-<li>线程数量达到了corePoolSize，则将任务移入队列等待</li>
-<li>队列已满，新建线程(非核心线程)执行任务</li>
-<li>队列已满，总线程数又达到了maximumPoolSize，抛出异常</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/19/1571483685643-1571483685947.png" alt="title"></p>
-<p><strong>饱和策略 (RejectedExecutionHandler)</strong>：当等待队列已满，线程数也达到最大线程数时，线程池会根据饱和策略来执行后续操作，默认的策略是抛弃要加入的任务。</p>
-<h2 id="线程池种类"><a href="#线程池种类" class="headerlink" title="线程池种类"></a>线程池种类</h2><ul>
-<li><p>newFixedThreadPool，固定线程数的线程池。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                  <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>newCachedThreadPool。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                  <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-<ul>
-<li><p>newScheduledThreadPool().</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ScheduledThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(corePoolSize, Integer.MAX_VALUE,</span><br><span class="line">          DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS,</span><br><span class="line">          <span class="keyword">new</span> DelayedWorkQueue());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//DelayedWorkQueue 这个队列接收到任务时，首先先入队，只有达到了指定的延时时间，才会执行任务</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>newSingleThreadPool().</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">        (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-
-          
+          <p>线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/19/线程池/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

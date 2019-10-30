@@ -19,8 +19,8 @@
         <category>容器</category>
       </categories>
       <tags>
-        <tag>容器</tag>
         <tag>并发</tag>
+        <tag>容器</tag>
         <tag>源码</tag>
       </tags>
   </entry>
@@ -43,15 +43,15 @@
         <category>容器</category>
       </categories>
       <tags>
-        <tag>容器</tag>
         <tag>并发</tag>
         <tag>java</tag>
+        <tag>容器</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[线程池]]></title>
     <url>%2F2019%2F10%2F19%2F%E7%BA%BF%E7%A8%8B%E6%B1%A0%2F</url>
-    <content type="text"><![CDATA[创建线程池123456//五个参数的构造函数public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue) corePoolSize,核心线程数。 线程池新建线程的时候，如果当前线程总数小于corePoolSize，则新建的是核心线程，如果超过corePoolSize，则新建的是非核心线程。 即使核心线程处于闲置状态，核心线程也不会被销毁。 maximumPoolSize,最大线程数。线程池中能创建的最大的线程数。 keepAliveTime.当非核心线程数闲置时长超过keepAliveTime,就会将其销毁。 workQueue。 该线程池中的任务队列：维护着等待执行的Runnable对象。 当所有的核心线程都在干活时，新添加的任务会被添加到这个队列中等待处理，如果队列满了，则新建非核心线程执行任务。 ThreadPoolExecutor的策略当一个任务被添加进线程池时： 线程数量未达到corePoolSize，则新建一个线程(核心线程)执行任务 线程数量达到了corePoolSize，则将任务移入队列等待 队列已满，新建线程(非核心线程)执行任务 队列已满，总线程数又达到了maximumPoolSize，抛出异常 饱和策略 (RejectedExecutionHandler)：当等待队列已满，线程数也达到最大线程数时，线程池会根据饱和策略来执行后续操作，默认的策略是抛弃要加入的任务。 线程池种类 newFixedThreadPool，固定线程数的线程池。 12345public static ExecutorService newFixedThreadPool(int nThreads) &#123; return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;());&#125; newCachedThreadPool。 12345public static ExecutorService newCachedThreadPool() &#123; return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue&lt;Runnable&gt;());&#125; newScheduledThreadPool(). 1234567public ScheduledThreadPoolExecutor(int corePoolSize) &#123; super(corePoolSize, Integer.MAX_VALUE, DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS, new DelayedWorkQueue());&#125;//DelayedWorkQueue 这个队列接收到任务时，首先先入队，只有达到了指定的延时时间，才会执行任务 newSingleThreadPool(). 123456public static ExecutorService newSingleThreadExecutor() &#123; return new FinalizableDelegatedExecutorService (new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;()));&#125;]]></content>
+    <content type="text"><![CDATA[线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。 创建线程池123456//五个参数的构造函数public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue) corePoolSize,核心线程数。 线程池新建线程的时候，如果当前线程总数小于corePoolSize，则新建的是核心线程，如果超过corePoolSize，则新建的是非核心线程。 即使核心线程处于闲置状态，核心线程也不会被销毁。 maximumPoolSize,最大线程数。线程池中能创建的最大的线程数。 keepAliveTime.当非核心线程数闲置时长超过keepAliveTime,就会将其销毁。 workQueue。 该线程池中的任务队列：维护着等待执行的Runnable对象。 当所有的核心线程都在干活时，新添加的任务会被添加到这个队列中等待处理，如果队列满了，则新建非核心线程执行任务。 可以使用无界队列或者是有界队列。 使用无界队列的话，这样队列永远不会满，也就是说线程池内线程数只能是核心线程数。 ThreadPoolExecutor的策略当一个任务被添加进线程池时： 线程数量未达到corePoolSize，则新建一个线程(核心线程)执行任务 线程数量达到了corePoolSize，则将任务移入队列等待 队列已满，新建线程(非核心线程)执行任务 队列已满，总线程数又达到了maximumPoolSize，抛出异常 饱和策略 (RejectedExecutionHandler)：当等待队列已满，线程数也达到最大线程数时，线程池会根据饱和策略来执行后续操作，默认的策略是抛弃要加入的任务。 线程池种类 newFixedThreadPool，固定线程数的线程池。 12345public static ExecutorService newFixedThreadPool(int nThreads) &#123; return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;());&#125; newCachedThreadPool。 12345public static ExecutorService newCachedThreadPool() &#123; return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue&lt;Runnable&gt;());&#125; newScheduledThreadPool(). 1234567public ScheduledThreadPoolExecutor(int corePoolSize) &#123; super(corePoolSize, Integer.MAX_VALUE, DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS, new DelayedWorkQueue());&#125;//DelayedWorkQueue 这个队列接收到任务时，首先先入队，只有达到了指定的延时时间，才会执行任务 newSingleThreadPool(). 123456public static ExecutorService newSingleThreadExecutor() &#123; return new FinalizableDelegatedExecutorService (new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue&lt;Runnable&gt;()));&#125; 关闭线程池关闭线程池，可以通过shutdown和shutdownNow这两个方法。它们的原理都是遍历线程池中所有的线程，然后依次中断线程。shutdown和shutdownNow还是有不一样的地方： shutdownNow首先将线程池的状态设置为STOP,然后尝试停止所有的正在执行和未执行任务的线程，并返回等待执行任务的列表； shutdown只是将线程池的状态设置为SHUTDOWN状态，然后中断所有没有正在执行任务的线程]]></content>
       <categories>
         <category>并发</category>
       </categories>

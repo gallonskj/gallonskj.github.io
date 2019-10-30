@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="创建线程池123456//五个参数的构造函数public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long keepAliveTime,                          TimeUnit unit,">
+<meta name="description" content="线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。">
 <meta name="keywords" content="并发,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线程池">
 <meta property="og:url" content="http://yoursite.com/2019/10/19/线程池/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
-<meta property="og:description" content="创建线程池123456//五个参数的构造函数public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long keepAliveTime,                          TimeUnit unit,">
+<meta property="og:description" content="线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/19/1571483685643-1571483685947.png">
-<meta property="og:updated_time" content="2019-10-19T11:37:32.607Z">
+<meta property="og:updated_time" content="2019-10-30T01:28:26.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程池">
-<meta name="twitter:description" content="创建线程池123456//五个参数的构造函数public ThreadPoolExecutor(int corePoolSize,                          int maximumPoolSize,                          long keepAliveTime,                          TimeUnit unit,">
+<meta name="twitter:description" content="线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/19/1571483685643-1571483685947.png">
 
 
@@ -378,20 +378,25 @@
       
 
       
-        <h2 id="创建线程池"><a href="#创建线程池" class="headerlink" title="创建线程池"></a>创建线程池</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//五个参数的构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue)</span></span></span><br></pre></td></tr></table></figure>
+        <p>线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。</p>
+<a id="more"></a>
+
+<h2 id="创建线程池"><a href="#创建线程池" class="headerlink" title="创建线程池"></a>创建线程池</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//五个参数的构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue)</span></span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>corePoolSize,核心线程数。</p>
 <p>线程池新建线程的时候，如果当前线程总数小于corePoolSize，则新建的是核心线程，如果超过corePoolSize，则新建的是非核心线程。</p>
-<p>即使核心线程处于闲置状态，核心线程也不会被销毁。</p>
+<p>即使<strong>核心线程处于闲置状态，核心线程也不会被销毁</strong>。</p>
 </li>
 <li><p>maximumPoolSize,最大线程数。线程池中能创建的最大的线程数。</p>
 </li>
-<li><p>keepAliveTime.当非核心线程数闲置时长超过keepAliveTime,就会将其销毁。</p>
+<li><p>keepAliveTime.当<strong>非核心线程数闲置时长超过keepAliveTime,就会将其销毁。</strong></p>
 </li>
 <li><p>workQueue。</p>
 <p>该线程池中的任务队列：维护着等待执行的Runnable对象。</p>
-<p>当所有的核心线程都在干活时，新添加的任务会被添加到这个队列中等待处理，如果队列满了，则新建非核心线程执行任务。</p>
+<p>当所有的核心线程都在干活时，<strong>新添加的任务会被添加到这个队列中等待处理，如果队列满了，则新建非核心线程执行任务</strong>。</p>
+<p>可以使用无界队列或者是有界队列。</p>
+<p>使用无界队列的话，这样队列永远不会满，也就是说线程池内线程数只能是核心线程数。</p>
 </li>
 </ul>
 <h2 id="ThreadPoolExecutor的策略"><a href="#ThreadPoolExecutor的策略" class="headerlink" title="ThreadPoolExecutor的策略"></a>ThreadPoolExecutor的策略</h2><p>当一个任务被添加进线程池时：</p>
@@ -432,6 +437,11 @@
 
 </li>
 </ul>
+<h2 id="关闭线程池"><a href="#关闭线程池" class="headerlink" title="关闭线程池"></a>关闭线程池</h2><p>关闭线程池，可以通过<code>shutdown</code>和<code>shutdownNow</code>这两个方法。它们的原理都是遍历线程池中所有的线程，然后依次中断线程。<code>shutdown</code>和<code>shutdownNow</code>还是有不一样的地方：</p>
+<ol>
+<li><code>shutdownNow</code>首先将线程池的状态设置为<strong>STOP</strong>,然后尝试<strong>停止所有的正在执行和未执行任务</strong>的线程，并返回等待执行任务的列表；</li>
+<li><code>shutdown</code>只是将线程池的状态设置为<strong>SHUTDOWN</strong>状态，<strong>然后中断所有没有正在执行任务的线程</strong></li>
+</ol>
 
       
     </div>
@@ -633,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建线程池"><span class="nav-text">创建线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPoolExecutor的策略"><span class="nav-text">ThreadPoolExecutor的策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池种类"><span class="nav-text">线程池种类</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建线程池"><span class="nav-text">创建线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPoolExecutor的策略"><span class="nav-text">ThreadPoolExecutor的策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池种类"><span class="nav-text">线程池种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭线程池"><span class="nav-text">关闭线程池</span></a></li></ol></div>
             
 
           </div>
