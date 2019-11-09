@@ -90,7 +90,7 @@
 <meta property="og:description" content="SemaphoreSemaphore叫做信号量，是一种共享锁，当其permit大于0时，线程可以获取锁，当permits小于0时，线程只能等待获取锁，等其他线程释放。 Semophore也有公平锁和非公平锁两种状态。 12345678910111213141516171819202122//公平共享锁尝试获取acquires个信号量protected int tryAcquireShared(in">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/f71af66b-0d54-4399-a44b-f47b58321984.png">
-<meta property="og:updated_time" content="2019-10-22T06:30:31.274Z">
+<meta property="og:updated_time" content="2019-10-31T03:17:49.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Semaphore and CountDownLatch">
 <meta name="twitter:description" content="SemaphoreSemaphore叫做信号量，是一种共享锁，当其permit大于0时，线程可以获取锁，当permits小于0时，线程只能等待获取锁，等其他线程释放。 Semophore也有公平锁和非公平锁两种状态。 12345678910111213141516171819202122//公平共享锁尝试获取acquires个信号量protected int tryAcquireShared(in">
@@ -386,7 +386,7 @@
 <p>CountDownLatch是通过<strong>一个计数器</strong>来实现的，计数器的初始值为线程的数量。每当一个线程完成了自己的任务后，可以调用<strong>countDown()，计数器的值就会减1</strong>。当计数器值到达0时，它表示所有的线程已经完成了任务，然后<strong>在闭锁上等待的线程(使用await()阻塞)就可以恢复执行任务</strong>。</p>
 <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
 <li><p>一个线程执行需要等待其他线程执行完毕，才能继续执行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       CountDownLatch latch = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">           <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">               System.out.println(Thread.currentThread().getName() + <span class="string">"---start"</span>);</span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                   Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">               &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                   e.printStackTrace();</span><br><span class="line">               &#125;</span><br><span class="line">               System.out.println(Thread.currentThread().getName() + <span class="string">"---finish"</span>);</span><br><span class="line">               <span class="comment">//计数器减一</span></span><br><span class="line">               latch.countDown();</span><br><span class="line">           &#125;).start();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="comment">//将主线程阻塞在latch，直到latch的计数器等于0</span></span><br><span class="line">           latch.await();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">       System.out.println(<span class="string">"执行完毕-----"</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    CountDownLatch latch = <span class="keyword">new</span> CountDownLatch(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"---start"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"---finish"</span>);</span><br><span class="line">            <span class="comment">//计数器减一</span></span><br><span class="line">            latch.countDown();</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//将主线程阻塞在latch，直到latch的计数器等于0</span></span><br><span class="line">        latch.await();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"执行完毕-----"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -524,7 +524,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -535,7 +535,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -546,7 +546,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

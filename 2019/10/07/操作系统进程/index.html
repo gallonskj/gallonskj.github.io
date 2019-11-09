@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560068275561-1560068275567.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560078704085-1560078704092.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560080472816-1560080472823.png">
-<meta property="og:updated_time" content="2019-10-09T05:51:55.579Z">
+<meta property="og:updated_time" content="2019-10-31T02:38:52.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统进程">
 <meta name="twitter:description" content="进程进程是资源分配的基本单位，他是程序运行时的一个实例。程序运行时，系统会创建一个进程，并分配相关的资源。 程序是静态的，进程是动态的。一个程序可以对应多个进程，一个进程可以包括多个程序。 进程=程序+数据+状态信息。">
@@ -387,6 +387,13 @@
 
 <h3 id="PCB-进程控制块"><a href="#PCB-进程控制块" class="headerlink" title="PCB(进程控制块)"></a>PCB(进程控制块)</h3><p>每个进程都有一个进程控制块，他是<strong>进程的唯一标识</strong>。<br>进程块描述进程的基本信息和运行状态。所谓的进程的创建与销毁，就是对PCB的创建与销毁。</p>
 <p>各个进程块在内存中<strong>应该是以链表的形式存储</strong>的，因为进程块需要频繁的进行插入与删除。</p>
+<h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><ul>
+<li>给新进程分配一个唯一标识以及进程控制块（没有被使用的）</li>
+<li>为进程分配独立地址空间</li>
+<li>初始化进程控制块：设置默认值（如状态为<code>New</code>…）</li>
+<li>设置相应地队列指针。如：把新进程加到就绪队列链表中</li>
+<li>主要操作是<code>UNIX</code>中：<code>fork/exec</code>，<code>Windows</code>中：<code>CreateProcess</code></li>
+</ul>
 <h3 id="进程的生命周期"><a href="#进程的生命周期" class="headerlink" title="进程的生命周期"></a>进程的生命周期</h3><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/06/09/1560068275561-1560068275567.png" alt="title"><br><strong>最主要的就是就绪，运行，阻塞三个状态。</strong><br>操作系统创建一个进程完成后，并为其分配了除了cpu之外的所有的资源，那么进程进入<strong>就绪(ready)状态</strong>，当CPU处于空闲的时候，就绪状态的进程占用CPU，进入<strong>运行（running）状态</strong>。正在执行的进程，由于等待某个事件发生而无法执行时，便放弃CPU而处于<strong>阻塞（waiting）状态</strong>。</p>
 <ul>
 <li><p>ready-&gt;running<br>当没有其他进程占用CPU，所有的ready进程就可以去竞争CPU，获得CPU的进程进入running状态。</p>
@@ -598,7 +605,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -609,7 +616,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -620,7 +627,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -676,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PCB-进程控制块"><span class="nav-text">PCB(进程控制块)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的生命周期"><span class="nav-text">进程的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程切换"><span class="nav-text">进程切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程挂起"><span class="nav-text">进程挂起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态队列"><span class="nav-text">状态队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OS中两种线程"><span class="nav-text">OS中两种线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内核线程"><span class="nav-text">内核线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户线程"><span class="nav-text">用户线程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程模型"><span class="nav-text">多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多对一"><span class="nav-text">多对一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一对一"><span class="nav-text">一对一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多对多"><span class="nav-text">多对多</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与进程区别"><span class="nav-text">与进程区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程切换"><span class="nav-text">线程切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fork-and-exec"><span class="nav-text">fork and exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#僵尸进程和孤儿进程"><span class="nav-text">僵尸进程和孤儿进程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PCB-进程控制块"><span class="nav-text">PCB(进程控制块)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的创建"><span class="nav-text">进程的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的生命周期"><span class="nav-text">进程的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程切换"><span class="nav-text">进程切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程挂起"><span class="nav-text">进程挂起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态队列"><span class="nav-text">状态队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OS中两种线程"><span class="nav-text">OS中两种线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内核线程"><span class="nav-text">内核线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户线程"><span class="nav-text">用户线程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程模型"><span class="nav-text">多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多对一"><span class="nav-text">多对一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一对一"><span class="nav-text">一对一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多对多"><span class="nav-text">多对多</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与进程区别"><span class="nav-text">与进程区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程切换"><span class="nav-text">线程切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fork-and-exec"><span class="nav-text">fork and exec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#僵尸进程和孤儿进程"><span class="nav-text">僵尸进程和孤儿进程</span></a></li></ol></div>
             
 
           </div>

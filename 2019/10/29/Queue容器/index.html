@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="Queue主要有两类，一类是不阻塞的，一类是阻塞的。非阻塞队列主要有PriorityQueue 和 ConcurrentLinkedQueue。 Deque比如LinkedList以及ArrayDeque就是双端队列。其中，ArrayQueue是一个用数组实现的双端队列，可以在数组两端进行元素的插入以及删除，所以，这个数组必须是循环数组。LinkedList是基于双向链表的，容量没有限制，可在链表">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-30T03:18:58.929Z">
+<meta property="og:updated_time" content="2019-11-03T11:11:44.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Queue容器">
 <meta name="twitter:description" content="Queue主要有两类，一类是不阻塞的，一类是阻塞的。非阻塞队列主要有PriorityQueue 和 ConcurrentLinkedQueue。 Deque比如LinkedList以及ArrayDeque就是双端队列。其中，ArrayQueue是一个用数组实现的双端队列，可以在数组两端进行元素的插入以及删除，所以，这个数组必须是循环数组。LinkedList是基于双向链表的，容量没有限制，可在链表">
@@ -397,6 +397,7 @@
 
 <p><a href="https://juejin.im/post/5aeeae756fb9a07ab11112af#heading-4" target="_blank" rel="noopener">ConcurrentLinkedQueue</a></p>
 <h1 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h1><p>阻塞队列（BlockingQueue）被广泛使用在“生产者-消费者”问题中，其原因是BlockingQueue提供了可阻塞的插入和移除的方法。<strong>当队列容器已满，生产者线程会被阻塞，直到队列未满；当队列容器为空时，消费者线程会被阻塞，直至队列非空时为止。</strong></p>
+<p>生产者消费者问题。  </p>
 <h2 id="ArrayBlockingQueue"><a href="#ArrayBlockingQueue" class="headerlink" title="ArrayBlockingQueue"></a>ArrayBlockingQueue</h2><p>ArrayBlockingQueue = ArrayQueue+ReentrantLock+Condition。</p>
 <p>所以，一方面，ArrayBlockingQueue使用Array做一个循环队列，另一方面，通过ReentrantLock以及Condition来实现等待唤醒操作。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** The queued items */</span></span><br><span class="line"><span class="keyword">final</span> Object[] items;</span><br><span class="line"> <span class="keyword">final</span> ReentrantLock lock;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Condition for waiting takes */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Condition notEmpty;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Condition for waiting puts */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Condition notFull;</span><br></pre></td></tr></table></figure>
@@ -461,6 +462,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/30/常用数据结构/" rel="prev" title="常用数据结构">
+                常用数据结构 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -539,7 +544,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -550,7 +555,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -561,7 +566,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

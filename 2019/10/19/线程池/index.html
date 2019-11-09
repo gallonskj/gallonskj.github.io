@@ -90,7 +90,7 @@
 <meta property="og:description" content="线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/19/1571483685643-1571483685947.png">
-<meta property="og:updated_time" content="2019-10-30T01:28:26.872Z">
+<meta property="og:updated_time" content="2019-11-02T07:06:57.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程池">
 <meta name="twitter:description" content="线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。">
@@ -381,7 +381,7 @@
         <p>线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。</p>
 <a id="more"></a>
 
-<h2 id="创建线程池"><a href="#创建线程池" class="headerlink" title="创建线程池"></a>创建线程池</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//五个参数的构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="创建线程池"><a href="#创建线程池" class="headerlink" title="创建线程池"></a>创建线程池</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//五个参数的构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue，</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span></span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>corePoolSize,核心线程数。</p>
@@ -398,13 +398,15 @@
 <p>可以使用无界队列或者是有界队列。</p>
 <p>使用无界队列的话，这样队列永远不会满，也就是说线程池内线程数只能是核心线程数。</p>
 </li>
+<li><p>handler：饱和策略，当任务数量超过了最大线程数，应该怎么做</p>
+</li>
 </ul>
 <h2 id="ThreadPoolExecutor的策略"><a href="#ThreadPoolExecutor的策略" class="headerlink" title="ThreadPoolExecutor的策略"></a>ThreadPoolExecutor的策略</h2><p>当一个任务被添加进线程池时：</p>
 <ol>
 <li>线程数量未达到corePoolSize，则新建一个线程(核心线程)执行任务</li>
 <li>线程数量达到了corePoolSize，则将任务移入队列等待</li>
 <li>队列已满，新建线程(非核心线程)执行任务</li>
-<li>队列已满，总线程数又达到了maximumPoolSize，抛出异常</li>
+<li>队列已满，总线程数又达到了maximumPoolSize，根据设定的策略进行处理</li>
 </ol>
 <p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/19/1571483685643-1571483685947.png" alt="title"></p>
 <p><strong>饱和策略 (RejectedExecutionHandler)</strong>：当等待队列已满，线程数也达到最大线程数时，线程池会根据饱和策略来执行后续操作，默认的策略是抛弃要加入的任务。</p>
@@ -424,14 +426,16 @@
 </li>
 </ul>
 <ul>
-<li><p>newScheduledThreadPool().</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ScheduledThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(corePoolSize, Integer.MAX_VALUE,</span><br><span class="line">          DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS,</span><br><span class="line">          <span class="keyword">new</span> DelayedWorkQueue());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//DelayedWorkQueue 这个队列接收到任务时，首先先入队，只有达到了指定的延时时间，才会执行任务</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
+<li>它是一个可以无限扩大的线程池；</li>
+<li>它比较适合处理执行时间比较小的任务；</li>
+<li>corePoolSize为0，<strong>maximumPoolSize为无限大</strong>，意味着线程数量可以无限大；</li>
+<li>keepAliveTime为60S，意味着线程空闲时间超过60S就会被杀死；</li>
+<li>采用<strong>SynchronousQueue装等待的任务，这个阻塞队列没有存储空间</strong>，这意味着只要有请求到来，就必须要找到一条工作线程处理他，如果当前没有空闲的线程，那么就会再创建一条新的线程。</li>
 </ul>
 <ul>
+<li><p>newScheduledThreadPool().</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ScheduledThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(corePoolSize, Integer.MAX_VALUE,</span><br><span class="line">          DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS,</span><br><span class="line">          <span class="keyword">new</span> DelayedWorkQueue());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//DelayedWorkQueue 这个队列接收到任务时，首先先入队，只有达到了指定的延时时间，才会执行任务</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>newSingleThreadPool().</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">        (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -442,7 +446,26 @@
 <li><code>shutdownNow</code>首先将线程池的状态设置为<strong>STOP</strong>,然后尝试<strong>停止所有的正在执行和未执行任务</strong>的线程，并返回等待执行任务的列表；</li>
 <li><code>shutdown</code>只是将线程池的状态设置为<strong>SHUTDOWN</strong>状态，<strong>然后中断所有没有正在执行任务的线程</strong></li>
 </ol>
+<h2 id="配置线程池参数"><a href="#配置线程池参数" class="headerlink" title="配置线程池参数"></a>配置线程池参数</h2><p>CPU密集型任务配置尽可能少的线程数量，如配置<strong>Ncpu+1</strong>个线程的线程池。IO密集型任务则由于需要等待IO操作，线程并不是一直在执行任务，则配置尽可能多的线程，如<strong>2xNcpu</strong>。</p>
+<h2 id="线程池状态"><a href="#线程池状态" class="headerlink" title="线程池状态"></a>线程池状态</h2><p>线程池有五种状态，running，shutdown，stop，tidying，terminated。</p>
+<p>running：运行状态。</p>
+<p>shutdown：不再接收新提交的任务，但是可以处理阻塞队列中的任务。调用shutdown方法会达到这种状态。</p>
+<p>stop：不能接受新任务，也不处理队列中的任务，会中断正在处理任务的线程。调用shutdownnow方法会达到这个状态。</p>
+<p>tidying：如果所有的任务都已终止了，workerCount (有效线程数) 为0，线程池进入该状态后会调用 terminated() 方法进入TERMINATED 状态。</p>
+<h2 id="Future模式"><a href="#Future模式" class="headerlink" title="Future模式"></a>Future模式</h2><ul>
+<li>通过它们可以在任务执行完毕之后得到任务执行结果。</li>
+<li>Future模式是一个异步调用。</li>
+<li>Future其实相当于一个占位符，当我们提交线程任务之后，可以不必等待任务完成，使用Future占位，当执行完成后，自然可以通过future.get()获取执行结果。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FutureDemo1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> l = System.currentTimeMillis();</span><br><span class="line">        ExecutorService executorService = Executors.newSingleThreadExecutor();</span><br><span class="line">        Future&lt;Integer&gt; future = executorService.submit(<span class="keyword">new</span> Callable&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"执行耗时操作..."</span>);</span><br><span class="line">                timeConsumingOperation();</span><br><span class="line">                <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;); <span class="comment">//&lt;1&gt;</span></span><br><span class="line">        <span class="comment">// 其他耗时操作..&lt;3&gt;</span></span><br><span class="line">        System.out.println(<span class="string">"计算结果:"</span> + future.get());<span class="comment">//&lt;2&gt;</span></span><br><span class="line">        System.out.println(<span class="string">"主线程运算耗时:"</span> + (System.currentTimeMillis() - l)+ <span class="string">"ms"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">timeConsumingOperation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>我们观察一下控制台的输出，发现依旧耗费 3s 来完成这次耗时操作，并没有比同步调用方式快。<strong>但是提交任务（非阻塞）和获取结果（阻塞）之间我们可以进行一些额外的操作，而这将形成一个并行执行的效果</strong>。</p>
+<p>我们会发现如果 <strong>future 提交给线程池执行之后立刻 get()，其实执行效率并不会变</strong>高，因为执行结果没有完成其实会将线程阻塞，反而由于线程的开销会比同步调用更慢。这种将来式的 future 适用多个耗时操作并发执行的场景。</p>
+<p>future<strong>并不是通过通知的方式来通知线程任务完成的</strong>。</p>
+<p><a href="https://www.cnkirito.moe/future-and-promise/" target="_blank" rel="noopener">Future模式</a></p>
+<h2 id="execute-and-submit"><a href="#execute-and-submit" class="headerlink" title="execute and submit"></a>execute and submit</h2><p>向线程池中提交任务主要有submit以及execute两种方式。submit和execute最大的区别就是submit有返回值，而execute没有返回值。但是实际上submit的底层使用的还是execute。</p>
+<h3 id="submit"><a href="#submit" class="headerlink" title="submit"></a>submit</h3><p><strong>是将要执行的任务包装为FutureTask来提交，使用者可以通过FutureTask来拿到任务的执行状态和执行最终的结果，最终调用的都是execute方法</strong>，所以，submit提交任务有返回值。</p>
+<h3 id="execute"><a href="#execute" class="headerlink" title="execute"></a>execute</h3>
       
     </div>
     
@@ -565,7 +588,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -576,7 +599,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -587,7 +610,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -643,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建线程池"><span class="nav-text">创建线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPoolExecutor的策略"><span class="nav-text">ThreadPoolExecutor的策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池种类"><span class="nav-text">线程池种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭线程池"><span class="nav-text">关闭线程池</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建线程池"><span class="nav-text">创建线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPoolExecutor的策略"><span class="nav-text">ThreadPoolExecutor的策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池种类"><span class="nav-text">线程池种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭线程池"><span class="nav-text">关闭线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置线程池参数"><span class="nav-text">配置线程池参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池状态"><span class="nav-text">线程池状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Future模式"><span class="nav-text">Future模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#execute-and-submit"><span class="nav-text">execute and submit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#submit"><span class="nav-text">submit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#execute"><span class="nav-text">execute</span></a></li></ol></li></ol></div>
             
 
           </div>
