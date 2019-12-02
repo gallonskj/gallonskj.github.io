@@ -81,27 +81,27 @@
 
 
 
-<meta name="description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
+<meta name="description" content="零拷贝机制可以减少数据在内核缓冲区和用户进程缓冲区之间反复的 I/O 拷贝操作。 零拷贝机制可以减少用户进程地址空间和内核地址空间之间因为上下文切换而带来的 CPU 开销。  传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
 <meta name="keywords" content="IO,OS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="零拷贝的问题">
 <meta property="og:url" content="http://yoursite.com/2019/09/11/零拷贝的问题/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
-<meta property="og:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
+<meta property="og:description" content="零拷贝机制可以减少数据在内核缓冲区和用户进程缓冲区之间反复的 I/O 拷贝操作。 零拷贝机制可以减少用户进程地址空间和内核地址空间之间因为上下文切换而带来的 CPU 开销。  传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196128657-1563196128663.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196409757-1563196409765.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201304883-1563201304890.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201505296-1563201505300.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201645767-1563201645775.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197393350-1563197393357.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197595055-1563197595060.png">
-<meta property="og:updated_time" content="2019-10-22T12:09:31.929Z">
+<meta property="og:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1568190754018-1568190754316.png">
+<meta property="og:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563196128657-1563196128663.png">
+<meta property="og:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563196409757-1563196409765.png">
+<meta property="og:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563201304883-1563201304890.png">
+<meta property="og:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563201505296-1563201505300.png">
+<meta property="og:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563201645767-1563201645775.png">
+<meta property="og:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563197393350-1563197393357.png">
+<meta property="og:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563197595055-1563197595060.png">
+<meta property="og:updated_time" content="2019-11-10T11:51:21.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="零拷贝的问题">
-<meta name="twitter:description" content="传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png">
+<meta name="twitter:description" content="零拷贝机制可以减少数据在内核缓冲区和用户进程缓冲区之间反复的 I/O 拷贝操作。 零拷贝机制可以减少用户进程地址空间和内核地址空间之间因为上下文切换而带来的 CPU 开销。  传统的IO的操作读操作缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。">
+<meta name="twitter:image" content="http://yoursite.com/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1568190754018-1568190754316.png">
 
 
 
@@ -385,18 +385,22 @@
       
 
       
-        <h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p>
+        <ul>
+<li>零拷贝机制可以减少数据在内核缓冲区和用户进程缓冲区之间<strong>反复的 I/O 拷贝</strong>操作。</li>
+<li>零拷贝机制可以减少用户进程地址空间和内核地址空间之间因为<strong>上下文切换</strong>而带来的 CPU 开销。</li>
+</ul>
+<h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p>
 <a id="more"></a>
 
 <p>详细可见：<a href="https://www.cnblogs.com/JohnABC/p/5821660.html" target="_blank" rel="noopener">内核缓冲区问题</a></p>
-<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568190754018-1568190754316.png" alt="title"></p>
+<p><img src="/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1568190754018-1568190754316.png" alt="title"></p>
 <p>一个完整的read操作：当应用程序发起read请求后，会检查内核空间内是否有需要读取的数据（pageCache）,如果有，直接copy到用户空间；如果没有，那么需要从磁盘读取，磁盘控制器<strong>通过DMA操作将数据从磁盘读取到内核空间，然后才从内核空间拷贝到用户空间</strong>。</p>
 <p>DMA：不需要通过CPU调度，由DMA控制器来处理，不需要麻烦CPU。</p>
 <h2 id="读写操作"><a href="#读写操作" class="headerlink" title="读写操作"></a>读写操作</h2><p>使用传统的I/O程序读取文件内容, 并写入到另一个文件(或Socket)。<br>性能开销比较大：</p>
 <ul>
 <li>上下文切换(context switch), 此处<strong>有4次用户态和内核态的切换</strong></li>
 <li>Buffer<strong>内存开销</strong>, 一个是应用程序buffer, 另一个是系统读取buffer以及socket buffer。</li>
-<li>需要进行<strong>四次拷贝</strong>，2次DMA copy和两次CPU copy。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196128657-1563196128663.png" alt="title"><br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563196409757-1563196409765.png" alt="title"><br>传统IO四次内容拷贝：</li>
+<li>需要进行<strong>四次拷贝</strong>，2次DMA copy和两次CPU copy。<br><img src="/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563196128657-1563196128663.png" alt="title"><br><img src="/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563196409757-1563196409765.png" alt="title"><br>传统IO四次内容拷贝：</li>
 <li>先将文件内容从磁盘中拷贝到操作系统buffer</li>
 <li>再从操作系统buffer拷贝到程序应用buffer</li>
 <li>从程序buffer拷贝到socket buffer</li>
@@ -405,16 +409,23 @@
 <h1 id="零拷贝"><a href="#零拷贝" class="headerlink" title="零拷贝"></a>零拷贝</h1><h2 id="MMap"><a href="#MMap" class="headerlink" title="MMap"></a>MMap</h2><p>将物理内存映射到虚拟内存中。</p>
 <p>在mmap之后，并没有在将文件内容加载到物理页上，只上在虚拟内存中分配了地址空间。当进程在访问这段地址时，若<strong>虚拟内存对应的page没有在物理内存中缓存，则产生”缺页”，将相应的页面载入物理内存</strong>。</p>
 <p><strong>mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个地址</strong>，这样以后，进程无需再调用read或write对文件进行读写，<strong>而只需要通过ptr就能够操作文件。但是ptr所指向的是一个逻辑地址，要操作其中的数据，必须通过MMU将逻辑地址转换成物理地址</strong>，若MMU没有相应的映射，产生缺页中断，将页面重新置入内存。</p>
-<p>省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201304883-1563201304890.png" alt="title"><br>它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201505296-1563201505300.png" alt="title"></p>
-<p>mmap+write<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563201645767-1563201645775.png" alt="title"><br>如何映射，见<a href="https://www.cnblogs.com/huxiao-tee/p/4660352.html" target="_blank" rel="noopener">更多细节</a>。</p>
-<h2 id="sendFile"><a href="#sendFile" class="headerlink" title="sendFile"></a>sendFile</h2><p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197393350-1563197393357.png" alt="title"><br>拷贝过程：</p>
+<p>省去了从内核缓冲区复制到用户空间的过程，只有从磁盘调入到物理内存的过程。<br><img src="/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563201304883-1563201304890.png" alt="title"><br>它的最终目的是将磁盘中的文件映射到用户进程的虚拟地址空间，实现用户进程对文件的直接读写，减少了文件复制的开销，提高了用户的访问效率。<br><img src="/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563201505296-1563201505300.png" alt="title"></p>
+<p>mmap+write<br><img src="/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563201645767-1563201645775.png" alt="title"><br>如何映射，见<a href="https://www.cnblogs.com/huxiao-tee/p/4660352.html" target="_blank" rel="noopener">更多细节</a>。</p>
+<h2 id="sendFile"><a href="#sendFile" class="headerlink" title="sendFile"></a>sendFile</h2><p><img src="/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563197393350-1563197393357.png" alt="title"><br>拷贝过程：</p>
 <ul>
-<li>首先通过DMA copy将数据从磁盘读取到kernel buffer中</li>
-<li>然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中</li>
-<li>最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送<br>sendfile与read/write方式相比，少了一次复制，少了两次上下文切换。<h3 id="改进后的sendFile"><a href="#改进后的sendFile" class="headerlink" title="改进后的sendFile"></a>改进后的sendFile</h3>sendFile中间copy到socket buffer这一步仍是多余的。<br>改进后的：<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/07/15/1563197595055-1563197595060.png" alt="title"><br>拷贝过程：</li>
-<li>DMA copy将磁盘数据copy到kernel buffer中</li>
-<li>向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量</li>
-<li>DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。</li>
+<li><p>首先通过DMA copy将数据从磁盘读取到kernel buffer中</p>
+</li>
+<li><p>然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中</p>
+</li>
+<li><p>最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送<br>sendfile与read/write方式相比，少了一次复制，少了两次上下文切换。</p>
+<h3 id="改进后的sendFile"><a href="#改进后的sendFile" class="headerlink" title="改进后的sendFile"></a>改进后的sendFile</h3><p>sendFile中间copy到socket buffer这一步仍是多余的。<br>改进后的：<br><img src="/images/%E9%9B%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E9%97%AE%E9%A2%98/1563197595055-1563197595060.png" alt="title"><br>拷贝过程：</p>
+</li>
+<li><p>DMA copy将磁盘数据copy到kernel buffer中</p>
+</li>
+<li><p>向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量</p>
+</li>
+<li><p>DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。</p>
+</li>
 </ul>
 <p><strong>改进后的只有两次复制了</strong>。</p>
 
@@ -540,7 +551,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

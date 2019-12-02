@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="并发,java,">
+  <meta name="keywords" content="java,并发,">
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。">
-<meta name="keywords" content="并发,java">
+<meta name="keywords" content="java,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线程池">
 <meta property="og:url" content="http://yoursite.com/2019/10/19/线程池/index.html">
@@ -90,7 +90,7 @@
 <meta property="og:description" content="线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/19/1571483685643-1571483685947.png">
-<meta property="og:updated_time" content="2019-11-02T07:06:57.617Z">
+<meta property="og:updated_time" content="2019-11-09T08:22:40.133Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程池">
 <meta name="twitter:description" content="线程池主要是为了避免频繁创建线程和销毁线程。当单个任务处理时间比较长或者是需要处理的任务量很大，为了避免系统效率降低，可以创建线程池，复用线程。">
@@ -441,6 +441,8 @@
 
 </li>
 </ul>
+<p>为什么不建议使用Executors的方法创建ThreadPoolExecutor对象？</p>
+<p>例如，FixedThreadPool和SingleThreadPool允许请求的队列长度是Integer.Max_value，很容易出现排队线程过多的情况。</p>
 <h2 id="关闭线程池"><a href="#关闭线程池" class="headerlink" title="关闭线程池"></a>关闭线程池</h2><p>关闭线程池，可以通过<code>shutdown</code>和<code>shutdownNow</code>这两个方法。它们的原理都是遍历线程池中所有的线程，然后依次中断线程。<code>shutdown</code>和<code>shutdownNow</code>还是有不一样的地方：</p>
 <ol>
 <li><code>shutdownNow</code>首先将线程池的状态设置为<strong>STOP</strong>,然后尝试<strong>停止所有的正在执行和未执行任务</strong>的线程，并返回等待执行任务的列表；</li>
@@ -482,9 +484,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/并发/" rel="tag"># 并发</a>
-          
             <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/并发/" rel="tag"># 并发</a>
           
         </div>
       
@@ -588,7 +590,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

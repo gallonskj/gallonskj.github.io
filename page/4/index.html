@@ -283,6 +283,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/18/java-基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/18/java-基础/" itemprop="url">java 基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-18T09:42:28+08:00">
+                2019-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="包装类型"><a href="#包装类型" class="headerlink" title="包装类型"></a>包装类型</h2><h3 id="装箱"><a href="#装箱" class="headerlink" title="装箱"></a>装箱</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 装箱 调用了 Integer.valueOf(2)，将int变成了一个Integer对象</span></span><br><span class="line">Integer x = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>装箱转换是指将一个值类型隐式地转换成一个object 类型，也就是创建一个object 实例并将这个值复制给这个object。</p>
+<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569821993294-1569821993678.png" alt="title"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/09/18/java-基础/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/DirectIO和PageCache/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -377,7 +526,7 @@
         
           <h1 id="PageCache"><a href="#PageCache" class="headerlink" title="PageCache"></a>PageCache</h1><p>PageCache一页有4KB左右。</p>
 <p>当需要写入磁盘的时候，若每写入一个字节数据就调用IO，这样效率就太低了，所以在操作系统的底层会有一个缓冲区，叫做PageCache，当PageCache中存满了，再写入磁盘，这样大大减少了磁盘IO的次数。</p>
-<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png" alt="title"></p>
+<p><img src="../images/DirectIO%E5%92%8CPageCache/1568203557001-1568203557007.png" alt="title"></p>
 <p>上图是写入磁盘的过程，我们使用MMap或者是FileChannel都会经过PageCache层。例如，我们使用FileChannel的时候，先写进DirectByteBuffer中，当buffer中数据满的时候，先写入PageCache，再写入磁盘。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -524,7 +673,11 @@
 
       
         
-          <h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p>
+          <ul>
+<li>零拷贝机制可以减少数据在内核缓冲区和用户进程缓冲区之间<strong>反复的 I/O 拷贝</strong>操作。</li>
+<li>零拷贝机制可以减少用户进程地址空间和内核地址空间之间因为<strong>上下文切换</strong>而带来的 CPU 开销。</li>
+</ul>
+<h1 id="传统的IO的操作"><a href="#传统的IO的操作" class="headerlink" title="传统的IO的操作"></a>传统的IO的操作</h1><h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><p>缓冲技术是IO的基础，一次读取大量数据放在缓冲区，需要的时候从缓冲区取得数据。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/09/11/零拷贝的问题/#more" rel="contents">
@@ -764,7 +917,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

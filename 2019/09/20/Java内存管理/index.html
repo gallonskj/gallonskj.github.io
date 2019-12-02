@@ -89,16 +89,16 @@
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。 字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190228160847399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0dhbGxvbl9f,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822524477-1569822524482.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570783997573-1570783997591.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822602260-1569822602265.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822636543-1569822636547.png">
-<meta property="og:updated_time" content="2019-10-22T07:14:55.663Z">
+<meta property="og:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/20190228160847399-1573275583133.png">
+<meta property="og:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822524477-1569822524482.png">
+<meta property="og:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1570783997573-1570783997591.png">
+<meta property="og:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822602260-1569822602265.png">
+<meta property="og:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822636543-1569822636547.png">
+<meta property="og:updated_time" content="2019-11-09T05:00:30.958Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存管理">
 <meta name="twitter:description" content="运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。 字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190228160847399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0dhbGxvbl9f,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/20190228160847399-1573275583133.png">
 
 
 
@@ -386,14 +386,14 @@
 <p><strong>字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。</strong>运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。</p>
 <a id="more"></a>
 
-<p><img src="https://img-blog.csdnimg.cn/20190228160847399.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0dhbGxvbl9f,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><img src="/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/20190228160847399-1573275583133.png" alt="img"></p>
 <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>所有线程共享。</p>
 <p>主要存放对象以及数组对象的。</p>
 <p>但是，由于现在逃逸技术的存在，对象并不一定都是存在于堆，还有可能存放在栈上。</p>
 <p>java堆分为新生代和老年代，新生代又分为Eden区以及Survivor区。</p>
 <p>当内存不足时，会产生OOM异常。</p>
 <h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><p>线程私有，每一个线程都有一个自己的栈。</p>
-<p>线程每执行一个方法，都会创建一个栈帧，用于存储局部变量表（对象引用，基本数据类型）等。方法调用直至完成的过程中，就是一个栈帧入栈和出栈的过程。<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822524477-1569822524482.png" alt="title"><br>两种异常情况：</p>
+<p>线程每执行一个方法，都会创建一个栈帧，用于存储局部变量表（对象引用，基本数据类型）等。方法调用直至完成的过程中，就是一个栈帧入栈和出栈的过程。<br><img src="/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822524477-1569822524482.png" alt="title"><br>两种异常情况：</p>
 <ul>
 <li>当线程请求的栈深度超过最大值，会抛出 StackOverflowError 异常；</li>
 <li>栈进行动态扩展时如果无法申请到足够内存，会抛出 OutOfMemoryError 异常。可以通过 -Xss 这个虚拟机参数来指定每个线程的 Java 虚拟机栈内存大小：</li>
@@ -409,7 +409,7 @@
 <p>元空间与永久代最大的不同就是，元空间并不在JVM中，<strong>而是在本地内存</strong>。主要原因还是因为永久代的大小难以确定，容易发生OOM，而移到元空间，只会受到本地内存大小的限制。</p>
 <h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><p>运行时常量池是方法区的一部分。</p>
 <p>class常量池：我们写的每一个Java类被编译后，就会形成一份class文件；class文件中除了包含类的版本、字段、方法、接口等描述信息外，还有一项信息就是常量池(constant pool table)，用于存放编译器生成的各种字面量(Literal)和符号引用(Symbolic References)。</p>
-<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/11/1570783997573-1570783997591.png" alt="title"></p>
+<p><img src="/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1570783997573-1570783997591.png" alt="title"></p>
 <p>class常量池在类加载完成后就会放入运行时常量池存放。</p>
 <p>字符串常量池：存放字符串，位于堆内。<strong>常量池中同时存在字符串常量和字符串引用。</strong>直接赋值和用字符串调用String构造函数都可能导致常量池中生成字符串常量;<strong>而intern()方法会尝试将堆中对象的引用放入常量池</strong>。</p>
 <h2 id="类加载子系统"><a href="#类加载子系统" class="headerlink" title="类加载子系统"></a>类加载子系统</h2><p>类加载子系统负责<strong>从文件系统或者网络中</strong>加载 Class 信息，加载的类信息存放于一块称 为方法区的内存空间。</p>
@@ -431,9 +431,9 @@
 </li>
 </ul>
 <h2 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h2><p>对象在内存中主要分为三个部分：对象头，实例数据以及对齐填充。</p>
-<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822602260-1569822602265.png" alt="title"></p>
+<p><img src="/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822602260-1569822602265.png" alt="img"></p>
 <p>对象头主要结构是由Mark Word 和 Class Metadata Address 组成 。Class Metadata Address存储的是该对象属于类的地址，即可以判断这个对象属于哪一个类。</p>
-<p>MarkWord有五种类型：<br><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/30/1569822636543-1569822636547.png" alt="title"></p>
+<p>MarkWord有五种类型：<br><img src="/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822636543-1569822636547.png" alt="title"></p>
 
       
     </div>
@@ -555,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
