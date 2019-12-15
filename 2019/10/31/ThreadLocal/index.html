@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="ThreadLocal提供了线程的局部变量，每个线程都可以通过set()和get()来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲突，实现了线程的数据隔离～。 ThreadLocal中填充的变量属于这个线程，对于其他线程是不可见的。 ThreadLocal采用的是空间换时间的方法来解决并发的问题。">
+<meta name="description" content="ThreadLocal是一种空间换时间的方法。 ThreadLocal 适用于每个线程需要自己独立的实例且该实例需要在多个方法中被使用，也即变量在线程间隔离而在方法或类间共享的场景。 ThreadLocal中填充的变量属于这个线程，对于其他线程是不可见的。 ThreadLocal提供了线程的局部变量，每个线程都可以通过set()和get()来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲">
 <meta name="keywords" content="ThreadLocal">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThreadLocal">
 <meta property="og:url" content="http://yoursite.com/2019/10/31/ThreadLocal/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
-<meta property="og:description" content="ThreadLocal提供了线程的局部变量，每个线程都可以通过set()和get()来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲突，实现了线程的数据隔离～。 ThreadLocal中填充的变量属于这个线程，对于其他线程是不可见的。 ThreadLocal采用的是空间换时间的方法来解决并发的问题。">
+<meta property="og:description" content="ThreadLocal是一种空间换时间的方法。 ThreadLocal 适用于每个线程需要自己独立的实例且该实例需要在多个方法中被使用，也即变量在线程间隔离而在方法或类间共享的场景。 ThreadLocal中填充的变量属于这个线程，对于其他线程是不可见的。 ThreadLocal提供了线程的局部变量，每个线程都可以通过set()和get()来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/ThreadLocal/172259164557.jpg">
-<meta property="og:updated_time" content="2019-10-31T05:51:02.666Z">
+<meta property="og:updated_time" content="2019-12-09T14:08:28.524Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadLocal">
-<meta name="twitter:description" content="ThreadLocal提供了线程的局部变量，每个线程都可以通过set()和get()来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲突，实现了线程的数据隔离～。 ThreadLocal中填充的变量属于这个线程，对于其他线程是不可见的。 ThreadLocal采用的是空间换时间的方法来解决并发的问题。">
+<meta name="twitter:description" content="ThreadLocal是一种空间换时间的方法。 ThreadLocal 适用于每个线程需要自己独立的实例且该实例需要在多个方法中被使用，也即变量在线程间隔离而在方法或类间共享的场景。 ThreadLocal中填充的变量属于这个线程，对于其他线程是不可见的。 ThreadLocal提供了线程的局部变量，每个线程都可以通过set()和get()来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲">
 <meta name="twitter:image" content="http://yoursite.com/images/ThreadLocal/172259164557.jpg">
 
 
@@ -378,9 +378,10 @@
       
 
       
-        <p>ThreadLocal提供了线程的局部变量，每个线程都可以通过<code>set()</code>和<code>get()</code>来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲突，<strong>实现了线程的数据隔离</strong>～。</p>
+        <p>ThreadLocal是一种<strong>空间换时间</strong>的方法。</p>
+<p>ThreadLocal 适用于<strong>每个线程需要自己独立的实例</strong>且该实例需要在多个方法中被使用，也即<strong>变量在线程间隔离</strong>而在方法或类间共享的场景。</p>
 <p>ThreadLocal中填充的变量<strong>属于这个线程，对于其他线程是不可见的</strong>。</p>
-<p>ThreadLocal采用的是空间换时间的方法来解决并发的问题。</p>
+<p>ThreadLocal提供了线程的局部变量，每个线程都可以通过<code>set()</code>和<code>get()</code>来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲突，<strong>实现了线程的数据隔离</strong>。</p>
 <a id="more"></a>
 
 <h2 id="ThreadLocal原理"><a href="#ThreadLocal原理" class="headerlink" title="ThreadLocal原理"></a>ThreadLocal原理</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以ThreadLocal对象为key，将值插入ThreadLocalMap</span></span><br><span class="line"><span class="comment">//ThreadLocalMap是ThreadLocal的一个内部类。用Entry类来进行存储</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>)</span><br><span class="line">        map.set(<span class="keyword">this</span>, value);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        createMap(t, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -400,8 +401,8 @@
 </li>
 </ul>
 <h2 id="内存泄漏问题"><a href="#内存泄漏问题" class="headerlink" title="内存泄漏问题"></a>内存泄漏问题</h2><p><img src="/images/ThreadLocal/172259164557.jpg" alt="img"></p>
-<p>ThreadLocalMap，key的引用是弱引用，value的引用是强引用。</p>
-<p>当把threadlocal实例置为null以后,没有任何强引用指向threadlocal实例,所以threadlocal将会被gc回收. 但是,我们的value却不能回收,因为存在一条从current thread连接过来的强引用. 只有当前thread结束以后, current thread就不会存在栈中,强引用断开, Current Thread, Map, value将全部被GC回收.</p>
+<p>ThreadLocalMap，<strong>key的引用是弱引用</strong>，<strong>value的引用是强引用</strong>。</p>
+<p>当把threadlocal实例置为null以后,没有任何强引用指向threadlocal实例,所以threadlocal将会被gc回收. 但是,我们的value却不能回收,因为存在一条从current thread连接过来的强引用，这样就造成了<strong>内存泄露</strong>。只有当前thread结束以后, current thread就不会存在栈中,强引用断开, Current Thread, Map, value将全部被GC回收.</p>
 <p>Java为了最小化减少内存泄露的可能性和影响，在ThreadLocal的get,set的时候都会清除线程Map里所有key为null的value。所以最怕的情况就是，threadLocal对象设null了，开始发生“内存泄露”，然后使用线程池，这个线程结束，线程放回线程池中不销毁，这个线程一直不被使用，或者分配使用了又不再调用get,set方法，那么这个期间就会发生真正的内存泄露。</p>
 <p>所以，为了避免内存泄漏，每次使用完<code>ThreadLocal</code>，并且不会再使用她的时候，都调用它的<code>remove()</code>方法，清除数据。</p>
 
@@ -525,7 +526,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

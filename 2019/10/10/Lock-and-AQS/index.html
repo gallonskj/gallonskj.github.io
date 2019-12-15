@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="java,并发,源码分析,">
+  <meta name="keywords" content="并发,java,源码分析,">
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="JUC包JUC包目录。  其中包含了两个子包：atomic以及lock，另外在concurrent下的阻塞队列以及executors，这些类主要是依靠volatile以及CAS实现的。 整体结构如图：  Lock简介Lock是一个接口。 与synchronized相比，Lock拥有了锁获取和释放的可操作性，可中断的获取锁以及超时获取锁等多种synchronized关键字所不具备的同步特性。">
-<meta name="keywords" content="java,并发,源码分析">
+<meta name="keywords" content="并发,java,源码分析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lock and AQS">
 <meta property="og:url" content="http://yoursite.com/2019/10/10/Lock-and-AQS/index.html">
@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/13/1570936405191-1570936405441.png">
 <meta property="og:image" content="http://yoursite.com/images/Lock-and-AQS/1570936455857-1570936455857.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/13/1570955895636-1570955895643.png">
-<meta property="og:updated_time" content="2019-11-04T12:52:08.562Z">
+<meta property="og:updated_time" content="2019-12-07T11:07:20.216Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lock and AQS">
 <meta name="twitter:description" content="JUC包JUC包目录。  其中包含了两个子包：atomic以及lock，另外在concurrent下的阻塞队列以及executors，这些类主要是依靠volatile以及CAS实现的。 整体结构如图：  Lock简介Lock是一个接口。 与synchronized相比，Lock拥有了锁获取和释放的可操作性，可中断的获取锁以及超时获取锁等多种synchronized关键字所不具备的同步特性。">
@@ -454,7 +454,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquireInterruptibly</span><span class="params">(<span class="keyword">int</span> arg)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (Thread.interrupted())</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InterruptedException();</span><br><span class="line">        <span class="keyword">if</span> (!tryAcquire(arg))</span><br><span class="line">            doAcquireInterruptibly(arg);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="超时锁"><a href="#超时锁" class="headerlink" title="超时锁"></a>超时锁</h3><p>在获取锁的过程中，超过某一个时长，自动放弃获取。</p>
-<h3 id="释放锁"><a href="#释放锁" class="headerlink" title="释放锁"></a>释放锁</h3><p>首先调用子类的tryRelease()方法释放锁,然后唤醒后继节点,在唤醒的过程中,需要判断后继节点是否满足情况,如果后继节点不为空且不是作废状态,则唤醒这个后继节点,否则从tail节点向前寻找合适的节点,如果找到,则唤醒。</p>
+<h3 id="释放锁"><a href="#释放锁" class="headerlink" title="释放锁"></a>释放锁</h3><p>首先调用子类的tryRelease()方法释放锁,然后唤醒<strong>后继节点,</strong>（只唤醒一个节点）在唤醒的过程中,需要判断后继节点是否满足情况,如果后继节点不为空且不是作废状态,则唤醒这个后继节点,否则从tail节点向前寻找合适的节点,如果找到,则唤醒。</p>
 <h3 id="ConditionObject"><a href="#ConditionObject" class="headerlink" title="ConditionObject"></a>ConditionObject</h3><p>这是AQS的一个内部类，其维护了一个condition队列。主要有await()和signal()等方法。</p>
 <h4 id="await"><a href="#await" class="headerlink" title="await()"></a>await()</h4><p>await()：当前线程处于阻塞状态，直到调用signal()或中断才能被唤醒。</p>
 <ul>
@@ -515,9 +515,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/并发/" rel="tag"># 并发</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
             <a href="/tags/源码分析/" rel="tag"># 源码分析</a>
           
@@ -623,7 +623,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

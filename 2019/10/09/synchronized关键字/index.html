@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="java,并发,">
+  <meta name="keywords" content="并发,java,">
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="使用锁定的是对象1234567891011public class T &amp;#123;	private Object o=new Object();	private int count=10;	public void m() &amp;#123;		synchronized(o) &amp;#123;			count--;			System.out.println(Thread.currentThread().ge">
-<meta name="keywords" content="java,并发">
+<meta name="keywords" content="并发,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="synchronized关键字">
 <meta property="og:url" content="http://yoursite.com/2019/10/09/synchronized关键字/index.html">
@@ -108,7 +108,7 @@
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/22/1571733960743-1571733960748.png">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-<meta property="og:updated_time" content="2019-10-24T03:02:09.314Z">
+<meta property="og:updated_time" content="2019-12-04T11:28:06.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="synchronized关键字">
 <meta name="twitter:description" content="使用锁定的是对象1234567891011public class T &amp;#123;	private Object o=new Object();	private int count=10;	public void m() &amp;#123;		synchronized(o) &amp;#123;			count--;			System.out.println(Thread.currentThread().ge">
@@ -445,7 +445,7 @@
 <p>这是因为调用这几个方法前必须拿到当前对象的监视器monitor对象，也就是说notify/notifyAll和wait方法依赖于monitor对象，在前面的分析中，我们知道monitor 存在于对象头的Mark Word 中(存储monitor引用指针)，而synchronized关键字可以获取 monitor ，这也就是为什么notify/notifyAll和wait方法必须在synchronized代码块或者synchronized方法调用的原因。</p>
 <h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><p>锁的状态总共有四种：<strong>无锁状态、偏向锁、轻量级锁和重量级锁</strong>。随着锁的竞争，锁可以从偏向锁升级到轻量级锁，再升级的重量级锁。但是不可以降级。</p>
 <h3 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h3><p>sychronized就是重量级锁。</p>
-<p>Synchronized是通过对象内部的一个叫做监视器锁（monitor）来实现的。但是监视器锁本质又是依赖于底层的操作系统的Mutex Lock来实现的。而<strong>操作系统实现线程之间的切换这就需要从用户态转换到核心态</strong>，这个成本非常高，状态之间的转换需要相对比较长的时间，这就是为什么Synchronized效率低的原因。JDK为了sychronized的优化，引入了轻量级锁和偏向锁。</p>
+<p>Synchronized是通过对象内部的一个叫做监视器锁（monitor）来实现的。但是监视器锁本质又是<strong>依赖于底层的操作系统的Mutex Lock</strong>来实现的。而<strong>操作系统实现线程之间的切换这就需要从用户态转换到核心态</strong>，这个成本非常高，状态之间的转换需要相对比较长的时间，这就是为什么Synchronized效率低的原因。JDK为了sychronized的优化，引入了轻量级锁和偏向锁。</p>
 <p>一个依据：“<strong>对于绝大部分的锁，在整个同步周期内都是不存在竞争的</strong>。”</p>
 <p>这是轻量级锁和偏向锁的依据。</p>
 <h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>在大多数情况下，<strong>锁不仅不存在多线程竞争，而且总是由同一线程多次获得</strong>，因此为了减少同一线程获取锁(会涉及到一些CAS操作,耗时)的代价而引入偏向锁。</p>
@@ -460,8 +460,8 @@
 <p>偏向锁不需要同步，要是同一个线程申请锁。</p>
 <p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/10/22/1571733707618-1571733707623.png" alt="title"></p>
 <h3 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h3><ul>
-<li>synchronized是悲观锁，这种线程一旦得到锁，其他需要锁的线程就挂起的情况就是悲观锁。</li>
-<li>CAS操作的就是乐观锁，每次不加锁而是<strong>假设没有冲突</strong>而去完成某项操作，如果因为冲突失败就重试，直到成功为止。</li>
+<li>synchronized是悲观锁，总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，<strong>所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁</strong>。</li>
+<li>CAS操作的就是乐观锁，总是假设最好的情况，<strong>每次去拿数据的时候都认为别人不会修改，所以不会上锁</strong>，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据。</li>
 </ul>
 <h3 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h3><p>Atomic底层的实现就是CAS。</p>
 <p>CAS是一个原子操作。</p>
@@ -488,7 +488,7 @@
 <ul>
 <li><p>CPU开销较大<br>在并发量比较高的情况下，如果许多线程反复尝试更新某一个变量，却又一直更新不成功，循环往复，会给CPU带来很大的压力。</p>
 </li>
-<li><p>ABA问题。</p>
+<li><p><strong>ABA问题</strong>。</p>
 <p>假设一个变量 A ，修改为 B之后又修改为 A，CAS 的机制是无法察觉的，但实际上已经被修改过了。如果在基本类型上是没有问题的，但是如果是引用类型呢？这个对象中有多个变量，我怎么知道有没有被改过？加个版本号啊。每次修改就检查版本号，如果版本号变了，说明改过，就算你还是 A，也不行。</p>
 <p>AtomicReference就是这样做的。</p>
 </li>
@@ -525,9 +525,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/并发/" rel="tag"># 并发</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -631,7 +631,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

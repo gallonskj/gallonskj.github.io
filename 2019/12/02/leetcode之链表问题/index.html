@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="leetcode,">
 
 
 
@@ -81,14 +81,23 @@
 
 
 
+<meta name="description" content="19.删除链表的倒数第N个节点给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 1234567891011121314151617181920212223public ListNode removeNthFromEnd(ListNode head, int n) &amp;#123;    /**         * 因为要删除某个节点，必须先要获得它的前一个结点         * 因">
+<meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode之链表问题">
 <meta property="og:url" content="http://yoursite.com/2019/12/02/leetcode之链表问题/index.html">
 <meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="19.删除链表的倒数第N个节点给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 1234567891011121314151617181920212223public ListNode removeNthFromEnd(ListNode head, int n) &amp;#123;    /**         * 因为要删除某个节点，必须先要获得它的前一个结点         * 因">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-02T05:19:13.375Z">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575286645787.png">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575293242449.png">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575294593614.png">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575377792658.png">
+<meta property="og:updated_time" content="2019-12-05T08:22:53.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode之链表问题">
+<meta name="twitter:description" content="19.删除链表的倒数第N个节点给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 1234567891011121314151617181920212223public ListNode removeNthFromEnd(ListNode head, int n) &amp;#123;    /**         * 因为要删除某个节点，必须先要获得它的前一个结点         * 因">
+<meta name="twitter:image" content="http://yoursite.com/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575286645787.png">
 
 
 
@@ -323,6 +332,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -350,7 +381,38 @@
       
 
       
-        
+        <h2 id="19-删除链表的倒数第N个节点"><a href="#19-删除链表的倒数第N个节点" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h2><p>给定一个链表，删除链表的倒数第 <em>n</em> 个节点，并且返回链表的头结点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 因为要删除某个节点，必须先要获得它的前一个结点</span></span><br><span class="line"><span class="comment">         * 因为有可能删除头节点，所以最好在头节点之前插入一个虚拟头结点</span></span><br><span class="line"><span class="comment">         * 删除倒数第n个节点，需要找到倒数n+1个节点，最后一个节点与倒数n+1个节点相差n个节点</span></span><br><span class="line"><span class="comment">         * 所以，准备first，second两个节点，保证他们距离是n，当second指到尾节点的时候，first恰好指向倒数n+1个节点</span></span><br><span class="line"><span class="comment">         * */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//虚拟头节点</span></span><br><span class="line">    ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    dummy.next = head;</span><br><span class="line">    ListNode first = dummy;</span><br><span class="line">    ListNode second = dummy;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        first = first.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(first.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        first = first.next;</span><br><span class="line">        second = second.next;</span><br><span class="line">    &#125;</span><br><span class="line">    second.next = second.next.next;</span><br><span class="line">    <span class="keyword">return</span> dummy.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="237-删除链表中的节点"><a href="#237-删除链表中的节点" class="headerlink" title="237. 删除链表中的节点"></a>237. 删除链表中的节点</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使其可以删除某个链表中给定的（非末尾）节点，你将只被给定要求被删除的节点。</span></span><br><span class="line"><span class="comment">     * 将该节点的值设置为下一个节点的值，并将下一个节点删除</span></span><br><span class="line"><span class="comment">     * */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</span><br><span class="line">    node.data = node.next.data;</span><br><span class="line">    node.next = node.next.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="83-删除排序链表中的重复元素"><a href="#83-删除排序链表中的重复元素" class="headerlink" title="83. 删除排序链表中的重复元素"></a>83. 删除排序链表中的重复元素</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    * 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * 当某个元素与后继元素相等时，直接删除；不等时，指针后移</span></span><br><span class="line"><span class="comment">    * */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">deleteDuplicates</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    ListNode cur = head;</span><br><span class="line">    <span class="keyword">while</span>(cur!=<span class="keyword">null</span>&amp;&amp;cur.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(cur.val == cur.next.val)&#123;</span><br><span class="line">            cur.next = cur.next.next;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="61-旋转链表"><a href="#61-旋转链表" class="headerlink" title="61.旋转链表"></a>61.旋转链表</h2><p>给定一个链表，旋转链表，将链表每个节点向右移动 <em>k</em> 个位置，其中 <em>k</em> 是非负数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">rotateRight</span><span class="params">(ListNode head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//尾指针指向头节点，倒数第k+1个节点指向null,头指针指向倒数第k个</span></span><br><span class="line">    <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//求链表长度</span></span><br><span class="line">    ListNode p =head;</span><br><span class="line">    <span class="keyword">int</span> n =<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        n++;</span><br><span class="line">        p=p.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> len = k%n;</span><br><span class="line">    ListNode first = head;</span><br><span class="line">    ListNode second = head;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">        first = first.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(first.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        first = first.next;</span><br><span class="line">        second = second.next;</span><br><span class="line">    &#125;</span><br><span class="line">    first.next = head;</span><br><span class="line">    head =second.next;</span><br><span class="line">    second.next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24.两两交换链表中的节点"></a>24.两两交换链表中的节点</h2><p>给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。</p>
+<p><strong>你不能只是单纯的改变节点内部的值</strong>，而是需要实际的进行节点交换。</p>
+<p><img src="/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575286645787.png" alt="1575286645787"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要交换a，b两个节点时</span></span><br><span class="line">p.next = b</span><br><span class="line">a.next = b.next</span><br><span class="line">b.next = a</span><br><span class="line">p =a</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//因为头节点也可能会改变，所以需要一个哑节点</span></span><br><span class="line">    ListNode dummy = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</span><br><span class="line">    dummy.next = head;</span><br><span class="line">    ListNode cur = dummy;</span><br><span class="line">    <span class="keyword">while</span>(cur.next!=<span class="keyword">null</span>&amp;&amp;cur.next.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        ListNode a= cur.next;</span><br><span class="line">        ListNode b = a.next;</span><br><span class="line">        cur.next = b;</span><br><span class="line">        a.next = b.next;</span><br><span class="line">        b.next = a;</span><br><span class="line">        cur = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummy.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="206-反转链表"><a href="#206-反转链表" class="headerlink" title="206.反转链表"></a>206.反转链表</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode pre = head;</span><br><span class="line">    ListNode cur = head.next;</span><br><span class="line">    <span class="keyword">while</span>(cur!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        ListNode tmp = cur.next;</span><br><span class="line">        cur.next = pre;</span><br><span class="line">        pre = cur;</span><br><span class="line">        cur = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    head.next=<span class="keyword">null</span>;</span><br><span class="line">    head = pre;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="92-反转链表2"><a href="#92-反转链表2" class="headerlink" title="92.反转链表2"></a>92.反转链表2</h2><p><img src="/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575293242449.png" alt="1575293242449"></p>
+<p><img src="/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575294593614.png" alt="1575294593614"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseBetween</span><span class="params">(ListNode head, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(m==n)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode dummy = <span class="keyword">new</span> ListNode(-<span class="number">1</span>);</span><br><span class="line">    dummy.next = head;</span><br><span class="line">    <span class="comment">//首先，需要找到prem以及nextn</span></span><br><span class="line">    ListNode premNode = dummy,nextnNode=dummy;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        premNode = premNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n+<span class="number">1</span>;i++)&#123;</span><br><span class="line">        nextnNode = nextnNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    ListNode pre = premNode;</span><br><span class="line">    ListNode cur = premNode.next;</span><br><span class="line">    ListNode mNode = cur;</span><br><span class="line">    <span class="comment">//将m，n之间元素全部反转</span></span><br><span class="line">    <span class="keyword">while</span>(cur!=<span class="keyword">null</span>&amp;&amp;cur!=nextnNode)&#123;</span><br><span class="line">        ListNode tmp = cur.next;</span><br><span class="line">        cur.next = pre;</span><br><span class="line">        pre = cur;</span><br><span class="line">        cur = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//重新指向</span></span><br><span class="line">    premNode.next = pre;</span><br><span class="line">    mNode.next = nextnNode;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dummy.next;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="160-相交链表"><a href="#160-相交链表" class="headerlink" title="160.相交链表"></a>160.相交链表</h2><p><img src="/images/leetcode%E4%B9%8B%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/1575377792658.png" alt="1575377792658"></p>
+<p>编写一个程序，找到两个单链表相交的起始节点。</p>
+<p>求相交的点，两个指针，第一个指针从a走，走a+c，到达尾部，再从b走；</p>
+<p>第二个指针从b走，走b+c，到达尾部，再从a走。</p>
+<p>这样，两个指针都走了a+b+c，相交点即为所求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">    ListNode first = headA;</span><br><span class="line">    ListNode second = headB;</span><br><span class="line">    <span class="keyword">while</span>(first!=second)&#123;</span><br><span class="line">        <span class="keyword">if</span>(first!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            first = first.next;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            first = headB;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(second!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            second = second.next;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            second = headA;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="哑节点问题"><a href="#哑节点问题" class="headerlink" title="哑节点问题"></a>哑节点问题</h2><p>假如<strong>需要操纵节点的前置节点</strong>，那么在头节点前面添加一个哑节点。</p>
+
       
     </div>
     
@@ -364,6 +426,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+        </div>
       
 
       
@@ -383,6 +451,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/05/leetcode基础算法/" rel="prev" title="leetcode基础算法">
+                leetcode基础算法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -434,8 +506,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -452,7 +533,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -520,6 +601,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#19-删除链表的倒数第N个节点"><span class="nav-text">19.删除链表的倒数第N个节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#237-删除链表中的节点"><span class="nav-text">237. 删除链表中的节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#83-删除排序链表中的重复元素"><span class="nav-text">83. 删除排序链表中的重复元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#61-旋转链表"><span class="nav-text">61.旋转链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-两两交换链表中的节点"><span class="nav-text">24.两两交换链表中的节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#206-反转链表"><span class="nav-text">206.反转链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#92-反转链表2"><span class="nav-text">92.反转链表2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#160-相交链表"><span class="nav-text">160.相交链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哑节点问题"><span class="nav-text">哑节点问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
