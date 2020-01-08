@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="leetcode,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Gallon's Note" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839/** * 需要建立两个Map，mapA=&amp;#123;value,插入顺序&amp;#125;  MapB=&amp;#123;插入顺序,value&amp;#125; * */public class RandomPool&amp;lt;K&amp;gt; &amp;#123;    HashMap&amp;lt">
+<meta name="keywords" content="leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode哈希表">
+<meta property="og:url" content="http://yoursite.com/2019/12/19/leetcode哈希表/index.html">
+<meta property="og:site_name" content="Gallon&#39;s Note">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839/** * 需要建立两个Map，mapA=&amp;#123;value,插入顺序&amp;#125;  MapB=&amp;#123;插入顺序,value&amp;#125; * */public class RandomPool&amp;lt;K&amp;gt; &amp;#123;    HashMap&amp;lt">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/1576758278802.png">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-530c9d4478398718c15632b9aa025c36_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-a0ee721daf43f29dd42b7d441b79d227_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-1ed5b79aa7ac2e9cd66c83690fdbfcf0_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-1ed5b79aa7ac2e9cd66c83690fdbfcf0_hd-1576763256214.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-bc6db15378a13b66a1ddaea68979762b_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-fd44ab71c834f3fe458a6f76f3997f98_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-509993a49d447b378273e455a095de3c_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-4fab60735dfae0bf511709e9d337789b_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-d499324a9aa067915bbb3f5f3416b032_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-0368841e5020dd07f1e67f449b49a1ba_hd.jpg">
+<meta property="og:updated_time" content="2020-01-03T10:57:10.884Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leetcode哈希表">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839/** * 需要建立两个Map，mapA=&amp;#123;value,插入顺序&amp;#125;  MapB=&amp;#123;插入顺序,value&amp;#125; * */public class RandomPool&amp;lt;K&amp;gt; &amp;#123;    HashMap&amp;lt">
+<meta name="twitter:image" content="http://yoursite.com/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/1576758278802.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/19/leetcode哈希表/">
+
+
+
+
+
+  <title>leetcode哈希表 | Gallon's Note</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gallon's Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/19/leetcode哈希表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SKJin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gallon's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">leetcode哈希表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-19T20:23:56+08:00">
+                2019-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/1576758278802.png" alt="1576758278802"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 需要建立两个Map，mapA=&#123;value,插入顺序&#125;  MapB=&#123;插入顺序,value&#125;</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomPool</span>&lt;<span class="title">K</span>&gt; </span>&#123;</span><br><span class="line">    HashMap&lt;K,Integer&gt; mapA = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    HashMap&lt;Integer,K&gt; mapB = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//插入元素，需要插入两个map</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(K key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!mapA.containsKey(key)) &#123;</span><br><span class="line">            mapA.put(key, index);</span><br><span class="line">            mapB.put(index, key);</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//删除元素的时候，假如mapB key在0-25之间，这样，删除某一个元素的话，key就不是均匀分布的，因此，需要从最后一个位置补元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(K key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(mapA.containsKey(key)) &#123;</span><br><span class="line">            <span class="keyword">int</span> del_index = mapA.get(key);</span><br><span class="line">            <span class="keyword">int</span> lastIndex = --index;</span><br><span class="line">            <span class="comment">//将最后一个元素移到删除位置</span></span><br><span class="line">            K lastEle = mapB.get(lastIndex);</span><br><span class="line">            mapA.put(lastEle,del_index);</span><br><span class="line">            mapB.put(del_index,lastEle);</span><br><span class="line">            mapB.remove(lastIndex);</span><br><span class="line">            mapA.remove(key);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//随机等概率获取元素，mapB key在0-index之间，所以Math.random()*index即可返回随机的元素下标</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> K <span class="title">getRandom</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(index==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mapB.get((<span class="keyword">int</span>)(Math.random()*index));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="海量数据判重问题"><a href="#海量数据判重问题" class="headerlink" title="海量数据判重问题"></a>海量数据判重问题</h2><p>假如使用哈希表的话，需要存储上亿条级别的数据，十分浪费空间，尽管查询时间复杂度是O(1).</p>
+<p>一般来说，对于这种情况，可以使用布隆过滤器来实现。</p>
+<p>比较巧妙的<strong>概率型数据结构</strong>（probabilistic data structure），特点是高效地插入和查询，可以用来告诉你 <strong>“某样东西一定不存在或者可能存在”</strong>。</p>
+<p>布隆过滤器是一个 bit 向量或者说 bit 数组，长这样：</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-530c9d4478398718c15632b9aa025c36_hd.jpg" alt="img"></p>
+<p>如果我们要映射一个值到布隆过滤器中，我们需要使用<strong>多个不同的哈希函数</strong>生成<strong>多个哈希值，并对每个生成的哈希值指向的 bit 位置 1</strong>，例如针对值 “baidu” 和三个不同的哈希函数分别生成了哈希值 1、4、7，则上图转变为：</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-a0ee721daf43f29dd42b7d441b79d227_hd.jpg" alt="img"></p>
+<p>如何判断某一个对象是之前的某一个输入对象呢？</p>
+<p>依旧是将该值进行K个哈希函数的计算，求出映射之后的位置是0还是1，假如<strong>有0的话，那么该值一定不是之前的某一个输入对象</strong>。假如<strong>全是1的话</strong>，也不一定能保证一定就是之前的某一个输入对象，<strong>只是有一定的概率是</strong>。</p>
+<p>过小的布隆过滤器很快所有的 bit 位均为 1，那么查询任何值都会返回“可能存在”，如何确定过滤器大小？</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-1ed5b79aa7ac2e9cd66c83690fdbfcf0_hd.jpg" alt="img"></p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-1ed5b79aa7ac2e9cd66c83690fdbfcf0_hd-1576763256214.jpg" alt="img"></p>
+<p>其中，n为元素个数，p为容错率。</p>
+<h2 id="一致性哈希"><a href="#一致性哈希" class="headerlink" title="一致性哈希"></a>一致性哈希</h2><p>在处理多台服务器负载均衡的时候，传统的hash方式。</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-bc6db15378a13b66a1ddaea68979762b_hd.jpg" alt="img"></p>
+<p><strong>虽然可以达到负载均衡的目的</strong>，但是，假如我们需要增加服务器，或者需要移除服务器，就<strong>需要重新hash计算之前缓存的所有数据</strong>，十分不便。</p>
+<p>一致性哈希算法可以解决这个问题，达到高效数据迁移的目的。</p>
+<p>一致性Hash算法将整个哈希值空间组织成一个虚拟的圆环，它的取模法不是对服务器数量进行取模，而是对整个哈希值空间。</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-fd44ab71c834f3fe458a6f76f3997f98_hd.jpg" alt="img"></p>
+<p>将各个服务器使用Hash进行一个哈希，这样每台机器就能确定其在哈希环上的位置。</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-509993a49d447b378273e455a095de3c_hd.jpg" alt="img"></p>
+<p>接下来使用如下算法定位数据访问到相应服务器：将数据key使用相同的函数Hash计算出哈希值，并确定此数据在环上的位置，从此位置沿环顺时针“行走”，第一台遇到的服务器就是其应该定位到的服务器。</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-4fab60735dfae0bf511709e9d337789b_hd.jpg" alt="img"></p>
+<h3 id="一致性Hash算法的容错性和可扩展性"><a href="#一致性Hash算法的容错性和可扩展性" class="headerlink" title="一致性Hash算法的容错性和可扩展性"></a>一致性Hash算法的容错性和可扩展性</h3><p>假如某一个节点宕机，例如C，则只需要将BC之间的数据重新哈希到D上，不需要重哈希全部数据。</p>
+<p>增加节点也是，假如BC间添加一个节点，只需要将B与该节点之间的数据重哈希。</p>
+<p>一致性Hash算法对于节点的增减都只需<strong>重定位环空间中的一小部分数据</strong>，具有较好的容错性和可扩展性。</p>
+<h3 id="数据倾斜问题"><a href="#数据倾斜问题" class="headerlink" title="数据倾斜问题"></a>数据倾斜问题</h3><p>假如机器比较少，可能造成机器在整个环上分布不均匀。例如：</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-d499324a9aa067915bbb3f5f3416b032_hd.jpg" alt="img"></p>
+<p>解决该问题可以使用虚拟节点机制。</p>
+<p>例如上面的情况，可以为每台服务器计算三个虚拟节点，于是可以分别计算 “Node A#1”、“Node A#2”、“Node A#3”、“Node B#1”、“Node B#2”、“Node B#3”的哈希值，于是形成六个虚拟节点：</p>
+<p><img src="/images/leetcode%E5%93%88%E5%B8%8C%E8%A1%A8/v2-0368841e5020dd07f1e67f449b49a1ba_hd.jpg" alt="img"></p>
+<p>同时数据定位算法不变，<strong>只是多了一步虚拟节点到实际节点的映射</strong>，例如定位到“Node A#1”、“Node A#2”、“Node A#3”三个虚拟节点的数据均定位到Node A上。这样就解决了<strong>服务节点少时数据倾斜的问题</strong>。</p>
+<h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><p> 检查两个元素是否属于一个集合。</p>
+<p>合并两个元素各自所在的所有集合。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span>&lt;<span class="title">K</span>&gt; </span>&#123;</span><br><span class="line"><span class="comment">//需要两个map，一个存储节点的父节点，一个存储该节点所在的集合元素个数</span></span><br><span class="line">    Map&lt;K,K&gt; fatherMap ;</span><br><span class="line">    Map&lt;K,Integer&gt; sizeMap ;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UnionFind</span><span class="params">(List&lt;K&gt; nodes)</span></span>&#123;</span><br><span class="line">        makeSet(nodes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makeSet</span><span class="params">(List&lt;K&gt; nodes)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.fatherMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">this</span>.sizeMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(K node:nodes)&#123;</span><br><span class="line">            fatherMap.put(node,node);</span><br><span class="line">            sizeMap.put(node,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//寻找代表节点，递归一层一层向上问，当获取到代表节点后，node的所有祖先需要将其父节点改为代表节点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> K <span class="title">findHead</span><span class="params">(K node)</span></span>&#123;</span><br><span class="line">        K father = fatherMap.get(node);</span><br><span class="line">        <span class="keyword">if</span>(father!=node)&#123;</span><br><span class="line">            findHead(father);</span><br><span class="line">        &#125;</span><br><span class="line">        fatherMap.put(node,father);</span><br><span class="line">        <span class="keyword">return</span> father;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//union两个集合</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">union</span><span class="params">(K a,K b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(a==<span class="keyword">null</span>||b==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//寻找代表节点</span></span><br><span class="line">        K aHead = findHead(a);</span><br><span class="line">        K bHead = findHead(b);</span><br><span class="line">        <span class="keyword">if</span>(aHead!=bHead)&#123;</span><br><span class="line">            <span class="keyword">int</span> aSetSize = sizeMap.get(aHead);</span><br><span class="line">            <span class="keyword">int</span> bSetSize = sizeMap.get(bHead);</span><br><span class="line">            <span class="comment">//a所在集合大于b所在集合，将aHead设置为bHead父节点，a集合size增加</span></span><br><span class="line">            <span class="keyword">if</span>(aSetSize&gt;bSetSize)&#123;</span><br><span class="line">                fatherMap.put(bHead,aHead);</span><br><span class="line">                sizeMap.put(aHead,aSetSize+bSetSize);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                fatherMap.put(aHead,bHead);</span><br><span class="line">                sizeMap.put(bHead,aSetSize+bSetSize);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="200-岛屿数量"><a href="#200-岛屿数量" class="headerlink" title="200. 岛屿数量"></a><a href="https://leetcode-cn.com/problems/number-of-islands/" target="_blank" rel="noopener">200. 岛屿数量</a></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numIslands</span><span class="params">(<span class="keyword">char</span>[][] grid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(grid.length==<span class="number">0</span>||grid[<span class="number">0</span>].length==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> row = grid.length;</span><br><span class="line">    <span class="keyword">int</span> col = grid[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;row;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;col;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(grid[i][j]==<span class="string">'1'</span>)&#123;</span><br><span class="line">                res++;</span><br><span class="line">                infect(grid,i,j,row,col);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">infect</span><span class="params">(<span class="keyword">char</span>[][]grid,<span class="keyword">int</span> i,<span class="keyword">int</span> j,<span class="keyword">int</span> M,<span class="keyword">int</span> N)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">0</span>||j&lt;<span class="number">0</span>||i&gt;=M||i&gt;=N||grid[i][j]!=<span class="string">'1'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    grid[i][j]=<span class="string">'2'</span>;</span><br><span class="line">    infect(grid,i-<span class="number">1</span>,j,M,N);</span><br><span class="line">    infect(grid,i+<span class="number">1</span>,j,M,N);</span><br><span class="line">    infect(grid,i,j-<span class="number">1</span>,M,N);</span><br><span class="line">    infect(grid,i,j+<span class="number">1</span>,M,N);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/17/leetcode矩阵问题/" rel="next" title="leetcode矩阵问题">
+                <i class="fa fa-chevron-left"></i> leetcode矩阵问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/20/leetcode贪心策略/" rel="prev" title="leetcode贪心策略">
+                leetcode贪心策略 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/2.jpg" alt="SKJin">
+            
+              <p class="site-author-name" itemprop="name">SKJin</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gallonskj" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:gallonskj@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#海量数据判重问题"><span class="nav-text">海量数据判重问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一致性哈希"><span class="nav-text">一致性哈希</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一致性Hash算法的容错性和可扩展性"><span class="nav-text">一致性Hash算法的容错性和可扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据倾斜问题"><span class="nav-text">数据倾斜问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并查集"><span class="nav-text">并查集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#200-岛屿数量"><span class="nav-text">200. 岛屿数量</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SKJin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

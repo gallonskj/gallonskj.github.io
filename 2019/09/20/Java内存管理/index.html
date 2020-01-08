@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1570783997573-1570783997591.png">
 <meta property="og:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822602260-1569822602265.png">
 <meta property="og:image" content="http://yoursite.com/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822636543-1569822636547.png">
-<meta property="og:updated_time" content="2019-11-09T05:00:30.958Z">
+<meta property="og:updated_time" content="2020-01-06T11:00:09.841Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java内存管理">
 <meta name="twitter:description" content="运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的。 字节码文件经过类加载子系统从静态存储结构转化为方法区的运行时内存结构。运行时数据区域包括程序计数器，java虚拟机栈，本地方法栈，方法区和堆。其中，java虚拟机栈，本地方法栈，程序计数器是每个线程私有的，方法区以及堆是所有线程共享的。">
@@ -434,6 +434,8 @@
 <p><img src="/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822602260-1569822602265.png" alt="img"></p>
 <p>对象头主要结构是由Mark Word 和 Class Metadata Address 组成 。Class Metadata Address存储的是该对象属于类的地址，即可以判断这个对象属于哪一个类。</p>
 <p>MarkWord有五种类型：<br><img src="/images/Java%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1569822636543-1569822636547.png" alt="title"></p>
+<h2 id="监控工具"><a href="#监控工具" class="headerlink" title="监控工具"></a>监控工具</h2><p>VisualVM：监视线程，内存情况，堆栈情况，GC情况等.</p>
+<p><a href="https://www.cnblogs.com/xifengxiaoma/p/9402497.html" target="_blank" rel="noopener">VisualVM</a></p>
 
       
     </div>
@@ -555,7 +557,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -633,7 +635,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆"><span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java虚拟机栈"><span class="nav-text">Java虚拟机栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地方法栈"><span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序计数器"><span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法区"><span class="nav-text">方法区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时常量池"><span class="nav-text">运行时常量池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载子系统"><span class="nav-text">类加载子系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的创建过程"><span class="nav-text">对象的创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的内存布局"><span class="nav-text">对象的内存布局</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#堆"><span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java虚拟机栈"><span class="nav-text">Java虚拟机栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地方法栈"><span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序计数器"><span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法区"><span class="nav-text">方法区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时常量池"><span class="nav-text">运行时常量池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载子系统"><span class="nav-text">类加载子系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的创建过程"><span class="nav-text">对象的创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的内存布局"><span class="nav-text">对象的内存布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控工具"><span class="nav-text">监控工具</span></a></li></ol></div>
             
 
           </div>
@@ -653,7 +655,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
