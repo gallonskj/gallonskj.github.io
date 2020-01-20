@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Gallon&#39;s Note">
 <meta property="og:description" content="java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍FileChannel以及MMap的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。 有关pageCache可见 PageCache和DirectIO ， 有关零拷贝可见 零拷贝问题 。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png">
-<meta property="og:updated_time" content="2019-10-27T12:00:07.761Z">
+<meta property="og:image" content="http://yoursite.com/images/java-nio%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5/q2mjerls97.jpeg">
+<meta property="og:updated_time" content="2020-01-20T12:17:16.171Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java nio操作实践">
 <meta name="twitter:description" content="java文件中文件IO主要包括普通IO，FileChannel以及MMap。本文主要介绍FileChannel以及MMap的一些原理以及使用，理解他们最好需要了解有关pageCache，内存零拷贝，堆外缓存的一些知识。 有关pageCache可见 PageCache和DirectIO ， 有关零拷贝可见 零拷贝问题 。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png">
+<meta name="twitter:image" content="http://yoursite.com/images/java-nio%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5/q2mjerls97.jpeg">
 
 
 
@@ -389,19 +389,20 @@
 
 <p>FileChannel+ByteBuffer可以达到写入速度比较快，要是没有缓冲区的存在，FileChannel写入速度并不比普通IO，一般来说缓冲区的大小是由磁盘决定的。</p>
 <p>那么，FileChannel是直接把ByteBuffer写到磁盘的吗？</p>
-<p><img src="https://raw.githubusercontent.com/gallonskj/gitnote-images/master/gitnote/2019/09/11/1568203557001-1568203557007.png" alt="title"></p>
-<p>不是，中间还隔着一个PageCache。当ByteBUffer是堆内内存时，数据需要经历ByteBuffer-&gt;内核空间-&gt;PageCache。当<strong>ByteBufefr是直接内存，则省略到了从用户空间到内核空间的复制</strong>，直接ByteBuffer-&gt;PageCache，然后再从PageCache写回磁盘。</p>
+<p><img src="/images/java-nio%E6%93%8D%E4%BD%9C%E5%AE%9E%E8%B7%B5/q2mjerls97.jpeg" alt="img"></p>
+<p>不是，中间还隔着一个PageCache。当ByteBUffer是堆内内存时，数据需要经历ByteBuffer-&gt;内核空间-&gt;PageCache。当<strong>ByteBufefr是堆外，则省略到了从用户空间到内核空间的复制</strong>，直接ByteBuffer-&gt;PageCache，然后再从PageCache写回磁盘。</p>
 <p>我们都知道磁盘 IO 和内存 IO 的速度可是相差了好几个数量级。我们可以认为 filechannel.write <strong>写入 PageCache 便是完成了落盘操作</strong>，但实际上，操作系统最终帮我们完成了 PageCache 到磁盘的最终写入（<strong>这是异步的</strong>），理解了这个概念，你就应该能够理解 FileChannel 为什么提供了一个 force() 方法，用于通知操作系统进行及时的刷盘。</p>
 <p>例如，RocketMQ刷盘方式：</p>
 <ul>
-<li><p>异步刷盘方式：在返回写成功状态时，消息可能只是被写入了内存的PAGECACHE，写操作的返回快，吞吐量大；当内存里的消息量积累到一定程度时，统一触发写磁盘操作，快速写入</p>
+<li><p><strong>异步刷盘</strong>方式：在返回写成功状态时，消息可能只是被写入了内存的pageCache，写操作的返回快，吞吐量大；当内存里的消息量积累到一定程度时，统一触发写磁盘操作，快速写入</p>
 </li>
-<li><p>同步刷盘方式：在返回写成功状态时，消息已经被写入磁盘。具体流程是，消息写入内存的PAGECACHE后，立刻通知刷盘线程刷盘，然后等待刷盘完成，刷盘线程执行完成后唤醒等待的线程，返回消息写成功的状态。</p>
+<li><p><strong>同步刷盘</strong>方式：在返回写成功状态时，消息已经被写入磁盘。具体流程是，消息写入内存的PAGECACHE后，立刻通知刷盘线程刷盘，然后等待刷盘完成，刷盘线程执行完成后唤醒等待的线程，返回消息写成功的状态。</p>
 </li>
 </ul>
 <h2 id="MMap读写"><a href="#MMap读写" class="headerlink" title="MMap读写"></a>MMap读写</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写</span></span><br><span class="line"><span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">int</span> position = <span class="number">8</span>;</span><br><span class="line"><span class="comment">//从当前 mmap 指针的位置写入 4b 的数据</span></span><br><span class="line">mappedByteBuffer.put(data);</span><br><span class="line"><span class="comment">//指定 position 写入 4b 的数据</span></span><br><span class="line">MappedByteBuffer subBuffer = mappedByteBuffer.slice();</span><br><span class="line">subBuffer.position(position);</span><br><span class="line">subBuffer.put(data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读</span></span><br><span class="line"><span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">int</span> position = <span class="number">8</span>;</span><br><span class="line"><span class="comment">//从当前 mmap 指针的位置读取 4b 的数据</span></span><br><span class="line">mappedByteBuffer.get(data)；</span><br><span class="line"><span class="comment">//指定 position 读取 4b 的数据</span></span><br><span class="line">MappedByteBuffer subBuffer = mappedByteBuffer.slice();</span><br><span class="line">subBuffer.position(position);</span><br><span class="line">subBuffer.get(data);</span><br></pre></td></tr></table></figure>
 
 <p>mmap是把文件映射到用户空间里的虚拟内存，这样就省去了从用户空间到内核空间的拷贝，这样，当我们需要向文件中写入数据时，先看虚拟内存中有没有对应的地址，即有没有将物理地址映射到虚拟内存，要是有的话，可以像操作内存一样操作这个文件，没有的话，产生缺页，加载相对应的页。</p>
+<p>mmap直接将<strong>pageCache映射到了用户态的地址空间里</strong>，所以写数据的时候就相当于直接操作pageCache。</p>
 <blockquote>
 <p>mmap 把文件映射到用户空间里的虚拟内存，省去了从内核缓冲区复制到用户空间的过程，文件中的位置在虚拟内存中有了对应的地址，可以像操作内存一样操作这个文件，相当于已经把整个文件放入内存，但在真正使用到这些数据前却不会消耗物理内存，也不会有读写磁盘的操作，只有真正使用这些数据时，也就是图像准备渲染在屏幕上时，虚拟内存管理系统 VMS 才根据缺页加载的机制从磁盘加载对应的数据块到物理内存进行渲染。这样的文件读写文件方式少了数据从内核缓存到用户空间的拷贝，效率很高。</p>
 </blockquote>
@@ -443,6 +444,7 @@
 </tbody></table>
 <p>对于堆外内存，可使用池+堆外内存组合。例如：<code>ThreadLocal&lt;ByteBuffer&gt;</code> 和 <code>ThreadLocal&lt;byte[]&gt;</code>。</p>
 <h2 id="Unsafe"><a href="#Unsafe" class="headerlink" title="Unsafe"></a>Unsafe</h2><h2 id="Referrence"><a href="#Referrence" class="headerlink" title="Referrence"></a>Referrence</h2><p><a href="https://www.jianshu.com/p/d0b4ac90dbcb" target="_blank" rel="noopener">IO操作读写测试</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/71149410" target="_blank" rel="noopener">pageCache的一些问题</a></p>
 
       
     </div>
@@ -560,7 +562,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +573,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -582,7 +584,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
